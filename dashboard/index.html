@@ -50,8 +50,19 @@
     .fin-field{display:flex;flex-direction:column;gap:6px;min-width:0;}
     .fin-select,.fin-input{width:100%;border:1px solid rgba(23,35,28,.13);border-radius:9px;background:#fff;color:#17231C;padding:8px 10px;font-family:'Onest',sans-serif;font-size:12px;min-height:34px;}
     .fin-option-list{display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-height:34px;}
+    .fin-group-token{display:inline-flex;align-items:center;gap:3px;background:#EDF5F0;border:1px solid rgba(27,138,87,.24);border-radius:8px;padding:4px 5px 4px 9px;color:#13492F;font-size:11.5px;font-weight:700;}
+    .fin-group-token--leaf{background:#0E2C1F;border-color:#0E2C1F;color:#EAF2EC;padding-right:9px;}
+    .fin-token-action{appearance:none;border:0;background:transparent;color:inherit;width:18px;height:18px;border-radius:5px;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Material Symbols Rounded';font-size:13px;opacity:.65;}
+    .fin-token-action:hover{background:rgba(27,138,87,.12);opacity:1;}
+    .fin-columns{padding:11px 12px 12px;background:#F7FAF7;border-top:1px solid rgba(23,35,28,.08);animation:fadein .16s ease-out;}
+    .fin-columns__selected{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid rgba(23,35,28,.08);}
+    .fin-columns__catalog{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px;}
+    .fin-columns__set{min-width:0;}
+    .fin-column-option{appearance:none;width:100%;display:flex;align-items:center;gap:7px;border:0;background:transparent;border-radius:7px;padding:6px 7px;color:#5A665D;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:650;cursor:pointer;text-align:left;}
+    .fin-column-option:hover{background:#EDF3EE;color:#17231C;}
+    .fin-check{width:16px;height:16px;border:1px solid rgba(23,35,28,.18);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:12px;flex:none;}
     .fin-empty{display:flex;align-items:center;justify-content:center;gap:10px;min-height:180px;padding:28px;color:#7A857C;text-align:center;}
-    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}}
+    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog{grid-template-columns:repeat(2,minmax(0,1fr));}}
   </style>
 </helmet>
 
@@ -415,12 +426,67 @@
               <sc-for list="{{ finViewTabs }}" as="tab" hint-placeholder-count="4">
                 <button type="button" onClick="{{ tab.go }}" style="{{ tab.st }}">{{ tab.label }}</button>
               </sc-for>
+              <button type="button" onClick="{{ finColumnsToggle }}" class="fin-btn" style="padding:7px 9px;">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">view_column</span>Колонки · {{ finColumnCount }}
+              </button>
               <span style="height:18px;width:1px;background:rgba(23,35,28,.12);margin:0 3px;"></span>
-              <span class="fin-kicker">Группировка</span>
-              <sc-for list="{{ finGroupChips }}" as="g" hint-placeholder-count="5">
-                <button type="button" onClick="{{ g.go }}" style="{{ g.st }}">{{ g.label }}</button>
+              <span class="fin-kicker">Разрезы</span>
+              <sc-for list="{{ finGroupPath }}" as="g" hint-placeholder-count="3">
+                <span class="fin-group-token" style="{{ g.st }}">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.55;">{{ g.level }}</span>{{ g.label }}
+                  <button type="button" onClick="{{ g.left }}" class="fin-token-action" style="{{ g.leftSt }}" title="Переместить левее">arrow_back</button>
+                  <button type="button" onClick="{{ g.right }}" class="fin-token-action" style="{{ g.rightSt }}" title="Переместить правее">arrow_forward</button>
+                  <button type="button" onClick="{{ g.remove }}" class="fin-token-action" style="{{ g.removeSt }}" title="Удалить разрез">close</button>
+                </span>
+                <span style="{{ g.arrowSt }}">chevron_right</span>
               </sc-for>
+              <button type="button" onClick="{{ finGroupMenuToggle }}" class="fin-btn" style="{{ finAddGroupSt }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">add</span>Разрез
+              </button>
             </div>
+
+            <sc-if value="{{ finGroupMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="fin-view-menu" style="grid-template-columns:repeat(4,minmax(0,1fr));">
+                <sc-for list="{{ finGroupOptions }}" as="option" hint-placeholder-count="8">
+                  <button type="button" onClick="{{ option.go }}" class="fin-view-card" style="padding:9px 10px;">
+                    <div style="display:flex;align-items:center;gap:7px;">
+                      <span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">{{ option.icon }}</span>
+                      <span style="font-size:12px;font-weight:750;">{{ option.label }}</span>
+                    </div>
+                    <div style="font-size:10px;color:#8C968E;margin-top:3px;">{{ option.desc }}</div>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ finColumnsOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="fin-columns">
+                <div class="fin-columns__selected">
+                  <span class="fin-kicker">Порядок колонок</span>
+                  <sc-for list="{{ finActiveColumns }}" as="column" hint-placeholder-count="8">
+                    <span class="fin-condition" style="background:#fff;border-color:rgba(23,35,28,.12);color:#17231C;">
+                      {{ column.label }}
+                      <button type="button" onClick="{{ column.left }}" class="fin-token-action" style="{{ column.leftSt }}" title="Переместить левее">arrow_back</button>
+                      <button type="button" onClick="{{ column.right }}" class="fin-token-action" style="{{ column.rightSt }}" title="Переместить правее">arrow_forward</button>
+                      <button type="button" onClick="{{ column.remove }}" class="fin-condition__remove" title="Убрать колонку">close</button>
+                    </span>
+                  </sc-for>
+                  <button type="button" onClick="{{ finColumnsReset }}" class="fin-btn" style="margin-left:auto;padding:7px 9px;">Набор по умолчанию</button>
+                </div>
+                <div class="fin-columns__catalog">
+                  <sc-for list="{{ finColumnSets }}" as="set" hint-placeholder-count="4">
+                    <div class="fin-columns__set">
+                      <div class="fin-kicker" style="margin:0 0 4px 6px;">{{ set.label }}</div>
+                      <sc-for list="{{ set.items }}" as="column" hint-placeholder-count="6">
+                        <button type="button" onClick="{{ column.go }}" class="fin-column-option">
+                          <span style="{{ column.checkSt }}">{{ column.check }}</span>{{ column.label }}
+                        </button>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
 
             <div class="fin-workbench__row" style="align-items:flex-start;flex-wrap:wrap;">
               <span class="fin-kicker" style="padding-top:7px;">Условия</span>
@@ -502,31 +568,37 @@
                 </sc-for>
                 <div></div>
               </div>
-              <sc-for list="{{ finGroups }}" as="g" hint-placeholder-count="1">
-                <div>
-                  <div style="{{ g.headSt }}">
-                    <span style="font-weight:750;font-size:12px;">{{ g.name }}</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8C968E;">{{ g.count }}</span>
-                    <span style="flex:1;"></span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:#13693F;">{{ g.subtotal }}</span>
-                  </div>
-                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="6">
-                    <div onClick="{{ r.open }}" style="{{ r.rowSt }}" style-hover="background:#F4F8F4">
-                      <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-                        <div style="{{ r.tileSt }}">{{ r.mono }}</div>
-                        <div style="min-width:0;">
-                          <div style="font-size:12.5px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</div>
-                          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;">{{ r.sub }}</div>
-                        </div>
-                      </div>
-                      <div><span style="{{ r.abcSt }}">{{ r.abc }}</span></div>
-                      <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="9">
-                        <div style="{{ c.st }}">{{ c.v }}<div style="{{ c.subSt }}">{{ c.sub }}</div></div>
-                      </sc-for>
-                      <div><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#B7C0B9;">chevron_right</span></div>
+              <sc-for list="{{ finTableRows }}" as="item" hint-placeholder-count="8">
+                <sc-if value="{{ item.isGroup }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" onClick="{{ item.toggle }}" class="fin-table-group" style="{{ item.groupSt }}">
+                    <div style="{{ item.titleSt }}">
+                      <span style="font-family:'Material Symbols Rounded';font-size:15px;color:#587063;">{{ item.icon }}</span>
+                      <span style="font-weight:800;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ item.name }}</span>
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7A857C;">{{ item.count }}</span>
                     </div>
-                  </sc-for>
-                </div>
+                    <div></div>
+                    <sc-for list="{{ item.cells }}" as="c" hint-placeholder-count="8">
+                      <div style="{{ c.st }}">{{ c.v }}<div style="{{ c.subSt }}">{{ c.sub }}</div></div>
+                    </sc-for>
+                    <div></div>
+                  </button>
+                </sc-if>
+                <sc-if value="{{ item.isData }}" hint-placeholder-val="{{ true }}">
+                  <div onClick="{{ item.open }}" class="fin-table-row" style="{{ item.rowSt }}" style-hover="background:#F4F8F4">
+                    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                      <div style="{{ item.tileSt }}">{{ item.mono }}</div>
+                      <div style="min-width:0;">
+                        <div style="font-size:12.5px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ item.name }}</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ item.sub }}</div>
+                      </div>
+                    </div>
+                    <div><span style="{{ item.abcSt }}">{{ item.abc }}</span></div>
+                    <sc-for list="{{ item.cells }}" as="c" hint-placeholder-count="9">
+                      <div style="{{ c.st }}">{{ c.v }}<div style="{{ c.subSt }}">{{ c.sub }}</div></div>
+                    </sc-for>
+                    <div><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#B7C0B9;">chevron_right</span></div>
+                  </div>
+                </sc-if>
               </sc-for>
             </div>
           </div>
@@ -1573,6 +1645,7 @@ class Component extends DCLogic {
     finPreset:'all', finGroup:'sku', finSort:{key:'profit',dir:-1}, finQ:'', finView:'profit', finFiltersOpen:false,
     finSavedView:'unit', finViewsOpen:false, finSaveOpen:false, finViewName:'', finCustomViews:[], finDataMode:'closed',
     finConditions:[], finDraftField:'margin', finDraftOp:'lt', finDraftValues:[], finDraftNumber:'15',
+    finGroupPath:[], finGroupMenuOpen:false, finCollapsedGroups:{}, finColumnsOpen:false, finMetricKeys:[],
     finCat:'all', finAbc:'all', finXyz:'all', finHealth:'all', finStock:'all', finPrice:'all',
     peSel:{'p10':true,'p11':true}, pePreview:false,
     approvals:[], apFilter:'all', apTab:'actions', apModes:{},
@@ -1968,7 +2041,7 @@ class Component extends DCLogic {
   finMetricNew(p, key) {
     const comm=p.sold30*p.price*p.comm/100, logi=p.sold30*p.logi, ad=p.sold30*p.ad, cost=p.sold30*p.cost;
     const payout=p.rev30-comm-logi-ad-cost-p.sold30*p.stor-(p.fine||0);
-    const v={orders:p.oD*30,sold:p.sold30,buyout:p.buyout,rev:p.rev30,comm,logi,ad,cost,profit:p.profit30,margin:p.margin,roi:p.roi,returns:p.returns30,returnsRub:p.returns30*p.price,discount:p.sold30*Math.max(0,p.base-p.price),fine:p.fine||0,payout,base:p.base,price:p.price,maxDisc:(1-p.safe/p.base)*100,breakEven:p.breakEven,safe:p.safe,status:p.price-p.safe,stock:p.stockT,stockMoney:p.stockMoney,days:p.daysOOS,salesDay:p.oD,trend:p.spark[p.spark.length-1]-p.spark[0],abcxyz:p.abc+p.xyz};
+    const v={orders:p.oD*30,sold:p.sold30,buyout:p.buyout,rev:p.rev30,comm,logi,ad,cost,profit:p.profit30,margin:p.margin,roi:p.roi,returns:p.returns30,returnsRub:p.returns30*p.price,discount:p.sold30*Math.max(0,p.base-p.price),fine:p.fine||0,payout,base:p.base,price:p.price,maxDisc:(1-p.safe/p.base)*100,breakEven:p.breakEven,safe:p.safe,status:p.price-p.safe,promo:p.promo?'promo':'none',stock:p.stockT,stockMoney:p.stockMoney,days:p.daysOOS,salesDay:p.oD,trend:p.spark[p.spark.length-1]-p.spark[0],abcxyz:p.abc+p.xyz};
     return v[key]===undefined ? v.profit : v[key];
   }
   finRowsNew() {
@@ -2004,15 +2077,31 @@ class Component extends DCLogic {
   }
   vFinNew() {
     const M=this.M, st=this.state;
-    if(!M) return {finSavedViews:[],finGroupChips:[],finViewTabs:[],finFilterFields:[],finDraftOps:[],finDraftOptions:[],finConditionChips:[],finDataModes:[],finSummary:[],finHeads:[],finGroups:[],finNote:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false};
+    if(!M) return {finSavedViews:[],finGroupPath:[],finGroupOptions:[],finViewTabs:[],finFilterFields:[],finDraftOps:[],finDraftOptions:[],finConditionChips:[],finDataModes:[],finActiveColumns:[],finColumnSets:[],finSummary:[],finHeads:[],finTableRows:[],finNote:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false,finGroupMenuOpen:false,finColumnsOpen:false};
     const {rows,note}=this.finRowsNew();
     const period=M.PERIODS.find(p=>p.id===st.period)||M.PERIODS[1], f=period.f;
     const views={
-      profit:{label:'Прибыль',heads:[['Заказы','orders',76],['Выкуп','buyout',74],['Net revenue','rev',108],['Комиссия','comm',98],['Логистика','logi',94],['Реклама','ad',88],['Себест.','cost',98],['Прибыль','profit',105],['Маржа','margin',78],['ROI','roi',68]]},
+      profit:{label:'Прибыль',heads:[['Заказы','orders',76],['Выкуп','buyout',74],['Выручка','rev',108],['Комиссия','comm',98],['Логистика','logi',94],['Реклама','ad',88],['Себест.','cost',98],['Прибыль','profit',105],['Маржа','margin',78],['ROI','roi',68]]},
       returns:{label:'Возвраты и выплаты',heads:[['Заказы','orders',76],['Выкуплено','sold',84],['Возвраты','returns',84],['Возвраты ₽','returnsRub',100],['Комиссия','comm',98],['Логистика','logi',94],['Скидки','discount',96],['Штрафы','fine',88],['К выплате*','payout',112]]},
-      price:{label:'Цены и маржа',heads:[['Базовая','base',92],['Цена WB','price',92],['Макс. скидка','maxDisc',100],['Break-even','breakEven',104],['Безопасная','safe',108],['Δ до safe','status',92],['Акция','discount',92],['Маржа','margin',78],['ROI','roi',68]]},
+      price:{label:'Цены и маржа',heads:[['Базовая','base',92],['Цена WB','price',92],['Макс. скидка','maxDisc',100],['Break-even','breakEven',104],['Безопасная','safe',108],['Δ до safe','status',92],['Акция WB','promo',104],['Маржа','margin',78],['ROI','roi',68]]},
       stock:{label:'Остатки и динамика',heads:[['На складах','stock',92],['Денег в остатках','stockMoney',120],['До OOS','days',78],['Заказов / день','salesDay',108],['Динамика','trend',98],['ABC/XYZ','abcxyz',84],['Цена / safe','status',106],['Маржа','margin',78],['Прибыль','profit',105]]},
     };
+    const metricGroups=[
+      {label:'Продажи',keys:['orders','sold','buyout','returns','rev']},
+      {label:'Расходы и выплаты',keys:['comm','logi','ad','cost','discount','fine','payout','returnsRub']},
+      {label:'Прибыль и цены',keys:['profit','margin','roi','base','price','breakEven','safe','maxDisc','status','promo']},
+      {label:'Остатки',keys:['stock','stockMoney','days','salesDay','trend','abcxyz']},
+    ];
+    const metricMeta={
+      orders:['Заказы',76],sold:['Выкуплено',84],buyout:['Выкуп',74],returns:['Возвраты',84],rev:['Выручка',108],
+      comm:['Комиссия',98],logi:['Логистика',94],ad:['Реклама',88],cost:['Себест.',98],discount:['Скидки',96],fine:['Штрафы',88],payout:['К выплате*',112],returnsRub:['Возвраты ₽',100],
+      profit:['Прибыль',105],margin:['Маржа',78],roi:['ROI',68],base:['Базовая',92],price:['Цена WB',92],breakEven:['Break-even',104],safe:['Безопасная',108],maxDisc:['Макс. скидка',100],status:['Δ до safe',96],promo:['Акция WB',104],
+      stock:['На складах',92],stockMoney:['Денег в остатках',120],days:['До OOS',78],salesDay:['Заказов / день',108],trend:['Динамика',98],abcxyz:['ABC/XYZ',84],
+    };
+    const defaultMetricKeys=(views[st.finView]||views.profit).heads.map(([,key])=>key);
+    const requestedMetricKeys=Array.isArray(st.finMetricKeys)?st.finMetricKeys:[];
+    const activeMetricKeys=(requestedMetricKeys.length?requestedMetricKeys:defaultMetricKeys).filter((key,index,list)=>metricMeta[key]&&list.indexOf(key)===index);
+    const activeHeads=activeMetricKeys.map(key=>[metricMeta[key][0],key,metricMeta[key][1]]);
     const enumValue=(value,label)=>({value,label});
     const fieldDefs=[
       {id:'cat',label:'Товар · Категория',type:'enum',options:Array.from(new Set(M.PRODUCTS.map(p=>p.cat))).map(v=>enumValue(v,v))},
@@ -2030,19 +2119,19 @@ class Component extends DCLogic {
       {id:'stock',label:'Остатки · Количество',type:'number',unit:'шт'},
     ];
     const defaultViews=[
-      {id:'unit',label:'Unit-экономика',icon:'calculate',desc:'Все SKU · прибыль и маржа',view:'profit',group:'sku',dataMode:'closed',conditions:[]},
-      {id:'leaks',label:'Утечки прибыли',icon:'crisis_alert',desc:'Маржа ниже 15% · по статусу',view:'profit',group:'health',dataMode:'closed',conditions:[{id:'view-leaks',field:'margin',type:'number',op:'lt',value:15}]},
-      {id:'leaders',label:'Лидеры A/X',icon:'workspace_premium',desc:'Стабильное ядро спроса',view:'profit',group:'cat',dataMode:'operational',conditions:[{id:'view-a',field:'abc',type:'enum',op:'in',values:['A']},{id:'view-x',field:'xyz',type:'enum',op:'in',values:['X']}]},
-      {id:'returns',label:'Возвраты',icon:'assignment_return',desc:'Выкуп ниже 35% · по категориям',view:'returns',group:'cat',dataMode:'closed',conditions:[{id:'view-returns',field:'buyout',type:'number',op:'lt',value:35}]},
-      {id:'oos',label:'Риск OOS',icon:'inventory',desc:'Остатка не больше 14 дней',view:'stock',group:'cat',dataMode:'operational',conditions:[{id:'view-oos',field:'days',type:'number',op:'lte',value:14}]},
-      {id:'reconcile',label:'Сверка WB',icon:'fact_check',desc:'Выплаты и удержания · закрытые данные',view:'returns',group:'cat',dataMode:'closed',conditions:[]},
+      {id:'unit',label:'Unit-экономика',icon:'calculate',desc:'Все SKU · прибыль и маржа',view:'profit',groups:[],dataMode:'closed',conditions:[]},
+      {id:'leaks',label:'Утечки прибыли',icon:'crisis_alert',desc:'Маржа ниже 15% · статус → категория',view:'profit',groups:['health','cat'],dataMode:'closed',conditions:[{id:'view-leaks',field:'margin',type:'number',op:'lt',value:15}]},
+      {id:'leaders',label:'Лидеры A/X',icon:'workspace_premium',desc:'Стабильное ядро · по категориям',view:'profit',groups:['cat'],dataMode:'operational',conditions:[{id:'view-a',field:'abc',type:'enum',op:'in',values:['A']},{id:'view-x',field:'xyz',type:'enum',op:'in',values:['X']}]},
+      {id:'returns',label:'Возвраты',icon:'assignment_return',desc:'Выкуп ниже 35% · категория → размер',view:'returns',groups:['cat','size'],dataMode:'closed',conditions:[{id:'view-returns',field:'buyout',type:'number',op:'lt',value:35}]},
+      {id:'oos',label:'Риск OOS',icon:'inventory',desc:'Остатка не больше 14 дней · по статусу',view:'stock',groups:['stock','cat'],dataMode:'operational',conditions:[{id:'view-oos',field:'days',type:'number',op:'lte',value:14}]},
+      {id:'reconcile',label:'Сверка WB',icon:'fact_check',desc:'Выплаты и удержания · по категориям',view:'returns',groups:['cat'],dataMode:'closed',conditions:[]},
     ];
     const customViews=(Array.isArray(st.finCustomViews)?st.finCustomViews:[]).map(v=>({...v,icon:v.icon||'bookmark',desc:v.desc||'Личное представление'}));
     const savedViews=[...defaultViews,...customViews];
     const applyView=(cfg)=>this.setState({
-      finSavedView:cfg.id,finView:cfg.view||'profit',finGroup:cfg.group||'sku',finDataMode:cfg.dataMode||'closed',
+      finSavedView:cfg.id,finView:cfg.view||'profit',finGroupPath:Array.isArray(cfg.groups)?[...cfg.groups]:(cfg.group&&cfg.group!=='sku'?[cfg.group]:[]),finMetricKeys:Array.isArray(cfg.metrics)?[...cfg.metrics]:[],finDataMode:cfg.dataMode||'closed',
       finConditions:(cfg.conditions||[]).map(c=>({...c})),finSort:{key:cfg.view==='stock'?'days':'profit',dir:cfg.view==='stock'?1:-1},
-      finViewsOpen:false,finSaveOpen:false,finFiltersOpen:false,finQ:'',searchQ:'',
+      finViewsOpen:false,finSaveOpen:false,finFiltersOpen:false,finGroupMenuOpen:false,finColumnsOpen:false,finCollapsedGroups:{},finQ:'',searchQ:'',
     });
     const selectedField=fieldDefs.find(d=>d.id===st.finDraftField)||fieldDefs[4];
     const enumOps=[{id:'in',label:'входит в список'},{id:'notIn',label:'не входит в список'}];
@@ -2062,7 +2151,7 @@ class Component extends DCLogic {
     const saveView=()=>{
       const label=(st.finViewName||'').trim();
       if(!label){ this.toast('Введите название представления'); return; }
-      const item={id:'custom-'+Date.now(),label,icon:'bookmark',desc:`${(st.finConditions||[]).length} условий · ${views[st.finView]?.label||'Прибыль'}`,view:st.finView,group:st.finGroup,dataMode:st.finDataMode,conditions:(st.finConditions||[]).map(c=>({...c}))};
+      const item={id:'custom-'+Date.now(),label,icon:'bookmark',desc:`${(st.finConditions||[]).length} условий · ${views[st.finView]?.label||'Прибыль'}`,view:st.finView,groups:[...(st.finGroupPath||[])],metrics:[...(st.finMetricKeys||[])],dataMode:st.finDataMode,conditions:(st.finConditions||[]).map(c=>({...c}))};
       const next=[...customViews,item];
       try { localStorage.setItem('marginpilot.finViews',JSON.stringify(next)); } catch(e) {}
       this.setState({finCustomViews:next,finSavedView:item.id,finSaveOpen:false,finViewName:'',finViewsOpen:false});
@@ -2078,20 +2167,101 @@ class Component extends DCLogic {
       const cells={
         orders:cell(M.fmtN(Math.round(p.oD*30*f))),buyout:cell(M.pct(p.buyout,0)),sold:cell(M.fmtN(Math.round(p.sold30*f))),rev:cell(amount(p.rev30),'font-weight:700;'),comm:cell(money(comm),'color:#5A665D;'),logi:cell(money(logi),'color:#5A665D;'),ad:cell(money(ad),p.ad>=120?'color:#9A6414;font-weight:700;':'color:#5A665D;'),cost:cell(money(cost),'color:#5A665D;'),profit:cell(amount(p.profit30),p.profit30<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;'),margin:cell(M.pct(p.margin,1),warnSt),roi:cell(M.pct(p.roi,0),p.roi<20?'color:#9A6414;':'font-weight:700;color:#13693F;'),
         returns:cell(M.fmtN(Math.round(p.returns30*f))),returnsRub:cell(money(p.returns30*p.price),'color:#9A6414;'),discount:cell(money(discount),'color:#9A6414;'),fine:cell(p.fine?money(p.fine):'—',p.fine?'font-weight:700;color:#B0432F;':'color:#8C968E;'),payout:cell(amount(payout),payout<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;'),
-        base:cell(M.fmtR(p.base)),price:cell(M.fmtR(p.price),p.priceFlag==='ok'?'font-weight:700;':warnSt),maxDisc:cell(M.pct(Math.max(0,(1-p.safe/p.base)*100),0),p.priceFlag==='ok'?'color:#5A665D;':warnSt),breakEven:cell(M.fmtR(p.breakEven)),safe:cell(M.fmtR(p.safe),p.priceFlag==='ok'?'color:#5A665D;':warnSt),status:cell((gap>=0?'+':'')+M.fmtR(gap),warnSt,p.priceFlag==='ok'?'в лимите':'ниже safe'),
+        base:cell(M.fmtR(p.base)),price:cell(M.fmtR(p.price),p.priceFlag==='ok'?'font-weight:700;':warnSt),maxDisc:cell(M.pct(Math.max(0,(1-p.safe/p.base)*100),0),p.priceFlag==='ok'?'color:#5A665D;':warnSt),breakEven:cell(M.fmtR(p.breakEven)),safe:cell(M.fmtR(p.safe),p.priceFlag==='ok'?'color:#5A665D;':warnSt),status:cell((gap>=0?'+':'')+M.fmtR(gap),warnSt,p.priceFlag==='ok'?'в лимите':'ниже safe'),promo:cell(p.promo?'В акции':'Нет',p.promo?'font-weight:700;color:#9A6414;':'color:#8C968E;',p.promo?'участие WB':'без промо'),
         stock:cell(M.fmtN(p.stockT)+' шт'),stockMoney:cell(M.fmtR(p.stockMoney),'font-weight:700;'),days:cell(p.daysOOS+' дн.',p.daysOOS<=14?'font-weight:700;color:#B0432F;':p.daysOOS>60?'font-weight:700;color:#9A6414;':''),salesDay:cell(M.fmtN(p.oD)+' шт','font-weight:700;'),trend:cell((trend>0?'+':'')+trend+' шт',trend<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;','за 12 замеров'),abcxyz:cell(p.abc+'/'+p.xyz,'font-weight:700;'),
       };
-      return {mono:p.mono,tileSt:this.tileSt(p,32),name:p.name,sub:`${p.code} · nm ${p.nm} · ${p.sizes}`,abc:p.abc+'/'+p.xyz,abcSt:abcSt(p.abc),cells:view.heads.map(([,key])=>cells[key]),rowSt:`display:grid;grid-template-columns:242px 58px ${view.heads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;padding:9px 8px 9px 16px;border-top:1px solid rgba(23,35,28,.06);cursor:pointer;${danger?'background:#FDF6F4;':warn?'background:#FFFCF6;':''}`,open:()=>this.setState({drill:p.id,drillTab:'eco',drTarget:15})};
+      return {mono:p.mono,tileSt:this.tileSt(p,32),name:p.name,sub:`${p.code} · nm ${p.nm} · ${p.sizes}`,abc:p.abc+'/'+p.xyz,abcSt:abcSt(p.abc),cells:activeHeads.map(([,key])=>cells[key]),rowSt:`display:grid;grid-template-columns:242px 58px ${activeHeads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;padding:9px 8px 9px 16px;border-top:1px solid rgba(23,35,28,.06);cursor:pointer;${danger?'background:#FDF6F4;':warn?'background:#FFFCF6;':''}`,open:()=>this.setState({drill:p.id,drillTab:'eco',drTarget:15})};
     };
-    const groupName=p=>st.finGroup==='cat'?p.cat:st.finGroup==='article'?'Артикул '+p.code:st.finGroup==='size'?'Размерная сетка '+p.sizes:st.finGroup==='abc'?'ABC/XYZ · '+p.abc+'/'+p.xyz:st.finGroup==='health'?(p.profitU<=0?'Убыточные':p.priceFlag!=='ok'?'Ниже безопасной цены':p.margin<15?'Маржа ниже цели':'Здоровая экономика'):'';
-    let groups;
-    if(st.finGroup==='sku') groups=[{name:'',count:'',subtotal:'',headSt:'display:none;',rows:rows.map(mkRow)}];
-    else { const map={}; rows.forEach(p=>{const n=groupName(p);(map[n]=map[n]||[]).push(p);}); groups=Object.entries(map).map(([name,list])=>({name,count:list.length+' SKU',subtotal:'прибыль '+amount(list.reduce((s,p)=>s+p.profit30,0)),headSt:'display:flex;align-items:center;gap:10px;padding:8px 16px;background:#F0F5F1;border-top:1px solid rgba(23,35,28,.08);',rows:list.map(mkRow)})); }
-    const button=(label,active,go)=>({label,go,st:`padding:6px 10px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;border:1px solid ${active?'#1B8A57':'rgba(23,35,28,.12)'};color:${active?'#13693F':'#5A665D'};background:${active?'#DFEEE5':'#fff'};`});
+    const groupDefs={
+      cat:{label:'Категория',icon:'category',desc:'Предмет из карточки WB',value:p=>p.cat},
+      article:{label:'Артикул',icon:'sell',desc:'Артикул продавца',value:p=>'Артикул '+p.code},
+      size:{label:'Размер',icon:'straighten',desc:'Размерная сетка товара',value:p=>p.sizes},
+      abc:{label:'ABC/XYZ',icon:'grid_view',desc:'Вклад и стабильность спроса',value:p=>p.abc+'/'+p.xyz},
+      health:{label:'Статус экономики',icon:'monitoring',desc:'Маржа и пороги цены',value:p=>p.profitU<=0?'Убыточные':p.priceFlag==='loss'?'Ниже break-even':p.priceFlag==='unsafe'?'Ниже безопасной цены':p.margin<15?'Маржа ниже цели':'Здоровая экономика'},
+      price:{label:'Статус цены',icon:'price_check',desc:'Safe и break-even',value:p=>p.priceFlag==='ok'?'В лимите':p.priceFlag==='unsafe'?'Ниже safe':'Ниже break-even'},
+      stock:{label:'Статус остатка',icon:'inventory_2',desc:'Дефицит, баланс, излишек',value:p=>p.daysOOS<=14?'Риск OOS':p.daysOOS>60?'Излишки':'Сбалансировано'},
+      promo:{label:'Акция WB',icon:'percent',desc:'Участие в промо',value:p=>p.promo?'В акции WB':'Без акции'},
+    };
+    const groupPath=(Array.isArray(st.finGroupPath)?st.finGroupPath:[]).filter((key,index,list)=>groupDefs[key]&&list.indexOf(key)===index).slice(0,3);
+    const aggregateCell=(list,key)=>{
+      const sum=fn=>list.reduce((total,p)=>total+fn(p),0), avg=fn=>sum(fn)/Math.max(1,list.length);
+      const orders=sum(p=>p.oD*30),sold=sum(p=>p.sold30),revenue=sum(p=>p.rev30),profit=sum(p=>p.profit30),costTotal=sum(p=>p.sold30*p.cost);
+      const comm=sum(p=>p.sold30*p.price*p.comm/100),logi=sum(p=>p.sold30*p.logi),ad=sum(p=>p.sold30*p.ad),cost=sum(p=>p.sold30*p.cost),discount=sum(p=>p.sold30*Math.max(0,p.base-p.price));
+      const payout=sum(p=>p.rev30-p.sold30*p.price*p.comm/100-p.sold30*p.logi-p.sold30*p.ad-p.sold30*p.cost-p.sold30*p.stor-(p.fine||0));
+      if(key==='orders')return cell(M.fmtN(orders*f),'font-weight:700;');
+      if(key==='sold')return cell(M.fmtN(sold*f));
+      if(key==='buyout')return cell(M.pct(sold/Math.max(1,orders)*100,0));
+      if(key==='returns')return cell(M.fmtN(sum(p=>p.returns30)*f));
+      if(key==='returnsRub')return cell(money(sum(p=>p.returns30*p.price)),'color:#9A6414;');
+      if(key==='rev')return cell(amount(revenue),'font-weight:700;');
+      if(key==='comm')return cell(money(comm),'color:#5A665D;');
+      if(key==='logi')return cell(money(logi),'color:#5A665D;');
+      if(key==='ad')return cell(money(ad),'color:#5A665D;');
+      if(key==='cost')return cell(money(cost),'color:#5A665D;');
+      if(key==='discount')return cell(money(discount),'color:#9A6414;');
+      if(key==='fine')return cell(sum(p=>p.fine||0)?money(sum(p=>p.fine||0)):'—',sum(p=>p.fine||0)?'font-weight:700;color:#B0432F;':'color:#8C968E;');
+      if(key==='payout')return cell(amount(payout),payout<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;');
+      if(key==='profit')return cell(amount(profit),profit<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;');
+      if(key==='margin')return cell(M.pct(profit/Math.max(1,revenue)*100,1),profit/revenue*100<15?'font-weight:700;color:#9A6414;':'font-weight:700;color:#13693F;','взвешенная');
+      if(key==='roi')return cell(M.pct(profit/Math.max(1,costTotal)*100,0),profit/costTotal*100<20?'color:#9A6414;':'font-weight:700;color:#13693F;');
+      if(key==='base')return cell(M.fmtR(avg(p=>p.base)),'','средняя');
+      if(key==='price')return cell(M.fmtR(avg(p=>p.price)),'font-weight:700;','средняя');
+      if(key==='breakEven')return cell(M.fmtR(avg(p=>p.breakEven)),'','средняя');
+      if(key==='safe')return cell(M.fmtR(avg(p=>p.safe)),'','средняя');
+      if(key==='maxDisc')return cell(M.pct(avg(p=>Math.max(0,(1-p.safe/p.base)*100)),0),'','средняя');
+      if(key==='status'){const risk=list.filter(p=>p.priceFlag!=='ok').length;return cell(risk?risk+' риска':'В лимите',risk?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;',risk?'SKU ниже safe':'');}
+      if(key==='promo'){const promo=list.filter(p=>p.promo).length;return cell(promo?promo+' в акции':'Нет',promo?'font-weight:700;color:#9A6414;':'color:#8C968E;');}
+      if(key==='stock')return cell(M.fmtN(sum(p=>p.stockT))+' шт','font-weight:700;');
+      if(key==='stockMoney')return cell(M.fmtR(sum(p=>p.stockMoney)),'font-weight:700;');
+      if(key==='days')return cell(Math.min(...list.map(p=>p.daysOOS))+' дн.',list.some(p=>p.daysOOS<=14)?'font-weight:700;color:#B0432F;':'','минимум');
+      if(key==='salesDay')return cell(M.fmtN(sum(p=>p.oD))+' шт','font-weight:700;');
+      if(key==='trend'){const trend=sum(p=>p.spark[p.spark.length-1]-p.spark[0]);return cell((trend>0?'+':'')+trend+' шт',trend<0?'font-weight:700;color:#B0432F;':'font-weight:700;color:#13693F;','суммарно');}
+      if(key==='abcxyz'){const segments=Array.from(new Set(list.map(p=>p.abc+'/'+p.xyz)));return cell(segments.length===1?segments[0]:segments.length+' сегм.','font-weight:700;');}
+      return cell('—','color:#8C968E;');
+    };
+    const tableRows=[];
+    const walkGroups=(list,level,pathParts)=>{
+      if(level>=groupPath.length){list.forEach(p=>tableRows.push({...mkRow(p),isGroup:false,isData:true}));return;}
+      const key=groupPath[level],def=groupDefs[key],map=new Map();
+      list.forEach(p=>{const name=def.value(p);if(!map.has(name))map.set(name,[]);map.get(name).push(p);});
+      map.forEach((groupRows,name)=>{
+        const pathKey=[...pathParts,key+':'+name].join('|'),collapsed=!!(st.finCollapsedGroups||{})[pathKey];
+        tableRows.push({isGroup:true,isData:false,name,count:groupRows.length+' SKU',icon:collapsed?'chevron_right':'expand_more',cells:activeHeads.map(([,metricKey])=>aggregateCell(groupRows,metricKey)),toggle:()=>this.setState(s=>({finCollapsedGroups:{...(s.finCollapsedGroups||{}),[pathKey]:!(s.finCollapsedGroups||{})[pathKey]}})),groupSt:`appearance:none;border:0;border-top:1px solid rgba(23,35,28,.08);width:100%;display:grid;grid-template-columns:242px 58px ${activeHeads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;padding:8px 8px 8px 16px;background:${level===0?'#EDF5F0':'#F7FAF7'};color:#17231C;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;`,titleSt:`display:flex;align-items:center;gap:7px;min-width:0;padding-left:${level*18}px;`});
+        if(!collapsed)walkGroups(groupRows,level+1,[...pathParts,key+':'+name]);
+      });
+    };
+    walkGroups(rows,0,[]);
     const conditions=Array.isArray(st.finConditions)?st.finConditions:[];
     const attentionN=rows.filter(p=>p.profitU<=0||p.margin<8).length;
-    const totalRev=rows.reduce((s,p)=>s+p.rev30,0),totalProfit=rows.reduce((s,p)=>s+p.profit30,0), widths=view.heads.reduce((s,[,,w])=>s+w,0)+352;
+    const totalRev=rows.reduce((s,p)=>s+p.rev30,0),totalProfit=rows.reduce((s,p)=>s+p.profit30,0), widths=activeHeads.reduce((s,[,,w])=>s+w,0)+352;
     const currentView=savedViews.find(v=>v.id===st.finSavedView);
+    const swap=(list,from,to)=>{const next=[...list];const [item]=next.splice(from,1);next.splice(to,0,item);return next;};
+    const groupTokens=groupPath.map((key,index)=>({
+      key,label:groupDefs[key].label,level:String(index+1),st:'',
+      left:()=>this.setState({finGroupPath:swap(groupPath,index,index-1),finCollapsedGroups:{},finSavedView:'custom'}),
+      right:()=>this.setState({finGroupPath:swap(groupPath,index,index+1),finCollapsedGroups:{},finSavedView:'custom'}),
+      remove:()=>this.setState({finGroupPath:groupPath.filter(groupKey=>groupKey!==key),finCollapsedGroups:{},finSavedView:'custom'}),
+      leftSt:index===0?'display:none;':'',rightSt:index===groupPath.length-1?'display:none;':'',removeSt:'',arrowSt:`font-family:'Material Symbols Rounded';font-size:15px;color:#A5AEA7;`,
+    }));
+    groupTokens.push({key:'sku',label:'SKU',level:String(groupPath.length+1),st:'background:#0E2C1F;border-color:#0E2C1F;color:#EAF2EC;padding-right:9px;',left:()=>{},right:()=>{},remove:()=>{},leftSt:'display:none;',rightSt:'display:none;',removeSt:'display:none;',arrowSt:'display:none;'});
+    const setMetrics=(keys)=>this.setState({finMetricKeys:keys,finSort:keys.includes(st.finSort.key)?st.finSort:{key:keys[0],dir:-1},finSavedView:'custom'});
+    const activeColumns=activeMetricKeys.map((key,index)=>({
+      label:metricMeta[key][0],
+      left:()=>setMetrics(swap(activeMetricKeys,index,index-1)),right:()=>setMetrics(swap(activeMetricKeys,index,index+1)),
+      remove:()=>{if(activeMetricKeys.length===1){this.toast('Оставьте хотя бы одну колонку');return;}setMetrics(activeMetricKeys.filter(metricKey=>metricKey!==key));},
+      leftSt:index===0?'display:none;':'',rightSt:index===activeMetricKeys.length-1?'display:none;':'',
+    }));
+    const columnSets=metricGroups.map(set=>({
+      label:set.label,
+      items:set.keys.map(key=>{
+        const active=activeMetricKeys.includes(key);
+        return {
+          label:metricMeta[key][0],check:active?'check':'',
+          checkSt:`width:16px;height:16px;border:1px solid ${active?'#1B8A57':'rgba(23,35,28,.18)'};border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:12px;flex:none;background:${active?'#DFEEE5':'#fff'};color:#13693F;`,
+          go:()=>{if(active){if(activeMetricKeys.length===1){this.toast('Оставьте хотя бы одну колонку');return;}setMetrics(activeMetricKeys.filter(metricKey=>metricKey!==key));}else setMetrics([...activeMetricKeys,key]);},
+        };
+      }),
+    }));
     return {
       finNote:note+' Период расчёта: '+period.label+'.',
       finPeriod:period.label,
@@ -2100,18 +2270,18 @@ class Component extends DCLogic {
       finDataModes:[['Закрытые WB','closed'],['Оперативные','operational']].map(([label,id])=>({label,go:()=>this.setState({finDataMode:id,finSavedView:'custom'}),st:`appearance:none;border:0;border-radius:7px;padding:6px 9px;font-family:'Onest',sans-serif;font-size:11px;font-weight:700;cursor:pointer;${st.finDataMode===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':'background:transparent;color:#6C786F;'}`})),
       finViewsOpen:st.finViewsOpen,
       finViewsIcon:st.finViewsOpen?'expand_less':'expand_more',
-      finViewsToggle:()=>this.setState(s=>({finViewsOpen:!s.finViewsOpen,finSaveOpen:false})),
+      finViewsToggle:()=>this.setState(s=>({finViewsOpen:!s.finViewsOpen,finSaveOpen:false,finGroupMenuOpen:false,finColumnsOpen:false})),
       finCurrentView:currentView?currentView.label:'Настроенное представление',
       finSavedViews:savedViews.map(saved=>({label:saved.label,icon:saved.icon,desc:saved.desc,go:()=>applyView(saved),st:st.finSavedView===saved.id?'border-color:#1B8A57;background:#F4FAF6;':'',markSt:`margin-left:auto;font-family:'Material Symbols Rounded';font-size:14px;color:#1B8A57;${st.finSavedView===saved.id?'':'visibility:hidden;'}`})),
       finSaveOpen:st.finSaveOpen,
-      finSaveToggle:()=>this.setState(s=>({finSaveOpen:!s.finSaveOpen,finViewsOpen:false})),
+      finSaveToggle:()=>this.setState(s=>({finSaveOpen:!s.finSaveOpen,finViewsOpen:false,finGroupMenuOpen:false,finColumnsOpen:false})),
       finSaveCancel:()=>this.setState({finSaveOpen:false,finViewName:''}),
       finViewName:st.finViewName,
       finViewNameChange:e=>this.setState({finViewName:e.target.value}),
       finViewNameKey:e=>{if(e.key==='Enter')saveView();},
       finSaveView:saveView,
       finFiltersOpen:st.finFiltersOpen,
-      finFiltersToggle:()=>this.setState(s=>({finFiltersOpen:!s.finFiltersOpen})),
+      finFiltersToggle:()=>this.setState(s=>({finFiltersOpen:!s.finFiltersOpen,finGroupMenuOpen:false,finColumnsOpen:false})),
       finHasConditions:conditions.length>0,
       finNoConditions:conditions.length===0,
       finConditionChips:conditions.map(condition=>({label:conditionLabel(condition),remove:()=>this.setState(s=>({finConditions:s.finConditions.filter(c=>c.id!==condition.id),finSavedView:'custom'}))})),
@@ -2130,9 +2300,19 @@ class Component extends DCLogic {
       finDraftNumberKey:e=>{if(e.key==='Enter'){const value=Number(st.finDraftNumber);if(Number.isFinite(value))this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'number',op:st.finDraftOp,value}],finSavedView:'custom'}));}},
       finDraftOptions:(selectedField.options||[]).map(option=>{const active=(st.finDraftValues||[]).includes(option.value);return{label:option.label,go:()=>this.setState(s=>({finDraftValues:active?s.finDraftValues.filter(v=>v!==option.value):[...s.finDraftValues,option.value]})),st:`appearance:none;border:1px solid ${active?'#1B8A57':'rgba(23,35,28,.12)'};background:${active?'#DFEEE5':'#fff'};color:${active?'#13693F':'#5A665D'};border-radius:8px;padding:7px 9px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;`};}),
       finAddCondition:()=>{if(selectedField.type==='enum'){const values=st.finDraftValues||[];if(!values.length){this.toast('Выберите хотя бы одно значение');return;}this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'enum',op:st.finDraftOp,values:[...values]}],finDraftValues:[],finSavedView:'custom'}));}else{const value=Number(st.finDraftNumber);if(!Number.isFinite(value)){this.toast('Введите числовое значение');return;}this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'number',op:st.finDraftOp,value}],finSavedView:'custom'}));}},
-      finReset:()=>this.setState({finPreset:'all',finSavedView:'unit',finGroup:'sku',finView:'profit',finDataMode:'closed',finSort:{key:'profit',dir:-1},finConditions:[],finQ:'',searchQ:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false}),
-      finViewTabs:Object.entries(views).map(([id,v])=>({label:v.label,go:()=>this.setState({finView:id,finSavedView:'custom'}),st:`appearance:none;border:0;padding:7px 10px;border-radius:8px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:750;cursor:pointer;${st.finView===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':'background:transparent;color:#5A665D;'}`})),
-      finGroupChips:[['SKU','sku'],['Категории','cat'],['Артикулы','article'],['Размеры','size'],['ABC/XYZ','abc'],['Статус','health']].map(([label,id])=>({label,go:()=>this.setState({finGroup:id,finSavedView:'custom'}),st:`appearance:none;border:0;padding:7px 9px;border-radius:8px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;${st.finGroup===id?'background:#DFEEE5;color:#13693F;':'background:transparent;color:#5A665D;'}`})),
+      finReset:()=>this.setState({finPreset:'all',finSavedView:'unit',finGroupPath:[],finMetricKeys:[],finCollapsedGroups:{},finView:'profit',finDataMode:'closed',finSort:{key:'profit',dir:-1},finConditions:[],finQ:'',searchQ:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false,finGroupMenuOpen:false,finColumnsOpen:false}),
+      finViewTabs:Object.entries(views).map(([id,v])=>({label:v.label,go:()=>this.setState({finView:id,finMetricKeys:[],finSort:{key:id==='stock'?'days':id==='returns'?'payout':id==='price'?'status':'profit',dir:id==='stock'?1:-1},finSavedView:'custom',finColumnsOpen:false}),st:`appearance:none;border:0;padding:7px 10px;border-radius:8px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:750;cursor:pointer;${st.finView===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':'background:transparent;color:#5A665D;'}`})),
+      finGroupPath:groupTokens,
+      finGroupMenuOpen:st.finGroupMenuOpen,
+      finGroupMenuToggle:()=>this.setState(s=>({finGroupMenuOpen:!s.finGroupMenuOpen,finColumnsOpen:false,finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false})),
+      finGroupOptions:Object.entries(groupDefs).filter(([key])=>!groupPath.includes(key)).map(([key,def])=>({label:def.label,icon:def.icon,desc:def.desc,go:()=>{if(groupPath.length>=3){this.toast('Можно добавить не больше трёх разрезов до SKU');return;}this.setState({finGroupPath:[...groupPath,key],finCollapsedGroups:{},finGroupMenuOpen:false,finSavedView:'custom'});}})),
+      finAddGroupSt:groupPath.length>=3?'display:none;':'',
+      finColumnsOpen:st.finColumnsOpen,
+      finColumnsToggle:()=>this.setState(s=>({finColumnsOpen:!s.finColumnsOpen,finGroupMenuOpen:false,finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false})),
+      finColumnCount:activeMetricKeys.length,
+      finActiveColumns:activeColumns,
+      finColumnSets:columnSets,
+      finColumnsReset:()=>this.setState({finMetricKeys:[],finSort:{key:defaultMetricKeys.includes(st.finSort.key)?st.finSort.key:defaultMetricKeys[0],dir:st.finSort.dir},finSavedView:'custom'}),
       finExport:()=>this.toast('Экспорт XLSX сформирован по текущему представлению'),
       finSummary:[
         {k:'SKU в выборке',v:String(rows.length),vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
@@ -2141,7 +2321,7 @@ class Component extends DCLogic {
         {k:'Прибыль',v:M.fmtM(totalProfit*f)+' ₽',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#13693F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
         {k:'Требуют внимания',v:attentionN+' SKU',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#B0432F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;cursor:pointer;',go:()=>applyView(defaultViews[1])},
       ],
-      finHeads:view.heads.map(([label,key])=>({label,arrow:st.finSort.key===key?(st.finSort.dir<0?'arrow_downward':'arrow_upward'):'',go:()=>this.setState(s=>({finSort:{key,dir:s.finSort.key===key?-s.finSort.dir:-1}})),st:`font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:${st.finSort.key===key?'#13693F':'#8C968E'};padding:11px 0;cursor:pointer;` })),finGroups:groups,finTableMin:widths,finTableHeadSt:`display:grid;grid-template-columns:242px 58px ${view.heads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;position:sticky;top:0;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);z-index:5;padding:0 8px 0 16px;`,
+      finHeads:activeHeads.map(([label,key])=>({label,arrow:st.finSort.key===key?(st.finSort.dir<0?'arrow_downward':'arrow_upward'):'',go:()=>this.setState(s=>({finSort:{key,dir:s.finSort.key===key?-s.finSort.dir:-1}})),st:`font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:${st.finSort.key===key?'#13693F':'#8C968E'};padding:11px 0;cursor:pointer;` })),finTableRows:tableRows,finTableMin:widths,finTableHeadSt:`display:grid;grid-template-columns:242px 58px ${activeHeads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;position:sticky;top:0;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);z-index:5;padding:0 8px 0 16px;`,
     };
   }
 
