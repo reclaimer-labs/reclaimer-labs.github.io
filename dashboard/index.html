@@ -1949,7 +1949,8 @@ class Component extends DCLogic {
       this.M = m;
       let finCustomViews=[];
       try { finCustomViews=JSON.parse(localStorage.getItem('marginpilot.finViews')||'[]'); } catch(e) { finCustomViews=[]; }
-      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})), externalCampaigns:m.EXTERNAL_CAMPAIGNS.map(c=>({...c,skus:[...c.skus]})), finCustomViews:Array.isArray(finCustomViews)?finCustomViews:[] });
+      const externalCampaigns = Array.isArray(m.EXTERNAL_CAMPAIGNS) ? m.EXTERNAL_CAMPAIGNS.map(c=>({...c,skus:[...(c.skus||[])]})) : [];
+      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})), externalCampaigns, finCustomViews:Array.isArray(finCustomViews)?finCustomViews:[] });
       const start = this.props.startScreen;
       const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','Подтверждения':'apps','Настройки':'set'};
       if (start && map[start]) this.setState({ screen: map[start] });
@@ -2047,7 +2048,7 @@ class Component extends DCLogic {
       home:['Главная','Центр управления · очередь решений от Марка'],
       fin:['Финансовый центр','Экономика каждого SKU · прибыль прежде всего'],
       prices:['Цены · Price Enforcer','Защита маржи: безопасные цены, правила, нарушения'],
-      ads:['Реклама 360','WB + внешние кампании · прибыль после всех расходов'],
+      ads:['Реклама','WB + внешние кампании · прибыль после всех расходов'],
       cards:['Карточки','Контент, качество, дубли и массовые правки'],
       logi:['Логистика и фулфилмент','Остатки, поставки, региональный спрос и задачи на сборку'],
       apps:['Центр подтверждений и автопилот','Действия, автоправила и полный аудит в одном контуре'],
@@ -2865,8 +2866,10 @@ class Component extends DCLogic {
       fix:['#F6E2DD','#B0432F'], stop:['#B0432F','#fff'], limit:['#F4E8D2','#9A6414'], scale:['#1B8A57','#fff'], keep:['#E7ECE7','#38443B'], conflict:['#F4E8D2','#9A6414'],
     };
     const zoneColors = { c1:'#B0432F', c2:'#3E5C70', c3:'#B5751A', c4:'#1B8A57' };
-    const external = st.externalCampaigns.length ? st.externalCampaigns : M.EXTERNAL_CAMPAIGNS;
-    const selectedExternal = external.find(c=>c.id===st.externalSelected) || external[0];
+    const stateExternal = Array.isArray(st.externalCampaigns) ? st.externalCampaigns : [];
+    const seedExternal = Array.isArray(M.EXTERNAL_CAMPAIGNS) ? M.EXTERNAL_CAMPAIGNS : [];
+    const external = stateExternal.length ? stateExternal : seedExternal;
+    const selectedExternal = external.find(c=>c.id===st.externalSelected) || external[0] || {id:'empty',name:'Добавьте внешнюю кампанию',channel:'—',channelIcon:'campaign',status:'done',statusLabel:'нет данных',start:'—',end:'—',spend:0,budget:0,skus:[],tracking:'нет связи',baselineBuyouts:0,actualBuyouts:0,incrementalBuyouts:0,incrementalRevenue:0,incrementalMargin:0,profitAfter:0,romi:0,confidence:0,excluded:'данных для оценки пока нет',verdict:'stop',verdictLabel:'Сначала добавьте кампанию',verdictDetail:'Задайте период, бюджет и охватываемые SKU, чтобы построить baseline.'};
     const extSpend = external.reduce((s,c)=>s+c.spend,0);
     const extProfit = external.reduce((s,c)=>s+c.profitAfter,0);
     const avgConfidence = external.length ? Math.round(external.reduce((s,c)=>s+c.confidence,0)/external.length) : 0;
