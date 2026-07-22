@@ -96,8 +96,12 @@
     .ads360-sku:hover{border-color:#7FC59E;background:#FBFDFB;}
     .ads360-track{appearance:none;border:1px solid rgba(23,35,28,.10);border-radius:10px;background:#fff;color:#38443B;padding:9px 10px;font-family:'Onest',sans-serif;text-align:left;cursor:pointer;display:flex;gap:8px;align-items:flex-start;}
     .ads360-track:hover{border-color:#7FC59E;}
+    .ads360-ai{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:14px;margin-top:12px;padding:14px 15px;border-radius:13px;background:#0E2C1F;color:#EAF2EC;box-shadow:0 18px 36px -30px rgba(14,44,31,.9);}
+    .ads360-ai:after{content:"";position:absolute;right:-62px;bottom:-94px;width:210px;height:210px;border-radius:50%;border:38px solid rgba(127,197,158,.07);pointer-events:none;}
+    .ads360-ai-factor{display:flex;align-items:flex-start;gap:7px;font-size:10.5px;line-height:1.42;color:#BFD2C5;}
+    .ads360-ai-action{position:relative;z-index:1;border:1px solid rgba(127,197,158,.28);border-radius:11px;background:rgba(127,197,158,.09);padding:11px 12px;}
     @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-    @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-ai{grid-template-columns:1fr}}
     @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
   </style>
 </helmet>
@@ -178,14 +182,14 @@
         <div style="font-size:11px;color:#8C968E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ screenSub }}</div>
       </div>
       <div class="app-topbar-tools" style="margin-left:auto;display:flex;align-items:center;gap:14px;flex:none;">
-        <div style="display:flex;background:#E7ECE7;border-radius:10px;padding:3px;gap:2px;">
+        <div style="{{ periodBarSt }}">
           <sc-for list="{{ periodChips }}" as="item" hint-placeholder-count="4">
             <div onClick="{{ item.go }}" style="{{ item.st }}" style-hover="color:#17231C">{{ item.label }}</div>
           </sc-for>
         </div>
         <div style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:10px;padding:7px 12px;">
           <div style="width:7px;height:7px;border-radius:50%;background:#1B8A57;animation:blink 2.4s infinite;"></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5A665D;">WB&nbsp;·&nbsp;07:42</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5A665D;">{{ sourceFresh }}</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:10px;padding:7px 12px;flex:0 1 230px;min-width:120px;width:230px;">
           <span style="font-family:'Material Symbols Rounded';font-size:17px;color:#8C968E;">search</span>
@@ -811,7 +815,7 @@
           <div style="display:grid;grid-template-columns:1fr 340px;gap:14px;margin-top:14px;align-items:start;">
             <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;padding:16px 18px;">
               <div style="display:flex;align-items:center;gap:10px;">
-                <span style="font-size:14.5px;font-weight:800;">Расход и зоны влияния кампаний · 14 дней</span>
+                <span style="font-size:14.5px;font-weight:800;">{{ adsChartTitle }}</span>
                 <span style="margin-left:auto;display:flex;align-items:center;gap:5px;font-size:10.5px;color:#8C968E;"><span style="width:10px;height:10px;background:#1B8A57;border-radius:3px;display:inline-block;"></span>расход, тыс ₽</span>
                 <span style="display:flex;align-items:center;gap:5px;font-size:10.5px;color:#8C968E;"><span style="width:10px;height:10px;background:#17231C;border-radius:50%;display:inline-block;"></span>заказы</span>
               </div>
@@ -861,7 +865,7 @@
           <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;margin-top:14px;overflow:auto;">
             <div style="min-width:1240px;">
               <div style="display:grid;grid-template-columns:230px 84px 90px 62px 62px 70px 92px 86px 66px 110px 120px 130px;align-items:center;padding:11px 16px;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#8C968E;">
-                <span>Кампания</span><span>Расход 7д</span><span>Показы</span><span>CTR</span><span>CPC</span><span>Заказы</span><span>CPO / BE</span><span>ДРР</span><span>ROAS</span><span>Прибыль после</span><span>Бюджет</span><span>Вердикт Марка</span>
+                <span>Кампания</span><span>{{ adsSpendHead }}</span><span>Показы</span><span>CTR</span><span>CPC</span><span>Заказы</span><span>CPO / BE</span><span>ДРР</span><span>ROAS</span><span>Прибыль после</span><span>Бюджет</span><span style="position:sticky;right:0;background:#F7FAF7;padding:11px 0 11px 8px;box-shadow:-10px 0 14px -14px rgba(23,35,28,.45);">Вердикт Марка</span>
               </div>
               <sc-for list="{{ adRows }}" as="r" hint-placeholder-count="6">
                 <div style="display:grid;grid-template-columns:230px 84px 90px 62px 62px 70px 92px 86px 66px 110px 120px 130px;align-items:center;padding:11px 16px;border-top:1px solid rgba(23,35,28,.06);">
@@ -885,7 +889,7 @@
                     <div style="{{ r.numSt }}">{{ r.budget }}</div>
                     <div style="{{ r.burnSt }}">{{ r.burn }}</div>
                   </div>
-                  <div onClick="{{ r.act }}" style="{{ r.verdictSt }}" style-hover="filter:brightness(.96)">{{ r.verdict }}</div>
+                  <div style="position:sticky;right:0;background:#fff;padding:5px 0 5px 8px;box-shadow:-10px 0 14px -14px rgba(23,35,28,.45);"><div onClick="{{ r.act }}" style="{{ r.verdictSt }}" style-hover="filter:brightness(.96)">{{ r.verdict }}</div></div>
                 </div>
               </sc-for>
             </div>
@@ -988,6 +992,29 @@
                 <div style="display:flex;align-items:flex-start;gap:9px;margin-top:12px;border:1px solid rgba(23,35,28,.09);border-radius:11px;background:#F8FAF8;padding:10px 12px;">
                   <span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">rule</span>
                   <div style="font-size:11px;line-height:1.48;color:#526057;"><b style="color:#26372D;">Метод:</b> {{ externalMethod }}<br><span style="color:#7A857C;">{{ externalExcluded }}</span></div>
+                </div>
+
+                <div class="ads360-ai">
+                  <div style="position:relative;z-index:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7FC59E;"><span style="font-family:'Material Symbols Rounded';font-size:15px;">auto_awesome</span>Разбор Марка · по доказательствам</div>
+                    <div style="font-size:14px;font-weight:820;color:#fff;margin-top:7px;">{{ externalAiTitle }}</div>
+                    <div style="font-size:11px;line-height:1.5;color:#BFD2C5;margin-top:4px;">{{ externalAiText }}</div>
+                    <div style="display:flex;flex-direction:column;gap:5px;margin-top:10px;">
+                      <sc-for list="{{ externalAiFactors }}" as="f" hint-placeholder-count="3">
+                        <div class="ads360-ai-factor"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:{{ f.color }};flex:none;">{{ f.icon }}</span><span>{{ f.text }}</span></div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div class="ads360-ai-action">
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8.8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#7FC59E;">Сценарий под guardrail</div>
+                    <div style="font-size:12.5px;font-weight:800;color:#fff;margin-top:6px;">{{ externalAiAction }}</div>
+                    <div style="display:flex;align-items:flex-end;gap:8px;margin-top:9px;">
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:#fff;">{{ externalAiOutcome }}</span>
+                      <span style="font-size:9.5px;color:#9FB6A8;padding-bottom:2px;">{{ externalAiOutcomeSub }}</span>
+                    </div>
+                    <div style="font-size:9.5px;line-height:1.42;color:#9FB6A8;margin-top:7px;">{{ externalAiGuard }}</div>
+                    <button type="button" onClick="{{ externalAiPrepare }}" style="{{ externalAiButtonSt }}">{{ externalAiButton }}</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2023,6 +2050,8 @@ class Component extends DCLogic {
       periodChips: periods.map(p => ({ label:p.label, go:()=>this.setState({period:p.id}),
         st:`padding:6px 12px;border-radius:8px;font-size:12px;font-weight:650;cursor:pointer;transition:all .12s;${st.period===p.id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':'color:#5A665D;'}` })),
       periodLabel: (periods.find(p=>p.id===st.period)||{}).label || '',
+      periodBarSt:st.screen==='ads'&&st.adsView==='external'?'display:none;':'display:flex;background:#E7ECE7;border-radius:10px;padding:3px;gap:2px;',
+      sourceFresh:st.screen==='ads'&&st.adsView==='external'?'WB + внешние · 07:42':'WB · 07:42',
       openChat: ()=>this.setState({chatOpen:true}),
       searchQ: st.searchQ,
       searchInput: (e)=>this.setState({searchQ:e.target.value}),
@@ -2811,9 +2840,11 @@ class Component extends DCLogic {
     const M = this.M, st = this.state;
     if (!M) return { adSummary:[], adsBars:[], adsZones:[], adGuards:[], adRows:[], adsTabs:[], externalSummary:[], externalRows:[], externalMetrics:[], externalSkus:[], externalDraftSkus:[], externalTrackingOptions:[], externalChannels:[] };
     const C = M.CAMPAIGNS;
-    const spend = C.reduce((s,c)=>s+c.spend,0);
-    const profitAfter = C.reduce((s,c)=>s+c.profitAfter,0);
-    const drrAvg = 12.8;
+    const periodMeta = { '1d':{label:'Сегодня',short:'сегодня',factor:1/7}, '7d':{label:'7 дней',short:'7д',factor:1}, '30d':{label:'30 дней',short:'30д',factor:30/7}, '90d':{label:'90 дней',short:'90д',factor:90/7} }[st.period] || {label:'7 дней',short:'7д',factor:1};
+    const spend = C.reduce((s,c)=>s+c.spend,0)*periodMeta.factor;
+    const profitAfter = C.reduce((s,c)=>s+c.profitAfter,0)*periodMeta.factor;
+    const attributedRevenue = C.reduce((s,c)=>s+(c.drr>0?c.spend/(c.drr/100):0),0);
+    const drrAvg = attributedRevenue ? C.reduce((s,c)=>s+c.spend,0)/attributedRevenue*100 : 0;
     const numSt = `font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:650;`;
     const dimSt = `font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A857C;`;
     const maxSpend = Math.max(...M.ADS_DAILY.map(d=>d.spend));
@@ -2871,6 +2902,18 @@ class Component extends DCLogic {
       this.setState(s=>({externalCampaigns:[created,...s.externalCampaigns],externalSelected:id,externalOpen:false,adsView:'external',externalDraft:defaultDraft()}));
       this.toast('Кампания добавлена — baseline и экономика рассчитаны');
     };
+    const externalUplift = selectedExternal.baselineBuyouts ? selectedExternal.incrementalBuyouts/selectedExternal.baselineBuyouts*100 : 0;
+    const canScaleExternal = selectedExternal.verdict==='scale' && selectedExternal.confidence>=70 && selectedExternal.romi>15;
+    const scenarioDelta = Math.round(selectedExternal.budget*.2/1000)*1000;
+    const scenarioProfit = Math.round(selectedExternal.profitAfter+(canScaleExternal?scenarioDelta*Math.max(.12,selectedExternal.romi/100*.72):Math.abs(selectedExternal.spend)));
+    const externalSent = st.approvals.some(a=>a.sourceId===selectedExternal.id);
+    const prepareExternal = () => {
+      if(externalSent){ this.setState({screen:'apps',apTab:'actions'}); return; }
+      const scale = canScaleExternal;
+      const approval = {id:'ap'+Date.now(),sourceId:selectedExternal.id,type:'Внешняя реклама',icon:'campaign',title:scale?`Бюджет «${selectedExternal.name}»: +20%`:`Не перезапускать «${selectedExternal.name}»`,by:'Марк → Елена',when:'сегодня, только что',status:'pending',statusNote:'ждёт подтверждения',before:`${M.fmtR(selectedExternal.spend)} · прибыль ${M.fmtSR(selectedExternal.profitAfter)}`,after:scale?`${M.fmtR(selectedExternal.budget+scenarioDelta)} · прогноз прибыли ${M.fmtSR(scenarioProfit)}`:'Бюджет 0 ₽ · вывод сохранён в медиаплане',limit:scale?'Автостоп: ROMI < 15% или уверенность < 70%':'Повторный запуск только после нового baseline',factDate:'',fact:''};
+      this.setState(s=>({approvals:[approval,...s.approvals]}));
+      this.toast('Решение по внешней рекламе отправлено в Центр подтверждений');
+    };
     return {
       adsTabs: [
         {label:'Реклама WB',badge:String(C.length),selected:st.adsView==='wb',go:()=>this.setState({adsView:'wb'}),st:st.adsView==='wb'?'background:#fff;color:#17231C;box-shadow:0 2px 8px rgba(0,0,0,.14);':'',badgeSt:`margin-left:5px;font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.7;`},
@@ -2878,11 +2921,12 @@ class Component extends DCLogic {
       ],
       adsIsWB:st.adsView==='wb', adsIsExternal:st.adsView==='external',
       adsNewExternal:()=>this.setState({externalOpen:true,externalDraft:defaultDraft()}),
+      adsChartTitle:'Динамика расхода и заказов · последние 14 дней', adsSpendHead:'Расход '+periodMeta.short,
       adSummary: [
-        { k:'Расход · 7 дней', v:M.fmtR(spend), sub:'6 кампаний · бюджет под guardrails', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;` },
+        { k:'Расход · '+periodMeta.label.toLowerCase(), v:M.fmtR(spend), sub:C.length+' кампаний · срез выбранного периода', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;` },
         { k:'Прибыль после рекламы', v:M.fmtSR(profitAfter), sub:'маржа выкупов − расход', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;color:#13693F;` },
         { k:'Средний ДРР', v:M.pct(drrAvg), sub:'guardrail: не выше 15%', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;` },
-        { k:'Требуют действия', v:'3 кампании', sub:'минус, burn rate, конфликт остатков', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;color:#B0432F;` },
+        { k:'Требуют действия', v:C.filter(c=>['fix','stop','limit','conflict'].includes(c.verdict)).length+' кампании', sub:'минус, burn rate, конфликт остатков', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;color:#B0432F;` },
       ],
       adsBars: M.ADS_DAILY.map((d,i) => ({
         d:d.d, orders:String(d.orders), title:`${d.d} июл: ${d.spend} тыс ₽ · ${d.orders} заказов`,
@@ -2905,11 +2949,11 @@ class Component extends DCLogic {
         return {
           name:c.name, sub:c.type+' · '+c.skus.map(id=>{const p=M.byId(id);return p?p.mono:''}).join(', ')+(c.note?' · '+c.note:''),
           dotSt:`width:8px;height:8px;border-radius:50%;flex:none;background:${c.status==='burn'?'#B5751A':c.profitAfter<0?'#B0432F':'#1B8A57'};${c.status==='burn'?'animation:blink 1.2s infinite;':''}`,
-          spend:M.fmtN(c.spend)+' ₽', views:M.fmtN(c.views/1000)+'т', ctr:M.pct(c.ctr,1), cpc:c.cpc.toFixed(1).replace('.',',')+' ₽',
-          orders:M.fmtN(c.orders), cpo:M.fmtN(c.cpo)+' / '+(c.beCpo?M.fmtN(c.beCpo):'—'),
+          spend:M.fmtN(c.spend*periodMeta.factor)+' ₽', views:M.fmtN(c.views*periodMeta.factor/1000)+'т', ctr:M.pct(c.ctr,1), cpc:c.cpc.toFixed(1).replace('.',',')+' ₽',
+          orders:M.fmtN(c.orders*periodMeta.factor), cpo:M.fmtN(c.cpo)+' / '+(c.beCpo?M.fmtN(c.beCpo):'—'),
           drr:M.pct(c.drr,1), drrSt:`font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${c.drr>15?'#B0432F':'#13693F'};`,
           roas:c.roas.toFixed(1).replace('.',','),
-          profit:M.fmtSR(c.profitAfter), profitSt:`font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;color:${c.profitAfter<0?'#B0432F':'#13693F'};`,
+          profit:M.fmtSR(c.profitAfter*periodMeta.factor), profitSt:`font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;color:${c.profitAfter<0?'#B0432F':'#13693F'};`,
           budget:M.fmtN(c.budgetLeft)+' ₽', burn:c.burn||'остаток', burnSt:`font-size:10px;${c.burn?'color:#B0432F;font-weight:700;':'color:#8C968E;'}`,
           verdict:c.verdictLabel, verdictSt:`text-align:center;background:${bg};color:${fg};border-radius:8px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;`,
           act:()=>{ if(c.eventId) this.setState({eventOpen:c.eventId}); else this.toast('«'+c.name+'»: '+c.verdictLabel+' — действие подготовлено, отправлено в Центр подтверждений'); },
@@ -2920,7 +2964,7 @@ class Component extends DCLogic {
         {k:'Внешний расход',v:M.fmtR(extSpend),sub:external.length+' кампании в измерении',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;`},
         {k:'Оценённая прибыль',v:M.fmtSR(extProfit),sub:'инкрементальная маржа − расход',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;color:${extProfit>=0?'#13693F':'#B0432F'};`},
         {k:'Уверенность',v:avgConfidence+'%',sub:'метод и чистота окна',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;color:#13693F;`},
-        {k:'Решение',v:external.filter(c=>c.verdict==='scale').length+' масштабировать',sub:external.filter(c=>c.verdict!=='scale').length+' не окупается',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;`},
+        {k:'Решение',v:external.filter(c=>c.verdict==='scale').length+' к росту',sub:external.filter(c=>c.verdict!=='scale').length+' не окупается',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;`},
       ],
       externalCount:external.length+' кампании',
       externalRows:external.map(c=>{const active=c.id===selectedExternal.id;return {name:c.name,icon:c.channelIcon||'campaign',period:c.start+' — '+c.end,profit:M.fmtSR(c.profitAfter),confidence:'уверенность '+c.confidence+'%',skus:c.skus.length+' SKU',selected:active,open:()=>this.setState({externalSelected:c.id}),st:active?'background:#EDF5F0;box-shadow:inset 3px 0 0 #1B8A57;':'',dotSt:`width:7px;height:7px;border-radius:50%;background:${c.status==='active'?'#1B8A57':'#AAB5AD'};flex:none;`,profitSt:`font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:750;color:${c.profitAfter>=0?'#13693F':'#B0432F'};`};}),
@@ -2936,6 +2980,19 @@ class Component extends DCLogic {
         {k:'ROMI',v:(selectedExternal.romi>0?'+':'')+selectedExternal.romi.toFixed(1).replace('.',',')+'%',sub:'прибыль / расход',vSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;margin-top:4px;color:${selectedExternal.romi>=0?'#13693F':'#B0432F'};`},
       ],
       externalMethod:selectedExternal.tracking+' + сопоставимый baseline по дням недели.', externalExcluded:selectedExternal.excluded,
+      externalAiTitle:selectedExternal.verdictLabel,
+      externalAiText:selectedExternal.verdictDetail,
+      externalAiFactors:[
+        {icon:'trending_up',color:'#7FC59E',text:`Факт выше baseline на ${externalUplift.toFixed(0)}%: +${M.fmtN(selectedExternal.incrementalBuyouts)} оценённых выкупов.`},
+        {icon:'account_tree',color:'#88BFD1',text:`Связь: ${selectedExternal.tracking}; уверенность ${selectedExternal.confidence}%.`},
+        {icon:'filter_alt',color:'#E6BD72',text:selectedExternal.excluded+'.'},
+      ],
+      externalAiAction:canScaleExternal?'Увеличить бюджет на 20%':'Не увеличивать и сохранить вывод',
+      externalAiOutcome:canScaleExternal?M.fmtSR(scenarioProfit):M.fmtR(selectedExternal.spend),
+      externalAiOutcomeSub:canScaleExternal?'прогноз прибыли':'не тратить повторно',
+      externalAiGuard:canScaleExternal?`Новый бюджет ${M.fmtR(selectedExternal.budget+scenarioDelta)} · автостоп при ROMI < 15% или уверенности < 70%.`:'Повторный запуск — только с новой аудиторией и отдельным baseline.',
+      externalAiPrepare:prepareExternal,externalAiButton:externalSent?'Открыть в подтверждениях':canScaleExternal?'В центр подтверждений →':'Зафиксировать решение →',
+      externalAiButtonSt:`appearance:none;width:100%;border:0;border-radius:9px;margin-top:10px;padding:9px 10px;background:${externalSent?'rgba(255,255,255,.12)':'#7FC59E'};color:${externalSent?'#D8E8DD':'#0E2C1F'};font-family:'Onest',sans-serif;font-size:11px;font-weight:800;cursor:pointer;`,
       externalOpen:st.externalOpen, externalClose:()=>this.setState({externalOpen:false}),
       externalDraftName:draft.name,externalDraftChannel:draft.channel,externalDraftStart:draft.start,externalDraftEnd:draft.end,externalDraftBudget:draft.budget,
       externalNameChange:e=>updateDraft({name:e.target.value}),externalChannelChange:e=>updateDraft({channel:e.target.value}),externalStartChange:e=>updateDraft({start:e.target.value}),externalEndChange:e=>updateDraft({end:e.target.value}),externalBudgetChange:e=>updateDraft({budget:e.target.value}),
