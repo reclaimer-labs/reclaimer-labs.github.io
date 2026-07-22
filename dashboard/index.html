@@ -29,6 +29,29 @@
     @keyframes toastin{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
     @keyframes typebounce{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-3px);opacity:1}}
+    .fin-btn{appearance:none;border:1px solid rgba(23,35,28,.12);background:#fff;color:#5A665D;border-radius:9px;padding:8px 11px;font-family:'Onest',sans-serif;font-size:12px;font-weight:700;line-height:1;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:border-color .14s,background .14s,color .14s,transform .14s;}
+    .fin-btn:hover{border-color:rgba(27,138,87,.58);color:#13693F;background:#F8FBF8;}
+    .fin-btn:active{transform:translateY(1px);}
+    .fin-btn:focus-visible,.fin-select:focus-visible,.fin-input:focus-visible{outline:3px solid rgba(27,138,87,.20);outline-offset:2px;}
+    .fin-btn--primary{background:#1B8A57;border-color:#1B8A57;color:#fff;}
+    .fin-btn--primary:hover{background:#177A4D;color:#fff;border-color:#177A4D;}
+    .fin-btn--soft{background:#DFEEE5;border-color:rgba(27,138,87,.34);color:#13693F;}
+    .fin-workbench{position:relative;background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:15px;box-shadow:0 12px 34px -30px rgba(14,44,31,.55);overflow:hidden;}
+    .fin-workbench__row{display:flex;align-items:center;gap:8px;padding:10px 12px;min-height:48px;}
+    .fin-workbench__row+.fin-workbench__row{border-top:1px solid rgba(23,35,28,.07);}
+    .fin-kicker{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;color:#8C968E;text-transform:uppercase;white-space:nowrap;}
+    .fin-view-menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;background:#F7FAF7;border-top:1px solid rgba(23,35,28,.07);animation:fadein .16s ease-out;}
+    .fin-view-card{appearance:none;text-align:left;border:1px solid rgba(23,35,28,.10);background:#fff;border-radius:11px;padding:10px 11px;font-family:'Onest',sans-serif;color:#17231C;cursor:pointer;min-width:0;}
+    .fin-view-card:hover{border-color:#1B8A57;background:#FBFDFB;}
+    .fin-condition{display:inline-flex;align-items:center;gap:6px;background:#EDF5F0;border:1px solid rgba(27,138,87,.24);border-radius:8px;padding:6px 7px 6px 9px;color:#13492F;font-size:11.5px;font-weight:650;}
+    .fin-condition__remove{appearance:none;border:0;background:transparent;color:#5F7969;width:18px;height:18px;border-radius:5px;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Material Symbols Rounded';font-size:14px;}
+    .fin-condition__remove:hover{background:#D4E8DC;color:#0E2C1F;}
+    .fin-builder{display:grid;grid-template-columns:minmax(180px,1fr) minmax(160px,.85fr) minmax(280px,1.7fr) auto;gap:10px;align-items:end;padding:12px;background:#F7FAF7;border-top:1px solid rgba(23,35,28,.08);animation:fadein .16s ease-out;}
+    .fin-field{display:flex;flex-direction:column;gap:6px;min-width:0;}
+    .fin-select,.fin-input{width:100%;border:1px solid rgba(23,35,28,.13);border-radius:9px;background:#fff;color:#17231C;padding:8px 10px;font-family:'Onest',sans-serif;font-size:12px;min-height:34px;}
+    .fin-option-list{display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-height:34px;}
+    .fin-empty{display:flex;align-items:center;justify-content:center;gap:10px;min-height:180px;padding:28px;color:#7A857C;text-align:center;}
+    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}}
   </style>
 </helmet>
 
@@ -324,60 +347,137 @@
 
       <!-- ============ ФИНАНСОВЫЙ ЦЕНТР ============ -->
       <sc-if value="{{ isFin }}" hint-placeholder-val="{{ false }}">
-        <section data-screen-label="Финансовый центр" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
-          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;">
+        <section data-screen-label="Финансовый центр" style="padding:18px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <div style="display:flex;align-items:flex-start;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-bottom:11px;">
             <div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:15px;font-weight:800;">Рабочее представление</span>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#13693F;background:#DFEEE5;border-radius:6px;padding:3px 7px;">{{ finPeriod }}</span>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span style="font-size:15px;font-weight:800;">Финансовая витрина</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#13693F;background:#DFEEE5;border-radius:6px;padding:3px 7px;">{{ finPeriod }}</span>
+                <span style="{{ finDataStatusSt }}">{{ finDataStatus }}</span>
               </div>
-              <div style="font-size:11.5px;color:#7A857C;margin-top:3px;">Состав показателей меняется без потери текущей выборки</div>
+              <div style="font-size:11.5px;color:#7A857C;margin-top:3px;">Один запрос управляет выборкой, группировкой, показателями и экспортом</div>
             </div>
             <div style="display:flex;align-items:center;gap:7px;">
-              <div onClick="{{ finFiltersToggle }}" style="{{ finFiltersToggleSt }}" style-hover="border-color:#1B8A57;color:#13693F">
-                <span style="font-family:'Material Symbols Rounded';font-size:16px;">tune</span>{{ finFiltersLabel }}
-              </div>
-              <div onClick="{{ finReset }}" style="display:flex;align-items:center;gap:5px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 11px;font-size:12px;font-weight:700;color:#5A665D;cursor:pointer;" style-hover="background:#F4F8F4">
-                <span style="font-family:'Material Symbols Rounded';font-size:15px;">restart_alt</span>Сбросить
-              </div>
-              <div onClick="{{ finExport }}" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:700;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">
+              <button type="button" onClick="{{ finReset }}" class="fin-btn" title="Очистить поиск, условия и вернуть базовое представление">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">restart_alt</span>Сбросить всё
+              </button>
+              <button type="button" onClick="{{ finExport }}" class="fin-btn">
                 <span style="font-family:'Material Symbols Rounded';font-size:15px;">download</span>Экспорт XLSX
-              </div>
+              </button>
             </div>
           </div>
 
-          <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;background:#F4F7F4;border:1px solid rgba(23,35,28,.08);padding:5px;border-radius:11px;">
-            <sc-for list="{{ finViewTabs }}" as="tab" hint-placeholder-count="4">
-              <div onClick="{{ tab.go }}" style="{{ tab.st }}" style-hover="color:#13693F">{{ tab.label }}</div>
-            </sc-for>
-            <div style="height:18px;width:1px;background:rgba(23,35,28,.12);margin:0 3px;"></div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;padding:0 5px;">ГРУППИРОВКА</span>
-            <sc-for list="{{ finGroupChips }}" as="g" hint-placeholder-count="5">
-              <div onClick="{{ g.go }}" style="{{ g.st }}">{{ g.label }}</div>
-            </sc-for>
-          </div>
+          <div class="fin-workbench">
+            <div class="fin-workbench__row" style="flex-wrap:wrap;">
+              <span class="fin-kicker">Представление</span>
+              <button type="button" onClick="{{ finViewsToggle }}" class="fin-btn fin-btn--soft" aria-expanded="{{ finViewsOpen }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">view_quilt</span>{{ finCurrentView }}
+                <span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ finViewsIcon }}</span>
+              </button>
+              <button type="button" onClick="{{ finSaveToggle }}" class="fin-btn" title="Сохранить текущие условия, группировку и показатели">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">bookmark_add</span>Сохранить
+              </button>
+              <span style="flex:1;"></span>
+              <span class="fin-kicker">Данные</span>
+              <div style="display:flex;align-items:center;background:#F0F4F1;border-radius:9px;padding:3px;gap:2px;">
+                <sc-for list="{{ finDataModes }}" as="mode" hint-placeholder-count="2">
+                  <button type="button" onClick="{{ mode.go }}" style="{{ mode.st }}">{{ mode.label }}</button>
+                </sc-for>
+              </div>
+            </div>
 
-          <sc-if value="{{ finFiltersOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;background:#fff;border:1px solid rgba(23,35,28,.11);border-radius:13px;padding:12px 14px;margin-top:10px;box-shadow:0 7px 20px rgba(23,35,28,.05);">
-              <sc-for list="{{ finFilterSets }}" as="set" hint-placeholder-count="6">
-                <div style="min-width:0;">
-                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;color:#8C968E;margin:2px 0 7px;text-transform:uppercase;">{{ set.label }}</div>
-                  <div style="display:flex;gap:5px;flex-wrap:wrap;">
-                    <sc-for list="{{ set.items }}" as="item" hint-placeholder-count="4">
-                      <div onClick="{{ item.go }}" style="{{ item.st }}" style-hover="border-color:#1B8A57;color:#13693F">{{ item.label }}</div>
-                    </sc-for>
-                  </div>
-                </div>
+            <sc-if value="{{ finViewsOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="fin-view-menu">
+                <sc-for list="{{ finSavedViews }}" as="view" hint-placeholder-count="6">
+                  <button type="button" onClick="{{ view.go }}" class="fin-view-card" style="{{ view.st }}">
+                    <div style="display:flex;align-items:center;gap:7px;">
+                      <span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">{{ view.icon }}</span>
+                      <span style="font-size:12.5px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ view.label }}</span>
+                      <span style="{{ view.markSt }}">check</span>
+                    </div>
+                    <div style="font-size:10.5px;color:#7A857C;line-height:1.35;margin-top:4px;">{{ view.desc }}</div>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ finSaveOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="fin-workbench__row" style="background:#F7FAF7;">
+                <span class="fin-kicker">Новое представление</span>
+                <input onChange="{{ finViewNameChange }}" onKeyDown="{{ finViewNameKey }}" value="{{ finViewName }}" class="fin-input" placeholder="Например, Контроль маржи · Еженедельно" style="max-width:360px;">
+                <button type="button" onClick="{{ finSaveView }}" class="fin-btn fin-btn--primary">Сохранить</button>
+                <button type="button" onClick="{{ finSaveCancel }}" class="fin-btn">Отмена</button>
+              </div>
+            </sc-if>
+
+            <div class="fin-workbench__row" style="flex-wrap:wrap;background:#FBFCFB;">
+              <span class="fin-kicker">Показатели</span>
+              <sc-for list="{{ finViewTabs }}" as="tab" hint-placeholder-count="4">
+                <button type="button" onClick="{{ tab.go }}" style="{{ tab.st }}">{{ tab.label }}</button>
+              </sc-for>
+              <span style="height:18px;width:1px;background:rgba(23,35,28,.12);margin:0 3px;"></span>
+              <span class="fin-kicker">Группировка</span>
+              <sc-for list="{{ finGroupChips }}" as="g" hint-placeholder-count="5">
+                <button type="button" onClick="{{ g.go }}" style="{{ g.st }}">{{ g.label }}</button>
               </sc-for>
             </div>
-          </sc-if>
 
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:11px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#8C968E;margin-right:2px;">БЫСТРЫЙ АНАЛИЗ</span>
-            <sc-for list="{{ finPresets }}" as="p" hint-placeholder-count="8">
-              <div onClick="{{ p.go }}" style="{{ p.st }}" style-hover="border-color:#1B8A57;color:#13693F">{{ p.label }}</div>
-            </sc-for>
+            <div class="fin-workbench__row" style="align-items:flex-start;flex-wrap:wrap;">
+              <span class="fin-kicker" style="padding-top:7px;">Условия</span>
+              <sc-if value="{{ finHasConditions }}" hint-placeholder-val="{{ false }}">
+                <sc-for list="{{ finConditionChips }}" as="condition" hint-placeholder-count="3">
+                  <span class="fin-condition">
+                    {{ condition.label }}
+                    <button type="button" onClick="{{ condition.remove }}" class="fin-condition__remove" title="Удалить условие">close</button>
+                  </span>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ finNoConditions }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11.5px;color:#8C968E;padding:6px 2px;">Нет условий · показана вся витрина</span>
+              </sc-if>
+              <button type="button" onClick="{{ finFiltersToggle }}" class="fin-btn" style="padding:7px 9px;">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">add</span>Условие
+              </button>
+              <button type="button" onClick="{{ finClearConditions }}" style="{{ finClearConditionsSt }}">Очистить условия</button>
+              <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7A857C;padding-top:7px;">AND между условиями · OR внутри списка</span>
+            </div>
+
+            <sc-if value="{{ finFiltersOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="fin-builder">
+                <label class="fin-field">
+                  <span class="fin-kicker">Поле</span>
+                  <select onChange="{{ finDraftFieldChange }}" value="{{ finDraftField }}" class="fin-select">
+                    <sc-for list="{{ finFilterFields }}" as="field" hint-placeholder-count="8">
+                      <option value="{{ field.id }}">{{ field.label }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+                <label class="fin-field">
+                  <span class="fin-kicker">Условие</span>
+                  <select onChange="{{ finDraftOpChange }}" value="{{ finDraftOp }}" class="fin-select">
+                    <sc-for list="{{ finDraftOps }}" as="op" hint-placeholder-count="4">
+                      <option value="{{ op.id }}">{{ op.label }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+                <div class="fin-field fin-builder__value">
+                  <span class="fin-kicker">Значение</span>
+                  <sc-if value="{{ finDraftIsEnum }}" hint-placeholder-val="{{ true }}">
+                    <div class="fin-option-list">
+                      <sc-for list="{{ finDraftOptions }}" as="option" hint-placeholder-count="6">
+                        <button type="button" onClick="{{ option.go }}" style="{{ option.st }}">{{ option.label }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ finDraftIsNumber }}" hint-placeholder-val="{{ false }}">
+                    <input type="number" onChange="{{ finDraftNumberChange }}" onKeyDown="{{ finDraftNumberKey }}" value="{{ finDraftNumber }}" class="fin-input" placeholder="Введите число">
+                  </sc-if>
+                </div>
+                <button type="button" onClick="{{ finAddCondition }}" class="fin-btn fin-btn--primary fin-builder__action" style="min-height:34px;">Добавить</button>
+              </div>
+            </sc-if>
           </div>
+
           <div style="display:flex;align-items:center;gap:8px;margin-top:10px;background:#DFEEE5;border-radius:10px;padding:8px 13px;font-size:12.5px;color:#13492F;">
             <span style="font-family:'Material Symbols Rounded';font-size:15px;color:#13693F;">tips_and_updates</span>
             <span><b>Марк:</b> {{ finNote }}</span>
@@ -1471,6 +1571,8 @@ class Component extends DCLogic {
     chatOpen:false, chatMsgs:[], chatTyping:false, chatInput:'',
     drill:null, drillTab:'eco',
     finPreset:'all', finGroup:'sku', finSort:{key:'profit',dir:-1}, finQ:'', finView:'profit', finFiltersOpen:false,
+    finSavedView:'unit', finViewsOpen:false, finSaveOpen:false, finViewName:'', finCustomViews:[], finDataMode:'closed',
+    finConditions:[], finDraftField:'margin', finDraftOp:'lt', finDraftValues:[], finDraftNumber:'15',
     finCat:'all', finAbc:'all', finXyz:'all', finHealth:'all', finStock:'all', finPrice:'all',
     peSel:{'p10':true,'p11':true}, pePreview:false,
     approvals:[], apFilter:'all', apTab:'actions', apModes:{},
@@ -1483,7 +1585,9 @@ class Component extends DCLogic {
   componentDidMount() {
     import('./data.js').then(m => {
       this.M = m;
-      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})) });
+      let finCustomViews=[];
+      try { finCustomViews=JSON.parse(localStorage.getItem('marginpilot.finViews')||'[]'); } catch(e) { finCustomViews=[]; }
+      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})), finCustomViews:Array.isArray(finCustomViews)?finCustomViews:[] });
       const start = this.props.startScreen;
       const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','Подтверждения':'apps','Настройки':'set'};
       if (start && map[start]) this.setState({ screen: map[start] });
@@ -1598,7 +1702,7 @@ class Component extends DCLogic {
       openChat: ()=>this.setState({chatOpen:true}),
       searchQ: st.searchQ,
       searchInput: (e)=>this.setState({searchQ:e.target.value}),
-      searchKey: (e)=>{ if(e.key==='Enter'){ this.setState({screen:'fin', finQ:st.searchQ, finPreset:'all'}); } },
+      searchKey: (e)=>{ if(e.key==='Enter'){ this.setState({screen:'fin', finQ:st.searchQ, finSavedView:'custom', finViewsOpen:false}); } },
       stopProp: (e)=>e.stopPropagation(),
       toasts: st.toasts,
       isHome: st.screen==='home', isFin: st.screen==='fin', isPrices: st.screen==='prices', isAds: st.screen==='ads',
@@ -1869,35 +1973,38 @@ class Component extends DCLogic {
   }
   finRowsNew() {
     const M=this.M, st=this.state, q=(st.finQ||'').toLowerCase().trim();
-    const presets={
-      all:[()=>true,'Полная витрина: меняйте разрез, фильтры и сортировку — карточка товара сохранит весь контекст расчёта.'],
-      abc:[p=>p.abc==='A'&&p.xyz==='X','ABC/XYZ: стабильные лидеры A/X. Это ядро спроса — здесь контролируют цену, наличие и план оборота.'],
-      loss:[p=>p.profitU<=0||p.margin<8,'Убыточные и слабомаржинальные SKU. Начните с «Топ Ася»: каждый выкуп приносит минус.'],
-      unsafe:[p=>p.priceFlag!=='ok','Цена ниже безопасной при целевой марже 15%. Обе позиции попали в автоакцию WB — действие уже подготовлено.'],
-      ads:[p=>p.ad>=120||p.profitU<=0,'SKU, где реклама заметно влияет на экономику. Сопоставьте расход, прибыль и безопасную цену.'],
-      oos:[p=>p.daysOOS<=14,'Остатка меньше чем на 14 дней. «Дени» — критично: поставка должна уйти до 14 июля.'],
-      excess:[p=>p.daysOOS>60,'Сток больше чем на 60 дней: деньги заморожены, а хранение продолжает уменьшать маржу.'],
-      returns:[p=>p.buyout<32||p.fine,'Слабый выкуп и удержания WB. Проверьте размерную сетку, возвратную логистику и детализацию выплат.'],
+    const period=M.PERIODS.find(p=>p.id===st.period)||M.PERIODS[1], f=period.f;
+    const fieldValue=(p,key)=>({
+      cat:p.cat,abc:p.abc,xyz:p.xyz,priceStatus:p.priceFlag,
+      margin:p.margin,profit:p.profit30*f,revenue:p.rev30*f,buyout:p.buyout,days:p.daysOOS,
+      ad:p.sold30*p.ad*f,stock:p.stockT,orders:p.oD*30*f,cost:p.cost,
+    })[key];
+    const matches=(p,c)=>{
+      const actual=fieldValue(p,c.field);
+      if(c.type==='enum'){
+        const values=Array.isArray(c.values)?c.values:[];
+        return c.op==='notIn' ? !values.includes(actual) : values.includes(actual);
+      }
+      const target=Number(c.value), value=Number(actual);
+      if(!Number.isFinite(target)||!Number.isFinite(value)) return false;
+      if(c.op==='lt') return value<target;
+      if(c.op==='lte') return value<=target;
+      if(c.op==='gt') return value>target;
+      if(c.op==='gte') return value>=target;
+      return value===target;
     };
-    const preset=presets[st.finPreset]||presets.all;
-    let rows=M.PRODUCTS.filter(preset[0]);
+    const conditions=Array.isArray(st.finConditions)?st.finConditions:[];
+    let rows=M.PRODUCTS.filter(p=>conditions.every(c=>matches(p,c)));
     if(q) rows=rows.filter(p=>(p.name+' '+p.nm+' '+p.code+' '+p.bc+' '+p.cat+' '+p.sizes).toLowerCase().includes(q));
-    if(st.finCat!=='all') rows=rows.filter(p=>p.cat===st.finCat);
-    if(st.finAbc!=='all') rows=rows.filter(p=>p.abc===st.finAbc);
-    if(st.finXyz!=='all') rows=rows.filter(p=>p.xyz===st.finXyz);
-    if(st.finHealth==='loss') rows=rows.filter(p=>p.profitU<=0);
-    if(st.finHealth==='weak') rows=rows.filter(p=>p.profitU>0&&(p.margin<15||p.priceFlag!=='ok'));
-    if(st.finHealth==='healthy') rows=rows.filter(p=>p.margin>=15&&p.priceFlag==='ok');
-    if(st.finStock==='oos') rows=rows.filter(p=>p.daysOOS<=14);
-    if(st.finStock==='excess') rows=rows.filter(p=>p.daysOOS>60);
-    if(st.finPrice==='unsafe') rows=rows.filter(p=>p.priceFlag!=='ok');
-    if(st.finPrice==='safe') rows=rows.filter(p=>p.priceFlag==='ok');
     rows.sort((a,b)=>{ const av=this.finMetricNew(a,st.finSort.key),bv=this.finMetricNew(b,st.finSort.key); return typeof av==='string' ? av.localeCompare(bv)*st.finSort.dir : (av-bv)*st.finSort.dir; });
-    return {rows,note:preset[1]};
+    const note=conditions.length
+      ? `В выборке ${rows.length} SKU по ${conditions.length} ${conditions.length===1?'условию':conditions.length<5?'условиям':'условиям'}. Все активные ограничения показаны выше таблицы.`
+      : 'Полная витрина: добавьте условия, смените показатели или сохраните рабочее представление.';
+    return {rows,note};
   }
   vFinNew() {
     const M=this.M, st=this.state;
-    if(!M) return {finPresets:[],finGroupChips:[],finViewTabs:[],finFilterSets:[],finSummary:[],finHeads:[],finGroups:[],finNote:'',finFiltersOpen:false};
+    if(!M) return {finSavedViews:[],finGroupChips:[],finViewTabs:[],finFilterFields:[],finDraftOps:[],finDraftOptions:[],finConditionChips:[],finDataModes:[],finSummary:[],finHeads:[],finGroups:[],finNote:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false};
     const {rows,note}=this.finRowsNew();
     const period=M.PERIODS.find(p=>p.id===st.period)||M.PERIODS[1], f=period.f;
     const views={
@@ -1905,6 +2012,61 @@ class Component extends DCLogic {
       returns:{label:'Возвраты и выплаты',heads:[['Заказы','orders',76],['Выкуплено','sold',84],['Возвраты','returns',84],['Возвраты ₽','returnsRub',100],['Комиссия','comm',98],['Логистика','logi',94],['Скидки','discount',96],['Штрафы','fine',88],['К выплате*','payout',112]]},
       price:{label:'Цены и маржа',heads:[['Базовая','base',92],['Цена WB','price',92],['Макс. скидка','maxDisc',100],['Break-even','breakEven',104],['Безопасная','safe',108],['Δ до safe','status',92],['Акция','discount',92],['Маржа','margin',78],['ROI','roi',68]]},
       stock:{label:'Остатки и динамика',heads:[['На складах','stock',92],['Денег в остатках','stockMoney',120],['До OOS','days',78],['Заказов / день','salesDay',108],['Динамика','trend',98],['ABC/XYZ','abcxyz',84],['Цена / safe','status',106],['Маржа','margin',78],['Прибыль','profit',105]]},
+    };
+    const enumValue=(value,label)=>({value,label});
+    const fieldDefs=[
+      {id:'cat',label:'Товар · Категория',type:'enum',options:Array.from(new Set(M.PRODUCTS.map(p=>p.cat))).map(v=>enumValue(v,v))},
+      {id:'abc',label:'Товар · ABC',type:'enum',options:['A','B','C'].map(v=>enumValue(v,v))},
+      {id:'xyz',label:'Товар · XYZ',type:'enum',options:['X','Y','Z'].map(v=>enumValue(v,v))},
+      {id:'priceStatus',label:'Экономика · Статус цены',type:'enum',options:[enumValue('ok','В лимите'),enumValue('unsafe','Ниже safe'),enumValue('loss','Ниже break-even')]},
+      {id:'margin',label:'Экономика · Маржа',type:'number',unit:'%'},
+      {id:'profit',label:'Экономика · Прибыль',type:'number',unit:'₽'},
+      {id:'revenue',label:'Экономика · Выручка',type:'number',unit:'₽'},
+      {id:'buyout',label:'Продажи · Выкуп',type:'number',unit:'%'},
+      {id:'orders',label:'Продажи · Заказы',type:'number',unit:'шт'},
+      {id:'ad',label:'Расходы · Реклама',type:'number',unit:'₽'},
+      {id:'cost',label:'Расходы · Себестоимость',type:'number',unit:'₽/шт'},
+      {id:'days',label:'Остатки · Дней до OOS',type:'number',unit:'дн'},
+      {id:'stock',label:'Остатки · Количество',type:'number',unit:'шт'},
+    ];
+    const defaultViews=[
+      {id:'unit',label:'Unit-экономика',icon:'calculate',desc:'Все SKU · прибыль и маржа',view:'profit',group:'sku',dataMode:'closed',conditions:[]},
+      {id:'leaks',label:'Утечки прибыли',icon:'crisis_alert',desc:'Маржа ниже 15% · по статусу',view:'profit',group:'health',dataMode:'closed',conditions:[{id:'view-leaks',field:'margin',type:'number',op:'lt',value:15}]},
+      {id:'leaders',label:'Лидеры A/X',icon:'workspace_premium',desc:'Стабильное ядро спроса',view:'profit',group:'cat',dataMode:'operational',conditions:[{id:'view-a',field:'abc',type:'enum',op:'in',values:['A']},{id:'view-x',field:'xyz',type:'enum',op:'in',values:['X']}]},
+      {id:'returns',label:'Возвраты',icon:'assignment_return',desc:'Выкуп ниже 35% · по категориям',view:'returns',group:'cat',dataMode:'closed',conditions:[{id:'view-returns',field:'buyout',type:'number',op:'lt',value:35}]},
+      {id:'oos',label:'Риск OOS',icon:'inventory',desc:'Остатка не больше 14 дней',view:'stock',group:'cat',dataMode:'operational',conditions:[{id:'view-oos',field:'days',type:'number',op:'lte',value:14}]},
+      {id:'reconcile',label:'Сверка WB',icon:'fact_check',desc:'Выплаты и удержания · закрытые данные',view:'returns',group:'cat',dataMode:'closed',conditions:[]},
+    ];
+    const customViews=(Array.isArray(st.finCustomViews)?st.finCustomViews:[]).map(v=>({...v,icon:v.icon||'bookmark',desc:v.desc||'Личное представление'}));
+    const savedViews=[...defaultViews,...customViews];
+    const applyView=(cfg)=>this.setState({
+      finSavedView:cfg.id,finView:cfg.view||'profit',finGroup:cfg.group||'sku',finDataMode:cfg.dataMode||'closed',
+      finConditions:(cfg.conditions||[]).map(c=>({...c})),finSort:{key:cfg.view==='stock'?'days':'profit',dir:cfg.view==='stock'?1:-1},
+      finViewsOpen:false,finSaveOpen:false,finFiltersOpen:false,finQ:'',searchQ:'',
+    });
+    const selectedField=fieldDefs.find(d=>d.id===st.finDraftField)||fieldDefs[4];
+    const enumOps=[{id:'in',label:'входит в список'},{id:'notIn',label:'не входит в список'}];
+    const numberOps=[{id:'lt',label:'меньше'},{id:'lte',label:'меньше или равно'},{id:'gt',label:'больше'},{id:'gte',label:'больше или равно'},{id:'eq',label:'равно'}];
+    const draftOps=selectedField.type==='enum'?enumOps:numberOps;
+    const opLabels=Object.fromEntries([...enumOps,...numberOps].map(o=>[o.id,o.label]));
+    const fieldById=Object.fromEntries(fieldDefs.map(d=>[d.id,d]));
+    const conditionLabel=(condition)=>{
+      const def=fieldById[condition.field]||{label:condition.field,options:[]};
+      if(condition.type==='enum'){
+        const labels=(condition.values||[]).map(value=>((def.options||[]).find(o=>o.value===value)||{label:value}).label);
+        return `${def.label.replace(/^.* · /,'')} ${condition.op==='notIn'?'≠':'∈'} ${labels.join(', ')}`;
+      }
+      const symbols={lt:'<',lte:'≤',gt:'>',gte:'≥',eq:'='};
+      return `${def.label.replace(/^.* · /,'')} ${symbols[condition.op]||opLabels[condition.op]} ${condition.value}${def.unit?' '+def.unit:''}`;
+    };
+    const saveView=()=>{
+      const label=(st.finViewName||'').trim();
+      if(!label){ this.toast('Введите название представления'); return; }
+      const item={id:'custom-'+Date.now(),label,icon:'bookmark',desc:`${(st.finConditions||[]).length} условий · ${views[st.finView]?.label||'Прибыль'}`,view:st.finView,group:st.finGroup,dataMode:st.finDataMode,conditions:(st.finConditions||[]).map(c=>({...c}))};
+      const next=[...customViews,item];
+      try { localStorage.setItem('marginpilot.finViews',JSON.stringify(next)); } catch(e) {}
+      this.setState({finCustomViews:next,finSavedView:item.id,finSaveOpen:false,finViewName:'',finViewsOpen:false});
+      this.toast('Представление «'+label+'» сохранено локально');
     };
     const view=views[st.finView]||views.profit;
     const money=n=>M.fmtR(Math.round(n*f)), amount=n=>(n<0?'−':'')+M.fmtN(Math.abs(Math.round(n*f))/1000)+'т ₽';
@@ -1926,17 +2088,59 @@ class Component extends DCLogic {
     if(st.finGroup==='sku') groups=[{name:'',count:'',subtotal:'',headSt:'display:none;',rows:rows.map(mkRow)}];
     else { const map={}; rows.forEach(p=>{const n=groupName(p);(map[n]=map[n]||[]).push(p);}); groups=Object.entries(map).map(([name,list])=>({name,count:list.length+' SKU',subtotal:'прибыль '+amount(list.reduce((s,p)=>s+p.profit30,0)),headSt:'display:flex;align-items:center;gap:10px;padding:8px 16px;background:#F0F5F1;border-top:1px solid rgba(23,35,28,.08);',rows:list.map(mkRow)})); }
     const button=(label,active,go)=>({label,go,st:`padding:6px 10px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;border:1px solid ${active?'#1B8A57':'rgba(23,35,28,.12)'};color:${active?'#13693F':'#5A665D'};background:${active?'#DFEEE5':'#fff'};`});
-    const filterSet=(label,key,items)=>({label,items:items.map(([itemLabel,id])=>button(itemLabel,st[key]===id,()=>this.setState({[key]:id})))});
-    const activeFilters=[st.finCat,st.finAbc,st.finXyz,st.finHealth,st.finStock,st.finPrice].filter(v=>v!=='all').length;
-    const lossN=M.PRODUCTS.filter(p=>p.profitU<=0||p.margin<8).length;
+    const conditions=Array.isArray(st.finConditions)?st.finConditions:[];
+    const attentionN=rows.filter(p=>p.profitU<=0||p.margin<8).length;
     const totalRev=rows.reduce((s,p)=>s+p.rev30,0),totalProfit=rows.reduce((s,p)=>s+p.profit30,0), widths=view.heads.reduce((s,[,,w])=>s+w,0)+352;
+    const currentView=savedViews.find(v=>v.id===st.finSavedView);
     return {
-      finNote:note+' Период расчёта: '+period.label+'.',finPeriod:period.label,finFiltersOpen:st.finFiltersOpen,finFiltersLabel:'Фильтры'+(activeFilters?' · '+activeFilters:''),finFiltersToggle:()=>this.setState(s=>({finFiltersOpen:!s.finFiltersOpen})),finFiltersToggleSt:`display:flex;align-items:center;gap:6px;border:1px solid ${st.finFiltersOpen||activeFilters?'#1B8A57':'rgba(23,35,28,.12)'};background:${st.finFiltersOpen||activeFilters?'#DFEEE5':'#fff'};border-radius:9px;padding:8px 11px;font-size:12px;font-weight:700;color:${st.finFiltersOpen||activeFilters?'#13693F':'#5A665D'};cursor:pointer;`,finReset:()=>this.setState({finPreset:'all',finGroup:'sku',finView:'profit',finSort:{key:'profit',dir:-1},finCat:'all',finAbc:'all',finXyz:'all',finHealth:'all',finStock:'all',finPrice:'all'}),
-      finViewTabs:Object.entries(views).map(([id,v])=>({label:v.label,go:()=>this.setState({finView:id}),st:`padding:7px 11px;border-radius:8px;font-size:12px;font-weight:750;cursor:pointer;${st.finView===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':'color:#5A665D;'}`})),
-      finFilterSets:[filterSet('Категория','finCat',[['Все','all'],...Array.from(new Set(M.PRODUCTS.map(p=>p.cat))).map(v=>[v,v])]),filterSet('ABC','finAbc',[['Все','all'],['A','A'],['B','B'],['C','C']]),filterSet('XYZ','finXyz',[['Все','all'],['X','X'],['Y','Y'],['Z','Z']]),filterSet('Экономика','finHealth',[['Все','all'],['Убыточные','loss'],['Маржа < 15%','weak'],['Здоровая','healthy']]),filterSet('Остатки','finStock',[['Все','all'],['OOS < 14 дн','oos'],['Излишек > 60 дн','excess']]),filterSet('Цена','finPrice',[['Все','all'],['Ниже safe','unsafe'],['В лимите','safe']])],
-      finPresets:[button('Все SKU',st.finPreset==='all',()=>this.setState({finPreset:'all'})),button('Лидеры A/X',st.finPreset==='abc',()=>this.setState({finPreset:'abc'})),button('Убыточные',st.finPreset==='loss',()=>this.setState({finPreset:'loss'})),button('Ниже safe',st.finPreset==='unsafe',()=>this.setState({finPreset:'unsafe'})),button('Реклама под вопросом',st.finPreset==='ads',()=>this.setState({finPreset:'ads'})),button('Риск OOS',st.finPreset==='oos',()=>this.setState({finPreset:'oos'})),button('Излишки',st.finPreset==='excess',()=>this.setState({finPreset:'excess'})),button('Возвраты и выплаты',st.finPreset==='returns',()=>this.setState({finPreset:'returns'}))],
-      finGroupChips:[['SKU','sku'],['Категории','cat'],['Артикулы','article'],['Размеры','size'],['ABC/XYZ','abc'],['Статус','health']].map(([label,id])=>({label,go:()=>this.setState({finGroup:id}),st:`padding:6px 9px;border-radius:7px;font-size:11.5px;font-weight:700;cursor:pointer;${st.finGroup===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':'color:#5A665D;'}`})),
-      finExport:()=>this.toast('Экспорт XLSX сформирован — выгрузка началась'),finSummary:[{k:'SKU в выборке',v:String(rows.length),vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},{k:'Заказы',v:M.fmtN(rows.reduce((s,p)=>s+p.oD*30*f,0)),vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},{k:'Net revenue',v:M.fmtM(totalRev*f)+' ₽',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},{k:'Прибыль',v:M.fmtM(totalProfit*f)+' ₽',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#13693F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},{k:'Требуют внимания',v:lossN+' SKU',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#B0432F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;cursor:pointer;',go:()=>this.setState({finPreset:'loss'})}],
+      finNote:note+' Период расчёта: '+period.label+'.',
+      finPeriod:period.label,
+      finDataStatus:st.finDataMode==='closed'?'Закрыто WB · по 20 июл':'Оперативно · 07:42',
+      finDataStatusSt:`font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;border-radius:6px;padding:3px 7px;${st.finDataMode==='closed'?'color:#3E5C70;background:#E4EBEF;':'color:#9A6414;background:#F4E8D2;'}`,
+      finDataModes:[['Закрытые WB','closed'],['Оперативные','operational']].map(([label,id])=>({label,go:()=>this.setState({finDataMode:id,finSavedView:'custom'}),st:`appearance:none;border:0;border-radius:7px;padding:6px 9px;font-family:'Onest',sans-serif;font-size:11px;font-weight:700;cursor:pointer;${st.finDataMode===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':'background:transparent;color:#6C786F;'}`})),
+      finViewsOpen:st.finViewsOpen,
+      finViewsIcon:st.finViewsOpen?'expand_less':'expand_more',
+      finViewsToggle:()=>this.setState(s=>({finViewsOpen:!s.finViewsOpen,finSaveOpen:false})),
+      finCurrentView:currentView?currentView.label:'Настроенное представление',
+      finSavedViews:savedViews.map(saved=>({label:saved.label,icon:saved.icon,desc:saved.desc,go:()=>applyView(saved),st:st.finSavedView===saved.id?'border-color:#1B8A57;background:#F4FAF6;':'',markSt:`margin-left:auto;font-family:'Material Symbols Rounded';font-size:14px;color:#1B8A57;${st.finSavedView===saved.id?'':'visibility:hidden;'}`})),
+      finSaveOpen:st.finSaveOpen,
+      finSaveToggle:()=>this.setState(s=>({finSaveOpen:!s.finSaveOpen,finViewsOpen:false})),
+      finSaveCancel:()=>this.setState({finSaveOpen:false,finViewName:''}),
+      finViewName:st.finViewName,
+      finViewNameChange:e=>this.setState({finViewName:e.target.value}),
+      finViewNameKey:e=>{if(e.key==='Enter')saveView();},
+      finSaveView:saveView,
+      finFiltersOpen:st.finFiltersOpen,
+      finFiltersToggle:()=>this.setState(s=>({finFiltersOpen:!s.finFiltersOpen})),
+      finHasConditions:conditions.length>0,
+      finNoConditions:conditions.length===0,
+      finConditionChips:conditions.map(condition=>({label:conditionLabel(condition),remove:()=>this.setState(s=>({finConditions:s.finConditions.filter(c=>c.id!==condition.id),finSavedView:'custom'}))})),
+      finClearConditions:()=>this.setState({finConditions:[],finSavedView:'custom'}),
+      finClearConditionsSt:`appearance:none;border:0;background:transparent;color:#5A665D;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:650;padding:7px 4px;cursor:pointer;${conditions.length?'':'visibility:hidden;'}`,
+      finFilterFields:fieldDefs.map(def=>({id:def.id,label:def.label})),
+      finDraftField:st.finDraftField,
+      finDraftFieldChange:e=>{const def=fieldById[e.target.value];this.setState({finDraftField:e.target.value,finDraftOp:def.type==='enum'?'in':'lt',finDraftValues:[],finDraftNumber:def.type==='number'?'0':''});},
+      finDraftOps:draftOps,
+      finDraftOp:st.finDraftOp,
+      finDraftOpChange:e=>this.setState({finDraftOp:e.target.value}),
+      finDraftIsEnum:selectedField.type==='enum',
+      finDraftIsNumber:selectedField.type==='number',
+      finDraftNumber:st.finDraftNumber,
+      finDraftNumberChange:e=>this.setState({finDraftNumber:e.target.value}),
+      finDraftNumberKey:e=>{if(e.key==='Enter'){const value=Number(st.finDraftNumber);if(Number.isFinite(value))this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'number',op:st.finDraftOp,value}],finSavedView:'custom'}));}},
+      finDraftOptions:(selectedField.options||[]).map(option=>{const active=(st.finDraftValues||[]).includes(option.value);return{label:option.label,go:()=>this.setState(s=>({finDraftValues:active?s.finDraftValues.filter(v=>v!==option.value):[...s.finDraftValues,option.value]})),st:`appearance:none;border:1px solid ${active?'#1B8A57':'rgba(23,35,28,.12)'};background:${active?'#DFEEE5':'#fff'};color:${active?'#13693F':'#5A665D'};border-radius:8px;padding:7px 9px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;`};}),
+      finAddCondition:()=>{if(selectedField.type==='enum'){const values=st.finDraftValues||[];if(!values.length){this.toast('Выберите хотя бы одно значение');return;}this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'enum',op:st.finDraftOp,values:[...values]}],finDraftValues:[],finSavedView:'custom'}));}else{const value=Number(st.finDraftNumber);if(!Number.isFinite(value)){this.toast('Введите числовое значение');return;}this.setState(s=>({finConditions:[...s.finConditions,{id:'c-'+Date.now(),field:selectedField.id,type:'number',op:st.finDraftOp,value}],finSavedView:'custom'}));}},
+      finReset:()=>this.setState({finPreset:'all',finSavedView:'unit',finGroup:'sku',finView:'profit',finDataMode:'closed',finSort:{key:'profit',dir:-1},finConditions:[],finQ:'',searchQ:'',finFiltersOpen:false,finViewsOpen:false,finSaveOpen:false}),
+      finViewTabs:Object.entries(views).map(([id,v])=>({label:v.label,go:()=>this.setState({finView:id,finSavedView:'custom'}),st:`appearance:none;border:0;padding:7px 10px;border-radius:8px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:750;cursor:pointer;${st.finView===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':'background:transparent;color:#5A665D;'}`})),
+      finGroupChips:[['SKU','sku'],['Категории','cat'],['Артикулы','article'],['Размеры','size'],['ABC/XYZ','abc'],['Статус','health']].map(([label,id])=>({label,go:()=>this.setState({finGroup:id,finSavedView:'custom'}),st:`appearance:none;border:0;padding:7px 9px;border-radius:8px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;${st.finGroup===id?'background:#DFEEE5;color:#13693F;':'background:transparent;color:#5A665D;'}`})),
+      finExport:()=>this.toast('Экспорт XLSX сформирован по текущему представлению'),
+      finSummary:[
+        {k:'SKU в выборке',v:String(rows.length),vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
+        {k:'Заказы',v:M.fmtN(rows.reduce((s,p)=>s+p.oD*30*f,0)),vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
+        {k:'Выручка после выкупа',v:M.fmtM(totalRev*f)+' ₽',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
+        {k:'Прибыль',v:M.fmtM(totalProfit*f)+' ₽',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#13693F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;',go:()=>{}},
+        {k:'Требуют внимания',v:attentionN+' SKU',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#B0432F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;cursor:pointer;',go:()=>applyView(defaultViews[1])},
+      ],
       finHeads:view.heads.map(([label,key])=>({label,arrow:st.finSort.key===key?(st.finSort.dir<0?'arrow_downward':'arrow_upward'):'',go:()=>this.setState(s=>({finSort:{key,dir:s.finSort.key===key?-s.finSort.dir:-1}})),st:`font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:${st.finSort.key===key?'#13693F':'#8C968E'};padding:11px 0;cursor:pointer;` })),finGroups:groups,finTableMin:widths,finTableHeadSt:`display:grid;grid-template-columns:242px 58px ${view.heads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;position:sticky;top:0;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);z-index:5;padding:0 8px 0 16px;`,
     };
   }
