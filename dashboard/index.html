@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 <x-dc>
@@ -641,9 +642,11 @@
             <div onClick="{{ cdNew }}" style="display:flex;align-items:center;gap:8px;background:#1B8A57;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">
               <span style="font-family:'Material Symbols Rounded';font-size:17px;">auto_awesome</span>Новая карточка с ИИ
             </div>
+            <div onClick="{{ cdImport }}" style="display:flex;align-items:center;gap:7px;border:1px solid #BCDCCB;background:#DFEEE5;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;color:#13693F;cursor:pointer;" style-hover="background:#CDE6D7"><span style="font-family:'Material Symbols Rounded';font-size:16px;">upload_file</span>Импорт из Excel</div>
             <div onClick="{{ cdClone }}" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:650;color:#38443B;cursor:pointer;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:16px;">content_copy</span>Клонировать</div>
             <div onClick="{{ cdMass }}" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:650;color:#38443B;cursor:pointer;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:16px;">edit_note</span>Массовые правки</div>
-            <div onClick="{{ cdDups }}" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:650;color:#38443B;cursor:pointer;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:16px;">join</span>Дубли <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;background:#F4E8D2;color:#9A6414;border-radius:6px;padding:2px 6px;">2</span></div>
+            <div onClick="{{ cdProblems }}" style="display:flex;align-items:center;gap:7px;border:1px solid #E7C0B5;background:#FFF7F3;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;color:#B0432F;cursor:pointer;" style-hover="background:#F6E2DD"><span style="font-family:'Material Symbols Rounded';font-size:16px;">error</span>{{ cdProblemsLabel }}</div>
+            <div onClick="{{ cdMerge }}" style="{{ cdMergeSt }}" style-hover="filter:brightness(.97)"><span style="font-family:'Material Symbols Rounded';font-size:16px;">merge</span>{{ cdMergeLabel }}</div>
             <div style="flex:1;"></div>
             <div style="font-size:11.5px;color:#8C968E;">Черновик от Марка: <b style="color:#38443B;">«Жакет Лея»</b> · ждёт проверки</div>
           </div>
@@ -660,6 +663,7 @@
             <sc-for list="{{ cdRows }}" as="r" hint-placeholder-count="8">
               <div style="display:grid;grid-template-columns:270px 120px 150px 170px 90px 70px 1fr 120px;align-items:center;padding:10px 16px;border-top:1px solid rgba(23,35,28,.06);">
                 <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                  <div onClick="{{ r.toggle }}" title="Выбрать для объединения" style="{{ r.selectSt }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ r.selectIcon }}</span></div>
                   <div style="{{ r.tileSt }}">{{ r.mono }}</div>
                   <div style="min-width:0;">
                     <div style="font-size:12.5px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</div>
@@ -674,7 +678,7 @@
                 <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5A665D;">{{ r.pos }}</span>
                 <span style="{{ r.photosSt }}">{{ r.photos }}</span>
                 <span style="{{ r.richSt }}">{{ r.rich }}</span>
-                <span style="font-size:11px;color:#8C968E;line-height:1.35;padding-right:10px;">{{ r.issues }}</span>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;padding-right:10px;"><sc-for list="{{ r.issues }}" as="issue" hint-placeholder-count="2"><span style="{{ issue.st }}">{{ issue.t }}</span></sc-for></div>
                 <div onClick="{{ r.act }}" style="{{ r.actSt }}" style-hover="filter:brightness(.96)">{{ r.actLabel }}</div>
               </div>
             </sc-for>
@@ -789,12 +793,12 @@
               </div>
             </sc-for>
           </div>
-        </section>
-      </sc-if>
 
-      <!-- ============ ГЕОГРАФИЯ ============ -->
-      <sc-if value="{{ isGeo }}" hint-placeholder-val="{{ false }}">
-        <section data-screen-label="География" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <!-- Региональная логистика -->
+          <div style="display:flex;align-items:center;gap:10px;margin:20px 0 10px;">
+            <span style="font-size:15px;font-weight:800;">Региональный спрос и распределение</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8C968E;">куда направлять следующую поставку с учётом спроса, возвратов и логистики</span>
+          </div>
           <div style="display:grid;grid-template-columns:1fr 360px;gap:14px;align-items:start;">
             <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;overflow:hidden;">
               <div style="display:grid;grid-template-columns:150px 1fr 90px 80px 90px 90px;align-items:center;padding:11px 18px;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#8C968E;">
@@ -803,52 +807,22 @@
               <sc-for list="{{ geoRows }}" as="r" hint-placeholder-count="7">
                 <div style="padding:10px 18px;border-top:1px solid rgba(23,35,28,.06);">
                   <div style="display:grid;grid-template-columns:150px 1fr 90px 80px 90px 90px;align-items:center;">
-                    <div style="display:flex;align-items:center;gap:8px;">
-                      <span style="{{ r.dotSt }}"></span>
-                      <span style="font-size:13px;font-weight:700;">{{ r.name }}</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:9px;">
-                      <div style="flex:1;height:14px;background:#F0F3F0;border-radius:4px;overflow:hidden;"><div style="{{ r.barSt }}"></div></div>
-                      <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:650;width:38px;">{{ r.share }}</span>
-                    </div>
-                    <span style="{{ r.growthSt }}">{{ r.growth }}</span>
-                    <span style="{{ r.marginSt }}">{{ r.margin }}</span>
-                    <span style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A857C;">{{ r.returns }}</span>
-                    <span style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A857C;">{{ r.logi }}</span>
+                    <div style="display:flex;align-items:center;gap:8px;"><span style="{{ r.dotSt }}"></span><span style="font-size:13px;font-weight:700;">{{ r.name }}</span></div>
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="flex:1;height:14px;background:#F0F3F0;border-radius:4px;overflow:hidden;"><div style="{{ r.barSt }}"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:650;width:38px;">{{ r.share }}</span></div>
+                    <span style="{{ r.growthSt }}">{{ r.growth }}</span><span style="{{ r.marginSt }}">{{ r.margin }}</span><span style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A857C;">{{ r.returns }}</span><span style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A857C;">{{ r.logi }}</span>
                   </div>
                   <div style="{{ r.noteSt }}">{{ r.note }}</div>
                 </div>
               </sc-for>
             </div>
-
             <div style="display:flex;flex-direction:column;gap:14px;">
               <div style="background:linear-gradient(135deg,#0E2C1F,#14402B);color:#EAF2EC;border-radius:14px;padding:16px 18px;">
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span style="font-family:'Material Symbols Rounded';font-size:17px;color:#7FC59E;">route</span>
-                  <span style="font-size:13.5px;font-weight:800;">Куда везти следующую поставку</span>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px;">
-                  <sc-for list="{{ geoShip }}" as="s" hint-placeholder-count="3">
-                    <div style="display:flex;align-items:center;gap:10px;background:rgba(234,242,236,.07);border:1px solid rgba(234,242,236,.12);border-radius:10px;padding:9px 12px;">
-                      <span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ s.iconColor }};">{{ s.icon }}</span>
-                      <div style="flex:1;">
-                        <div style="font-size:12.5px;font-weight:700;">{{ s.wh }}</div>
-                        <div style="font-size:10.5px;color:#9FB6A8;margin-top:1px;">{{ s.why }}</div>
-                      </div>
-                    </div>
-                  </sc-for>
-                </div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#7FC59E;">route</span><span style="font-size:13.5px;font-weight:800;">Куда везти следующую поставку</span></div>
+                <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px;"><sc-for list="{{ geoShip }}" as="s" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px;background:rgba(234,242,236,.07);border:1px solid rgba(234,242,236,.12);border-radius:10px;padding:9px 12px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ s.iconColor }};">{{ s.icon }}</span><div style="flex:1;"><div style="font-size:12.5px;font-weight:700;">{{ s.wh }}</div><div style="font-size:10.5px;color:#9FB6A8;margin-top:1px;">{{ s.why }}</div></div></div></sc-for></div>
               </div>
               <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;padding:15px 17px;">
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">tips_and_updates</span>
-                  <span style="font-size:13.5px;font-weight:800;">Инсайты Марка</span>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
-                  <div style="background:#F4E8D2;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#6B4A12;"><b>Юг:</b> спрос +23%, но каждая продажа возится из Коледино. Пополнение Краснодара вернёт ~6 п.п. маржи региона.</div>
-                  <div style="background:#F6E2DD;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#7A3021;"><b>Сибирь:</b> возвраты платьев 31% против 24% по сети — похоже на размерную сетку. Готов чеклист правок карточек.</div>
-                  <div style="background:#DFEEE5;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#13492F;"><b>Поволжье:</b> лучшая экономика сети (маржа 27,9%). Казань — приоритетный склад для новинок.</div>
-                </div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">tips_and_updates</span><span style="font-size:13.5px;font-weight:800;">Инсайты для поставок</span></div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;"><div style="background:#F4E8D2;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#6B4A12;"><b>Юг:</b> спрос +23%, но каждая продажа возится из Коледино. Пополнение Краснодара вернёт ~6 п.п. маржи региона.</div><div style="background:#F6E2DD;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#7A3021;"><b>Сибирь:</b> возвраты платьев 31% против 24% по сети — проверьте размерную сетку до расширения поставки.</div><div style="background:#DFEEE5;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#13492F;"><b>Поволжье:</b> лучшая экономика сети (маржа 27,9%). Казань — приоритетный склад для новинок.</div></div>
               </div>
             </div>
           </div>
@@ -1127,6 +1101,41 @@
           <div onClick="{{ ncEdit }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Редактировать поля</div>
           <div onClick="{{ ncClose }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div>
         </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ ОБЪЕДИНЕНИЕ КАРТОЧЕК ============ -->
+  <sc-if value="{{ mergeOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ mergeClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.45);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadein .18s;">
+      <div onClick="{{ stopProp }}" style="width:620px;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
+        <div style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);">
+          <span style="font-family:'Material Symbols Rounded';font-size:20px;color:#1B8A57;">merge</span><span style="font-size:16px;font-weight:800;">Объединить карточки</span>
+          <div onClick="{{ mergeClose }}" style="margin-left:auto;cursor:pointer;color:#5A665D;"><span style="font-family:'Material Symbols Rounded';font-size:20px;">close</span></div>
+        </div>
+        <div style="padding:18px 22px;">
+          <div style="font-size:12.5px;color:#5A665D;line-height:1.5;">Выберите основную карточку. Остальные будут присоединены к ней. Это доступно для любых совместимых карточек, не только для найденных дублей.</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:14px;"><sc-for list="{{ mergeRows }}" as="r" hint-placeholder-count="2"><div onClick="{{ r.pick }}" style="{{ r.st }}"><div style="{{ r.tileSt }}">{{ r.mono }}</div><div style="flex:1;min-width:0;"><div style="font-size:12.5px;font-weight:700;">{{ r.name }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;">{{ r.nm }}</div></div><span style="font-family:'Material Symbols Rounded';font-size:19px;color:#1B8A57;">{{ r.icon }}</span></div></sc-for></div>
+          <div style="display:flex;align-items:flex-start;gap:7px;background:#F4E8D2;color:#7A4F10;border-radius:10px;padding:10px 12px;margin-top:14px;font-size:11.5px;line-height:1.45;"><span style="font-family:'Material Symbols Rounded';font-size:16px;">info</span><span>Перед отправкой в WB будет создан план объединения. Отзывы и рейтинг основной карточки сохраняются; действие потребует подтверждения.</span></div>
+        </div>
+        <div style="display:flex;gap:9px;padding:14px 22px;background:#fff;border-top:1px solid rgba(23,35,28,.08);"><div onClick="{{ mergeConfirm }}" style="flex:1;text-align:center;background:#1B8A57;color:#fff;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">Создать план объединения</div><div onClick="{{ mergeClose }}" style="border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ ИМПОРТ EXCEL ============ -->
+  <sc-if value="{{ importOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ importClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.45);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadein .18s;">
+      <div onClick="{{ stopProp }}" style="width:720px;max-height:86vh;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);display:flex;flex-direction:column;overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
+        <div style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);"><span style="font-family:'Material Symbols Rounded';font-size:20px;color:#1B8A57;">upload_file</span><span style="font-size:16px;font-weight:800;">Массовое создание из Excel</span><div onClick="{{ importClose }}" style="margin-left:auto;cursor:pointer;color:#5A665D;"><span style="font-family:'Material Symbols Rounded';font-size:20px;">close</span></div></div>
+        <div style="padding:18px 22px;overflow-y:auto;">
+          <div style="display:flex;align-items:center;gap:12px;border:1.5px dashed #9AC8AD;background:#F5FBF6;border-radius:13px;padding:15px;">
+            <span style="font-family:'Material Symbols Rounded';font-size:27px;color:#1B8A57;">table_view</span><div style="flex:1;"><div style="font-size:13px;font-weight:700;">{{ importFileLabel }}</div><div style="font-size:11.5px;color:#5A665D;margin-top:3px;">Поддерживаются .xlsx, .xls и .csv. Первая строка — названия столбцов.</div></div><label style="background:#1B8A57;color:#fff;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer;">Выбрать файл<input type="file" accept=".xlsx,.xls,.csv" onChange="{{ importFile }}" style="display:none;"></label>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:#5A665D;"><span style="font-weight:700;">Обязательные:</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Название</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Артикул продавца</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Категория</span><span style="font-weight:700;margin-left:6px;">Необязательные:</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Цена</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Бренд</span><span style="background:#E7ECE7;border-radius:6px;padding:3px 7px;">Описание</span></div>
+          <sc-if value="{{ importHasRows }}" hint-placeholder-val="{{ false }}"><div style="margin-top:16px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:13px;font-weight:800;">Предпросмотр</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;background:#DFEEE5;color:#13693F;border-radius:6px;padding:3px 7px;">{{ importRowsCount }} строк готовы</span></div><div style="margin-top:8px;border:1px solid rgba(23,35,28,.1);border-radius:10px;overflow:hidden;"><sc-for list="{{ importRows }}" as="r" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 90px;gap:8px;padding:9px 11px;border-top:1px solid rgba(23,35,28,.07);font-size:11.5px;"><span style="font-weight:650;">{{ r.name }}</span><span style="color:#5A665D;">{{ r.sku }}</span><span style="color:#5A665D;">{{ r.cat }}</span><span style="font-family:'JetBrains Mono',monospace;text-align:right;">{{ r.price }}</span></div></sc-for></div></div></sc-if>
+        </div>
+        <div style="display:flex;gap:9px;padding:14px 22px;background:#fff;border-top:1px solid rgba(23,35,28,.08);"><div onClick="{{ importCreate }}" style="{{ importCreateSt }}">{{ importCreateLabel }}</div><div onClick="{{ importClose }}" style="border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div></div>
       </div>
     </div>
   </sc-if>
@@ -1454,7 +1463,7 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Главная&quot;,&quot;options&quot;:[&quot;Главная&quot;,&quot;Финансы&quot;,&quot;Цены&quot;,&quot;Реклама&quot;,&quot;Карточки&quot;,&quot;Логистика&quot;,&quot;География&quot;,&quot;Подтверждения&quot;,&quot;Настройки&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Демо&quot;},&quot;autonomy&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Подтверждать&quot;,&quot;options&quot;:[&quot;Предупреждать&quot;,&quot;Подтверждать&quot;,&quot;Авто в лимитах&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Поведение Марка&quot;},&quot;demoLive&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Демо&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Главная&quot;,&quot;options&quot;:[&quot;Главная&quot;,&quot;Финансы&quot;,&quot;Цены&quot;,&quot;Реклама&quot;,&quot;Карточки&quot;,&quot;Логистика&quot;,&quot;Подтверждения&quot;,&quot;Настройки&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Демо&quot;},&quot;autonomy&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Подтверждать&quot;,&quot;options&quot;:[&quot;Предупреждать&quot;,&quot;Подтверждать&quot;,&quot;Авто в лимитах&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Поведение Марка&quot;},&quot;demoLive&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Демо&quot;}}">
 class Component extends DCLogic {
   state = {
     ready:false, screen:'home', period:'7d',
@@ -1466,7 +1475,8 @@ class Component extends DCLogic {
     peSel:{'p10':true,'p11':true}, pePreview:false,
     approvals:[], apFilter:'all', apTab:'actions', apModes:{},
     homeDecision:'e1', homeCalcOpen:false,
-    adsChart:'spend', cardsSel:{}, newCardOpen:false, mergeOpen:false, supplyOpen:false,
+    adsChart:'spend', cardsSel:{}, cardsProblemsOnly:false, mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
+    importOpen:false, importFileName:'Файл ещё не выбран', importRows:[], importedCards:[],
     toasts:[], searchQ:'', liveAdded:false,
   };
 
@@ -1475,7 +1485,7 @@ class Component extends DCLogic {
       this.M = m;
       this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})) });
       const start = this.props.startScreen;
-      const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','География':'geo','Подтверждения':'apps','Настройки':'set'};
+      const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','Подтверждения':'apps','Настройки':'set'};
       if (start && map[start]) this.setState({ screen: map[start] });
       if (this.props.demoLive) setTimeout(()=>this.pushLiveEvent(), 18000);
     });
@@ -1572,15 +1582,14 @@ class Component extends DCLogic {
       prices:['Цены · Price Enforcer','Защита маржи: безопасные цены, правила, нарушения'],
       ads:['Реклама','Экономика кампаний после всех расходов'],
       cards:['Карточки','Контент, качество, дубли и массовые правки'],
-      logi:['Логистика и фулфилмент','Остатки, поставки, задачи на сборку'],
-      geo:['География продаж','Регионы, спрос, маржа с учётом логистики'],
+      logi:['Логистика и фулфилмент','Остатки, поставки, региональный спрос и задачи на сборку'],
       apps:['Центр подтверждений и автопилот','Действия, автоправила и полный аудит в одном контуре'],
       set:['Настройки','Подключение, себестоимость, налоги, автономия Марка'],
     };
     const t = titles[st.screen] || titles.home;
     const periods = this.M ? this.M.PERIODS : [];
     return {
-      navMain: [ navItem('space_dashboard','Главная','home'), navItem('table_chart','Финансы','fin'), navItem('price_change','Цены','prices', this.M?'2':''), navItem('campaign','Реклама','ads'), navItem('style','Карточки','cards'), navItem('local_shipping','Логистика','logi'), navItem('public','География','geo') ],
+      navMain: [ navItem('space_dashboard','Главная','home'), navItem('table_chart','Финансы','fin'), navItem('price_change','Цены','prices', this.M?'2':''), navItem('campaign','Реклама','ads'), navItem('style','Карточки','cards'), navItem('local_shipping','Логистика','logi') ],
       navCtrl: [ navItem('fact_check','Подтверждения','apps', pending?String(pending):''), navItem('settings','Настройки','set') ],
       screenTitle: t[0], screenSub: t[1],
       periodChips: periods.map(p => ({ label:p.label, go:()=>this.setState({period:p.id}),
@@ -1593,7 +1602,7 @@ class Component extends DCLogic {
       stopProp: (e)=>e.stopPropagation(),
       toasts: st.toasts,
       isHome: st.screen==='home', isFin: st.screen==='fin', isPrices: st.screen==='prices', isAds: st.screen==='ads',
-      isCards: st.screen==='cards', isLogi: st.screen==='logi', isGeo: st.screen==='geo', isApps: st.screen==='apps', isSet: st.screen==='set',
+      isCards: st.screen==='cards', isLogi: st.screen==='logi', isApps: st.screen==='apps', isSet: st.screen==='set',
     };
   }
 
@@ -2169,32 +2178,58 @@ class Component extends DCLogic {
   // ---------- карточки ----------
   vCards() {
     const M = this.M, st = this.state;
-    if (!M) return { cdRows:[], ncAttrs:[], ncSeo:[], ncOpen:false };
+    if (!M) return { cdRows:[], ncAttrs:[], ncSeo:[], ncOpen:false, mergeRows:[], importRows:[] };
     const modSt = (m) => `justify-self:start;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;${m==='Опубликована'?'background:#DFEEE5;color:#13693F;':m==='Черновик'?'background:#E7ECE7;color:#5A665D;':'background:#DEEAF1;color:#3E5C70;'}`;
-    const rows = M.CARDS.map(c => {
-      const p = M.byId(c.pid);
-      const isDup = !!c.dup;
+    const issue = (text) => {
+      const crit = /^(2 фото|Мало фото|Нет таблицы размеров)/.test(text);
+      const warn = /Дубль|Нет rich|Нет инфографики|SEO|Слабое|Заголовок/.test(text);
+      return { t:text, st:`font-size:10px;line-height:1.25;border-radius:6px;padding:3px 6px;${crit?'background:#F6E2DD;color:#B0432F;font-weight:700;':warn?'background:#F4E8D2;color:#9A6414;font-weight:650;':'background:#DEEAF1;color:#3E5C70;'}` };
+    };
+    const cardProduct = (c) => c.created ? c : M.byId(c.pid);
+    const cards = [...M.CARDS, ...st.importedCards];
+    const allRows = cards.map(c => {
+      const p = cardProduct(c), id = c.pid || c.id;
+      const selected = !!st.cardsSel[id];
       return {
         mono:p.mono, tileSt:this.tileSt(p, 32), name:p.name, nm:p.nm,
+        toggle:()=>this.setState(s=>({cardsSel:{...s.cardsSel,[id]:!s.cardsSel[id]}})), selectIcon:selected?'check_box':'check_box_outline_blank', selectSt:`width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:${selected?'#1B8A57':'#AAB5AD'};cursor:pointer;flex:none;`,
         mod:c.mod, modSt:modSt(c.mod),
         q:c.q+'/100', qSt:`font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:${c.q>=80?'#13693F':c.q>=65?'#9A6414':'#B0432F'};`,
         qBarSt:`height:100%;width:${c.q}%;background:${c.q>=80?'#1B8A57':c.q>=65?'#D9A441':'#B0432F'};border-radius:3px;`,
         pos:c.pos,
         photos:c.photos+' фото', photosSt:`font-family:'JetBrains Mono',monospace;font-size:11px;color:${c.photos<5?'#B0432F':'#5A665D'};font-weight:${c.photos<5?'700':'400'};`,
         rich:c.rich?'есть':'нет', richSt:`font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:${c.rich?'#13693F':'#9A6414'};`,
-        issues:c.issues.length?c.issues.slice(0,2).join(' · '):'✓ без замечаний',
-        actLabel:isDup?'Merge дублей':'Улучшить (ИИ)',
-        actSt:`text-align:center;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;${isDup?'background:#F4E8D2;color:#9A6414;':'background:#E7ECE7;color:#38443B;'}`,
-        act:()=>{ if(isDup) this.setState({eventOpen:'e5'}); else this.toast('Марк подготовил правки «'+p.name+'»: заголовок, фото-чеклист, rich — смотрите в черновике'); },
+        hasIssues:c.issues.length>0, issues:c.issues.length?c.issues.map(issue):[{t:'✓ без замечаний',st:'font-size:10px;color:#13693F;background:#DFEEE5;border-radius:6px;padding:3px 6px;font-weight:650;'}],
+        actLabel:'Улучшить (ИИ)',
+        actSt:'text-align:center;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;background:#E7ECE7;color:#38443B;',
+        act:()=>this.toast('Марк подготовил правки «'+p.name+'»: заголовок, фото-чеклист, rich — смотрите в черновике'),
       };
     });
+    const rows = st.cardsProblemsOnly ? allRows.filter(r=>r.hasIssues) : allRows;
+    const selectedCards = cards.filter(c=>st.cardsSel[c.pid||c.id]).map(c=>({c,p:cardProduct(c)}));
+    const problemCount = cards.reduce((n,c)=>n+c.issues.length,0);
+    const imported = st.importRows || [];
     const NC = M.NEW_CARD;
     return {
       cdRows: rows,
       cdNew:()=>this.setState({newCardOpen:true}),
       cdClone:()=>this.toast('Выберите карточку-донор — скопирую структуру, фото-слоты и атрибуты'),
       cdMass:()=>this.toast('Массовые правки: выбор SKU → атрибут → preview → подтверждение'),
-      cdDups:()=>this.setState({eventOpen:'e5'}),
+      cdProblems:()=>this.setState(s=>({cardsProblemsOnly:!s.cardsProblemsOnly})),
+      cdProblemsLabel:(st.cardsProblemsOnly?'Все карточки':'Проблемы')+' · '+problemCount,
+      cdMergeLabel:selectedCards.length>=2?'Объединить · '+selectedCards.length:'Объединить',
+      cdMergeSt:`display:flex;align-items:center;gap:7px;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;cursor:pointer;${selectedCards.length>=2?'border:1px solid #BCDCCB;background:#DFEEE5;color:#13693F;':'border:1px solid rgba(23,35,28,.12);background:#F7FAF7;color:#8C968E;'}`,
+      cdMerge:()=>{ if(selectedCards.length<2) return this.toast('Выберите минимум две карточки галочками слева'); this.setState({mergeOpen:true,mergePrimary:selectedCards[0].c.pid}); },
+      mergeOpen:st.mergeOpen, mergeClose:()=>this.setState({mergeOpen:false}),
+      mergeRows:selectedCards.map(({c,p})=>{const primary=st.mergePrimary===c.pid;return {mono:p.mono,tileSt:this.tileSt(p,30),name:p.name,nm:p.nm,icon:primary?'radio_button_checked':'radio_button_unchecked',st:`display:flex;align-items:center;gap:10px;border:1px solid ${primary?'#1B8A57':'rgba(23,35,28,.1)'};background:${primary?'#F5FBF6':'#fff'};border-radius:10px;padding:9px 11px;cursor:pointer;`,pick:()=>this.setState({mergePrimary:c.pid})};}),
+      mergeConfirm:()=>{const primary=M.byId(st.mergePrimary), count=selectedCards.length;this.setState({mergeOpen:false,cardsSel:{}});this.toast('План объединения: «'+primary.name+'» + '+(count-1)+' карточк(и) отправлен на подтверждение');},
+      importOpen:st.importOpen, importClose:()=>this.setState({importOpen:false}), importFileLabel:st.importFileName,
+      importHasRows:imported.length>0, importRowsCount:imported.length, importRows:imported.slice(0,5),
+      cdImport:()=>this.setState({importOpen:true}),
+      importFile:(e)=>{const file=e&&e.target&&e.target.files&&e.target.files[0];if(!file)return;if(!window.XLSX)return this.toast('Модуль Excel ещё загружается — попробуйте через секунду');const reader=new FileReader();reader.onload=(ev)=>{try{const wb=window.XLSX.read(ev.target.result,{type:'array'}),ws=wb.Sheets[wb.SheetNames[0]],raw=window.XLSX.utils.sheet_to_json(ws,{defval:''});const value=(row,names)=>{const key=Object.keys(row).find(k=>names.includes(String(k).trim().toLowerCase()));return key===undefined?'':String(row[key]);};const parsed=raw.map((r,i)=>({name:value(r,['название','наименование','name'])||'Товар '+(i+1),sku:value(r,['артикул продавца','артикул','sku','vendorcode'])||'—',cat:value(r,['категория','category'])||'Не указана',price:value(r,['цена','price'])||'—'})).filter(r=>r.name);if(!parsed.length)return this.toast('В файле не найдены строки для создания');this.setState({importFileName:file.name,importRows:parsed});}catch(err){this.toast('Не удалось прочитать файл. Проверьте формат и первую строку с заголовками.');}};reader.readAsArrayBuffer(file);},
+      importCreate:()=>{if(!imported.length)return;const stamp=Date.now(),created=imported.map((r,i)=>({created:true,id:'import-'+stamp+'-'+i,mono:'NEW',tile:'#D9EADF',name:r.name,nm:r.sku,q:35,mod:'Черновик',photos:0,rich:false,pos:'—',issues:['Проверьте обязательные атрибуты','Не опубликована']}));this.setState(s=>({importOpen:false,importRows:[],importFileName:'Файл ещё не выбран',importedCards:[...s.importedCards,...created]}));this.toast('Создано '+imported.length+' черновиков карточек — проверьте их перед публикацией');},
+      importCreateLabel:imported.length?'Создать '+imported.length+' черновиков':'Загрузите файл для продолжения',
+      importCreateSt:`flex:1;text-align:center;border-radius:11px;padding:12px;font-size:13px;font-weight:700;${imported.length?'background:#1B8A57;color:#fff;cursor:pointer;':'background:#E7ECE7;color:#8C968E;cursor:not-allowed;'}`,
       ncOpen: st.newCardOpen,
       ncClose:()=>this.setState({newCardOpen:false}),
       ncRecognized:NC.recognized, ncTitle:NC.title, ncDesc:NC.desc,
@@ -2248,8 +2283,8 @@ class Component extends DCLogic {
     };
   }
 
-  // ---------- география ----------
-  vGeo() {
+  // ---------- региональная логистика ----------
+  vRegionalLogi() {
     const M = this.M;
     if (!M) return { geoRows:[], geoShip:[] };
     return {
@@ -2397,7 +2432,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    return { ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vGeo(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
+    return { ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vRegionalLogi(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
   }
 }
 </script>
