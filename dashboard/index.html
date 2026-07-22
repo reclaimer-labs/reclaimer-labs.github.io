@@ -68,14 +68,44 @@
     .fin-table-head{appearance:none;border:0;background:transparent;text-align:left;font-family:'JetBrains Mono',monospace;min-width:0;}
     .fin-table-row{appearance:none;border:0;width:100%;background:#fff;color:#17231C;text-align:left;font-family:'Onest',sans-serif;}
     .fin-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:210px;padding:34px;color:#7A857C;text-align:center;}
+    .ads360-command{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:13px 15px;background:#0E2C1F;color:#EAF2EC;border:1px solid rgba(127,197,158,.24);border-radius:15px;box-shadow:0 18px 40px -32px rgba(14,44,31,.82);}
+    .ads360-command:after{content:"";position:absolute;right:-54px;top:-78px;width:220px;height:220px;border-radius:50%;border:42px solid rgba(127,197,158,.08);pointer-events:none;}
+    .ads360-tabs{position:relative;z-index:1;display:flex;align-items:center;gap:3px;padding:3px;background:rgba(234,242,236,.10);border:1px solid rgba(234,242,236,.10);border-radius:11px;}
+    .ads360-tab{appearance:none;border:0;border-radius:8px;padding:8px 12px;background:transparent;color:#AFC6B7;font-family:'Onest',sans-serif;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap;}
+    .ads360-tab:hover{color:#fff;background:rgba(255,255,255,.06);}
+    .ads360-new{position:relative;z-index:1;appearance:none;border:1px solid #7FC59E;border-radius:10px;padding:9px 13px;background:#7FC59E;color:#0E2C1F;font-family:'Onest',sans-serif;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
+    .ads360-new:hover{background:#9AD4B4;transform:translateY(-1px);}
+    .ads360-external{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;margin-top:14px;align-items:start;}
+    .ads360-panel{background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;box-shadow:0 14px 34px -34px rgba(14,44,31,.72);}
+    .ads360-campaign{appearance:none;width:100%;border:0;border-top:1px solid rgba(23,35,28,.07);background:#fff;color:#17231C;padding:12px 13px;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;display:block;}
+    .ads360-campaign:hover{background:#F7FAF7;}
+    .ads360-evidence{display:grid;grid-template-columns:1fr 32px 1fr 32px 1fr;gap:8px;align-items:stretch;margin-top:12px;}
+    .ads360-evidence-step{position:relative;overflow:hidden;border:1px solid rgba(23,35,28,.09);border-radius:12px;padding:12px 13px;background:#F8FAF8;min-width:0;}
+    .ads360-evidence-step--result{background:#E7F3EB;border-color:#A8D3B8;}
+    .ads360-evidence-arrow{display:flex;align-items:center;justify-content:center;color:#7A9685;font-family:'Material Symbols Rounded';font-size:20px;}
+    .ads360-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px;}
+    .ads360-metric{border:1px solid rgba(23,35,28,.09);border-radius:11px;padding:10px 12px;background:#fff;min-width:0;}
+    .ads360-modal{width:min(850px,calc(100vw - 32px));max-height:90vh;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.64);display:flex;flex-direction:column;overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);}
+    .ads360-form-grid{display:grid;grid-template-columns:1.3fr .9fr .8fr .8fr;gap:10px;}
+    .ads360-field{display:flex;flex-direction:column;gap:5px;min-width:0;}
+    .ads360-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7A857C;}
+    .ads360-input{width:100%;border:1px solid rgba(23,35,28,.14);border-radius:9px;background:#fff;color:#17231C;padding:9px 10px;font-family:'Onest',sans-serif;font-size:12.5px;min-height:38px;}
+    .ads360-input:focus{border-color:#1B8A57;box-shadow:0 0 0 3px rgba(27,138,87,.12);}
+    .ads360-skus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px;}
+    .ads360-sku{appearance:none;border:1px solid rgba(23,35,28,.10);border-radius:10px;background:#fff;color:#17231C;padding:8px 9px;font-family:'Onest',sans-serif;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px;min-width:0;}
+    .ads360-sku:hover{border-color:#7FC59E;background:#FBFDFB;}
+    .ads360-track{appearance:none;border:1px solid rgba(23,35,28,.10);border-radius:10px;background:#fff;color:#38443B;padding:9px 10px;font-family:'Onest',sans-serif;text-align:left;cursor:pointer;display:flex;gap:8px;align-items:flex-start;}
+    .ads360-track:hover{border-color:#7FC59E;}
     @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
   </style>
 </helmet>
 
 <div style="display:flex;height:100vh;overflow:hidden;font-family:'Onest',system-ui,sans-serif;color:#17231C;background:#F0F3F0;">
 
   <!-- ======================= САЙДБАР ======================= -->
-  <aside style="width:236px;flex:none;background:linear-gradient(180deg,#113826 0%,#0C2A1C 55%,#0A2218 100%);color:#EAF2EC;display:flex;flex-direction:column;padding:18px 14px 14px;">
+  <aside class="app-sidebar" style="width:236px;flex:none;background:linear-gradient(180deg,#113826 0%,#0C2A1C 55%,#0A2218 100%);color:#EAF2EC;display:flex;flex-direction:column;padding:18px 14px 14px;">
     <div style="display:flex;align-items:center;gap:11px;padding:2px 8px 0;">
       <div style="width:30px;height:30px;border-radius:9px;background:#1B8A57;position:relative;flex:none;box-shadow:0 4px 14px -4px rgba(27,138,87,.7);">
         <div style="position:absolute;top:8px;right:8px;width:9px;height:9px;border-radius:2.5px;background:#0E2C1F;"></div>
@@ -142,12 +172,12 @@
   <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
 
     <!-- Топбар -->
-    <header style="height:60px;flex:none;display:flex;align-items:center;gap:14px;padding:0 24px;background:rgba(244,246,244,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(23,35,28,.08);z-index:20;">
+    <header class="app-topbar" style="height:60px;flex:none;display:flex;align-items:center;gap:14px;padding:0 24px;background:rgba(244,246,244,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(23,35,28,.08);z-index:20;">
       <div style="flex:1 1 auto;min-width:0;overflow:hidden;">
         <div style="font-size:16.5px;font-weight:800;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ screenTitle }}</div>
         <div style="font-size:11px;color:#8C968E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ screenSub }}</div>
       </div>
-      <div style="margin-left:auto;display:flex;align-items:center;gap:14px;flex:none;">
+      <div class="app-topbar-tools" style="margin-left:auto;display:flex;align-items:center;gap:14px;flex:none;">
         <div style="display:flex;background:#E7ECE7;border-radius:10px;padding:3px;gap:2px;">
           <sc-for list="{{ periodChips }}" as="item" hint-placeholder-count="4">
             <div onClick="{{ item.go }}" style="{{ item.st }}" style-hover="color:#17231C">{{ item.label }}</div>
@@ -752,8 +782,23 @@
 
       <!-- ============ РЕКЛАМА ============ -->
       <sc-if value="{{ isAds }}" hint-placeholder-val="{{ false }}">
-        <section data-screen-label="Реклама" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <section class="ads360-section" data-screen-label="Реклама" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <div class="ads360-command">
+            <div class="ads360-command-copy" style="position:relative;z-index:1;flex:1;min-width:220px;">
+              <div style="display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7FC59E;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">hub</span>единый Marketing P&amp;L</div>
+              <div style="font-size:14px;font-weight:800;margin-top:3px;">WB и внешние размещения — в одной экономике SKU</div>
+              <div style="font-size:11px;color:#AFC6B7;margin-top:2px;">Задайте рамки и товары. Продажи, остатки, акции и маржу система свяжет сама.</div>
+            </div>
+            <div class="ads360-tabs" role="tablist" aria-label="Раздел рекламы">
+              <sc-for list="{{ adsTabs }}" as="tab" hint-placeholder-count="2">
+                <button type="button" onClick="{{ tab.go }}" class="ads360-tab" style="{{ tab.st }}" role="tab" aria-selected="{{ tab.selected }}">{{ tab.label }}<span style="{{ tab.badgeSt }}">{{ tab.badge }}</span></button>
+              </sc-for>
+            </div>
+            <button type="button" onClick="{{ adsNewExternal }}" class="ads360-new"><span style="font-family:'Material Symbols Rounded';font-size:17px;">add</span><span>Учесть внешнюю рекламу</span></button>
+          </div>
+
+          <sc-if value="{{ adsIsWB }}" hint-placeholder-val="{{ true }}">
+          <div class="ads360-summary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;">
             <sc-for list="{{ adSummary }}" as="s" hint-placeholder-count="4">
               <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:13px;padding:13px 16px;">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;">{{ s.k }}</div>
@@ -846,6 +891,107 @@
             </div>
           </div>
           <div style="font-size:11px;color:#8C968E;margin-top:8px;">Прибыль после рекламы = маржа выкупов − расход кампании · BE CPO — максимальная цена заказа, при которой SKU не уходит в минус</div>
+          </sc-if>
+
+          <sc-if value="{{ adsIsExternal }}" hint-placeholder-val="{{ false }}">
+            <div class="ads360-summary" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px;">
+              <sc-for list="{{ externalSummary }}" as="s" hint-placeholder-count="4">
+                <div class="ads360-panel" style="padding:13px 15px;">
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8C968E;">{{ s.k }}</div>
+                  <div style="{{ s.vSt }}">{{ s.v }}</div>
+                  <div style="font-size:10.5px;color:#7A857C;margin-top:2px;">{{ s.sub }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div class="ads360-external">
+              <div class="ads360-panel" style="overflow:hidden;">
+                <div style="display:flex;align-items:center;gap:8px;padding:13px 14px;background:#F7FAF7;">
+                  <span style="font-size:13px;font-weight:800;">Внешние кампании</span>
+                  <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#8C968E;">{{ externalCount }}</span>
+                </div>
+                <div class="ads360-campaigns">
+                  <sc-for list="{{ externalRows }}" as="r" hint-placeholder-count="2">
+                    <button type="button" onClick="{{ r.open }}" class="ads360-campaign" style="{{ r.st }}" aria-pressed="{{ r.selected }}">
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:29px;height:29px;border-radius:9px;background:#EDF5F0;color:#13693F;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:16px;flex:none;">{{ r.icon }}</span>
+                        <div style="flex:1;min-width:0;">
+                          <div style="font-size:12px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</div>
+                          <div style="font-size:10px;color:#8C968E;margin-top:2px;">{{ r.period }}</div>
+                        </div>
+                        <span style="{{ r.dotSt }}"></span>
+                      </div>
+                      <div style="display:flex;align-items:baseline;gap:7px;margin-top:9px;">
+                        <span style="{{ r.profitSt }}">{{ r.profit }}</span>
+                        <span style="font-size:10px;color:#8C968E;">после внешней рекламы</span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:6px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5A665D;"><span>{{ r.skus }}</span><span>·</span><span>{{ r.confidence }}</span></div>
+                    </button>
+                  </sc-for>
+                </div>
+                <button type="button" onClick="{{ adsNewExternal }}" style="appearance:none;width:calc(100% - 22px);margin:11px;border:1.5px dashed #9AC8AD;border-radius:10px;background:#F5FBF6;color:#13693F;padding:9px 10px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:750;cursor:pointer;">+ Новая кампания</button>
+              </div>
+
+              <div class="ads360-panel" style="padding:16px 17px;min-width:0;">
+                <div style="display:flex;align-items:flex-start;gap:12px;">
+                  <div style="width:38px;height:38px;border-radius:11px;background:#0E2C1F;color:#7FC59E;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;flex:none;">{{ externalSelectedIcon }}</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+                      <span style="font-size:15px;font-weight:850;">{{ externalSelectedName }}</span>
+                      <span style="{{ externalStatusSt }}">{{ externalStatus }}</span>
+                    </div>
+                    <div style="font-size:11px;color:#7A857C;margin-top:3px;">{{ externalSelectedSub }}</div>
+                  </div>
+                  <div style="text-align:right;flex:none;">
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#8C968E;">Уверенность оценки</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:800;color:#13693F;margin-top:2px;">{{ externalConfidence }}</div>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#8C968E;margin-right:2px;">Охват:</span>
+                  <sc-for list="{{ externalSkus }}" as="s" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ s.open }}" style="appearance:none;border:1px solid rgba(23,35,28,.10);border-radius:8px;background:#fff;color:#38443B;padding:5px 8px;font-family:'Onest',sans-serif;font-size:10.5px;font-weight:650;cursor:pointer;display:inline-flex;align-items:center;gap:5px;"><span style="width:18px;height:18px;border-radius:5px;background:#EDF1EA;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;">{{ s.mono }}</span>{{ s.name }}</button>
+                  </sc-for>
+                </div>
+
+                <div class="ads360-evidence">
+                  <div class="ads360-evidence-step">
+                    <div class="ads360-label">01 · baseline</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:6px;">{{ externalBaseline }}</div>
+                    <div style="font-size:10.5px;color:#7A857C;margin-top:2px;">ожидаемые выкупы без кампании</div>
+                  </div>
+                  <div class="ads360-evidence-arrow">arrow_forward</div>
+                  <div class="ads360-evidence-step">
+                    <div class="ads360-label">02 · факт периода</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:6px;">{{ externalActual }}</div>
+                    <div style="font-size:10.5px;color:#7A857C;margin-top:2px;">продажи выбранных SKU</div>
+                  </div>
+                  <div class="ads360-evidence-arrow">arrow_forward</div>
+                  <div class="ads360-evidence-step ads360-evidence-step--result">
+                    <div class="ads360-label" style="color:#2E6B49;">03 · оценённый прирост</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:800;color:#13693F;margin-top:6px;">{{ externalIncrement }}</div>
+                    <div style="font-size:10.5px;color:#3E7254;margin-top:2px;">после очистки пересечений</div>
+                  </div>
+                </div>
+
+                <div class="ads360-metrics">
+                  <sc-for list="{{ externalMetrics }}" as="m" hint-placeholder-count="4">
+                    <div class="ads360-metric">
+                      <div class="ads360-label">{{ m.k }}</div>
+                      <div style="{{ m.vSt }}">{{ m.v }}</div>
+                      <div style="font-size:10px;color:#8C968E;margin-top:2px;">{{ m.sub }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="display:flex;align-items:flex-start;gap:9px;margin-top:12px;border:1px solid rgba(23,35,28,.09);border-radius:11px;background:#F8FAF8;padding:10px 12px;">
+                  <span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">rule</span>
+                  <div style="font-size:11px;line-height:1.48;color:#526057;"><b style="color:#26372D;">Метод:</b> {{ externalMethod }}<br><span style="color:#7A857C;">{{ externalExcluded }}</span></div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
         </section>
       </sc-if>
 
@@ -1666,6 +1812,67 @@
     </div>
   </sc-if>
 
+  <!-- ============ НОВАЯ ВНЕШНЯЯ КАМПАНИЯ ============ -->
+  <sc-if value="{{ externalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ externalClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.48);backdrop-filter:blur(4px);z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadein .18s;">
+      <div onClick="{{ stopProp }}" class="ads360-modal">
+        <div style="display:flex;align-items:center;gap:11px;padding:16px 20px;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;">
+          <div style="width:34px;height:34px;border-radius:10px;background:#0E2C1F;color:#7FC59E;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:18px;">add_chart</div>
+          <div>
+            <div style="font-size:15.5px;font-weight:850;">Учесть внешнюю рекламу</div>
+            <div style="font-size:10.5px;color:#7A857C;margin-top:1px;">Вы задаёте рамки и SKU — MarginPilot собирает остальное</div>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5F7969;background:#EDF5F0;border-radius:8px;padding:5px 8px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">auto_awesome</span>авто-baseline</div>
+          <button type="button" onClick="{{ externalClose }}" aria-label="Закрыть" style="appearance:none;border:0;width:30px;height:30px;border-radius:9px;background:transparent;color:#5A665D;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:19px;cursor:pointer;">close</button>
+        </div>
+
+        <div class="ads360-modal-body" style="flex:1;overflow-y:auto;padding:18px 20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;"><span style="width:21px;height:21px;border-radius:7px;background:#1B8A57;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;">01</span><span style="font-size:12.5px;font-weight:800;">Рамки кампании</span></div>
+          <div class="ads360-form-grid">
+            <label class="ads360-field"><span class="ads360-label">Название</span><input class="ads360-input" value="{{ externalDraftName }}" onChange="{{ externalNameChange }}" placeholder="Например, Telegram · Осень"></label>
+            <label class="ads360-field"><span class="ads360-label">Канал</span><select class="ads360-input" value="{{ externalDraftChannel }}" onChange="{{ externalChannelChange }}"><sc-for list="{{ externalChannels }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></label>
+            <label class="ads360-field"><span class="ads360-label">Старт</span><input type="date" class="ads360-input" value="{{ externalDraftStart }}" onChange="{{ externalStartChange }}"></label>
+            <label class="ads360-field"><span class="ads360-label">Завершение</span><input type="date" class="ads360-input" value="{{ externalDraftEnd }}" onChange="{{ externalEndChange }}"></label>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(180px,260px) 1fr;gap:10px;margin-top:10px;align-items:end;">
+            <label class="ads360-field"><span class="ads360-label">Бюджет / расход, ₽</span><input type="number" min="1" step="1000" class="ads360-input" value="{{ externalDraftBudget }}" onChange="{{ externalBudgetChange }}" placeholder="60000"></label>
+            <div style="border:1px solid rgba(23,35,28,.09);border-radius:10px;background:#F8FAF8;padding:9px 11px;font-size:10.5px;color:#667269;line-height:1.45;"><b style="color:#38443B;">Вводить продажи не нужно.</b> Заказы, выкупы, цена, акции, внутренняя реклама и остатки уже приходят из WB.</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;margin:17px 0 7px;"><span style="width:21px;height:21px;border-radius:7px;background:#1B8A57;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;">02</span><span style="font-size:12.5px;font-weight:800;">Охватываемые SKU</span><span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#8C968E;">{{ externalDraftSkuCount }}</span></div>
+          <div class="ads360-skus">
+            <sc-for list="{{ externalDraftSkus }}" as="s" hint-placeholder-count="6">
+              <button type="button" onClick="{{ s.toggle }}" class="ads360-sku" style="{{ s.st }}" aria-pressed="{{ s.selected }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:17px;color:{{ s.checkColor }};">{{ s.check }}</span>
+                <span style="width:27px;height:27px;border-radius:8px;background:{{ s.tile }};display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;flex:none;">{{ s.mono }}</span>
+                <span style="min-width:0;flex:1;"><span style="display:block;font-size:10.8px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ s.name }}</span><span style="display:block;font-family:'JetBrains Mono',monospace;font-size:8.8px;color:#8C968E;margin-top:2px;">{{ s.sub }}</span></span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;margin:17px 0 7px;"><span style="width:21px;height:21px;border-radius:7px;background:#1B8A57;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;">03</span><span style="font-size:12.5px;font-weight:800;">Как связать эффект</span></div>
+          <div class="ads360-track-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;">
+            <sc-for list="{{ externalTrackingOptions }}" as="t" hint-placeholder-count="3">
+              <button type="button" onClick="{{ t.pick }}" class="ads360-track" style="{{ t.st }}" aria-pressed="{{ t.selected }}"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">{{ t.icon }}</span><span><b style="display:block;font-size:11px;">{{ t.label }}</b><span style="display:block;font-size:9.8px;color:#7A857C;line-height:1.35;margin-top:2px;">{{ t.sub }}</span></span></button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:10px;background:#0E2C1F;color:#CDE2D4;border-radius:12px;padding:11px 13px;margin-top:14px;">
+            <span style="font-family:'Material Symbols Rounded';font-size:18px;color:#7FC59E;">query_stats</span>
+            <div style="font-size:10.8px;line-height:1.5;"><b style="color:#fff;">После сохранения:</b> построю baseline по сопоставимым дням, уберу out-of-stock и пересечения с ценами/акциями, затем покажу инкрементальную прибыль и уверенность оценки.</div>
+          </div>
+          <div style="{{ externalValidationSt }}">{{ externalValidation }}</div>
+        </div>
+
+        <div class="ads360-modal-footer" style="display:flex;align-items:center;gap:9px;padding:13px 20px;border-top:1px solid rgba(23,35,28,.08);background:#fff;">
+          <div style="font-size:10px;color:#8C968E;line-height:1.4;max-width:340px;">Расчёт будет помечен как оценка, если нет UTM или промокода.</div>
+          <button type="button" onClick="{{ externalCreate }}" style="{{ externalCreateSt }}">{{ externalCreateLabel }}</button>
+          <button type="button" onClick="{{ externalClose }}" style="appearance:none;border:1px solid rgba(23,35,28,.14);border-radius:10px;background:#fff;color:#5A665D;padding:10px 14px;font-family:'Onest',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ============ ТОСТЫ ============ -->
   <div style="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;">
     <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
@@ -1692,7 +1899,9 @@ class Component extends DCLogic {
     peSel:{'p10':true,'p11':true}, pePreview:false,
     approvals:[], apFilter:'all', apTab:'actions', apModes:{},
     homeDecision:'e1', homeCalcOpen:false,
-    adsChart:'spend', cardsSel:{}, cardsProblemsOnly:false, mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
+    adsChart:'spend', adsView:'wb', externalCampaigns:[], externalSelected:'x1', externalOpen:false,
+    externalDraft:{name:'Telegram · Новый запуск',channel:'Telegram / блогеры',start:'2026-07-22',end:'2026-08-05',budget:'60000',tracking:'utm',skus:{p1:true,p6:true}},
+    cardsSel:{}, cardsProblemsOnly:false, mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
     importOpen:false, importFileName:'Файл ещё не выбран', importRows:[], importedCards:[],
     toasts:[], searchQ:'', liveAdded:false,
   };
@@ -1702,7 +1911,7 @@ class Component extends DCLogic {
       this.M = m;
       let finCustomViews=[];
       try { finCustomViews=JSON.parse(localStorage.getItem('marginpilot.finViews')||'[]'); } catch(e) { finCustomViews=[]; }
-      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})), finCustomViews:Array.isArray(finCustomViews)?finCustomViews:[] });
+      this.setState({ ready:true, approvals: m.APPROVALS_INIT.map(a=>({...a})), externalCampaigns:m.EXTERNAL_CAMPAIGNS.map(c=>({...c,skus:[...c.skus]})), finCustomViews:Array.isArray(finCustomViews)?finCustomViews:[] });
       const start = this.props.startScreen;
       const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','Подтверждения':'apps','Настройки':'set'};
       if (start && map[start]) this.setState({ screen: map[start] });
@@ -1799,7 +2008,7 @@ class Component extends DCLogic {
       home:['Главная','Центр управления · очередь решений от Марка'],
       fin:['Финансовый центр','Экономика каждого SKU · прибыль прежде всего'],
       prices:['Цены · Price Enforcer','Защита маржи: безопасные цены, правила, нарушения'],
-      ads:['Реклама','Экономика кампаний после всех расходов'],
+      ads:['Реклама 360','WB + внешние кампании · прибыль после всех расходов'],
       cards:['Карточки','Контент, качество, дубли и массовые правки'],
       logi:['Логистика и фулфилмент','Остатки, поставки, региональный спрос и задачи на сборку'],
       apps:['Центр подтверждений и автопилот','Действия, автоправила и полный аудит в одном контуре'],
@@ -2600,7 +2809,7 @@ class Component extends DCLogic {
   // ---------- реклама ----------
   vAds() {
     const M = this.M, st = this.state;
-    if (!M) return { adSummary:[], adsBars:[], adsZones:[], adGuards:[], adRows:[] };
+    if (!M) return { adSummary:[], adsBars:[], adsZones:[], adGuards:[], adRows:[], adsTabs:[], externalSummary:[], externalRows:[], externalMetrics:[], externalSkus:[], externalDraftSkus:[], externalTrackingOptions:[], externalChannels:[] };
     const C = M.CAMPAIGNS;
     const spend = C.reduce((s,c)=>s+c.spend,0);
     const profitAfter = C.reduce((s,c)=>s+c.profitAfter,0);
@@ -2612,7 +2821,63 @@ class Component extends DCLogic {
       fix:['#F6E2DD','#B0432F'], stop:['#B0432F','#fff'], limit:['#F4E8D2','#9A6414'], scale:['#1B8A57','#fff'], keep:['#E7ECE7','#38443B'], conflict:['#F4E8D2','#9A6414'],
     };
     const zoneColors = { c1:'#B0432F', c2:'#3E5C70', c3:'#B5751A', c4:'#1B8A57' };
+    const external = st.externalCampaigns.length ? st.externalCampaigns : M.EXTERNAL_CAMPAIGNS;
+    const selectedExternal = external.find(c=>c.id===st.externalSelected) || external[0];
+    const extSpend = external.reduce((s,c)=>s+c.spend,0);
+    const extProfit = external.reduce((s,c)=>s+c.profitAfter,0);
+    const avgConfidence = external.length ? Math.round(external.reduce((s,c)=>s+c.confidence,0)/external.length) : 0;
+    const draft = st.externalDraft || {};
+    const draftSkuIds = Object.keys(draft.skus||{}).filter(id=>draft.skus[id]);
+    const draftBudget = Number(draft.budget||0);
+    const draftStart = draft.start ? new Date(draft.start+'T00:00:00') : null;
+    const draftEnd = draft.end ? new Date(draft.end+'T00:00:00') : null;
+    const validDates = !!(draftStart && draftEnd && !Number.isNaN(draftStart.getTime()) && !Number.isNaN(draftEnd.getTime()) && draftEnd>=draftStart);
+    const formValid = !!String(draft.name||'').trim() && draftBudget>0 && draftSkuIds.length>0 && validDates;
+    const validation = !String(draft.name||'').trim() ? 'Добавьте название кампании.' : draftBudget<=0 ? 'Укажите бюджет или фактический расход.' : !draftSkuIds.length ? 'Выберите хотя бы один охватываемый SKU.' : !validDates ? 'Дата завершения должна быть не раньше даты старта.' : '';
+    const updateDraft = (patch) => this.setState(s=>({externalDraft:{...s.externalDraft,...patch}}));
+    const defaultDraft = () => ({name:'Telegram · Новый запуск',channel:'Telegram / блогеры',start:'2026-07-22',end:'2026-08-05',budget:'60000',tracking:'utm',skus:{p1:true,p6:true}});
+    const channelIcons = {'Telegram / блогеры':'send','VK Реклама':'language','Яндекс Директ':'ads_click','Посевы / PR':'campaign'};
+    const trackingMeta = {
+      utm:{label:'UTM / deeplink',icon:'link',sub:'Самая точная связь клика и визита',confidence:88},
+      promo:{label:'Промокод',icon:'sell',sub:'Связываем выкупы по использованию кода',confidence:78},
+      window:{label:'Только период',icon:'date_range',sub:'Оценка прироста относительно baseline',confidence:58},
+    };
+    const formatIso = (v) => new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'short'}).format(new Date(v+'T00:00:00')).replace('.','');
+    const createExternal = () => {
+      if(!formValid){ this.toast(validation); return; }
+      const products = draftSkuIds.map(M.byId).filter(Boolean);
+      const days = Math.max(1,Math.round((draftEnd-draftStart)/86400000)+1);
+      const avgProfit = products.reduce((s,p)=>s+Math.max(120,p.profitU),0)/products.length;
+      const avgPrice = products.reduce((s,p)=>s+p.price,0)/products.length;
+      const baselineDaily = products.reduce((s,p)=>s+p.oD*p.buyout/100,0);
+      const baselineBuyouts = Math.max(1,Math.round(baselineDaily*days));
+      const tracking = trackingMeta[draft.tracking] || trackingMeta.window;
+      const responseFactor = draft.tracking==='window' ? .72 : draft.tracking==='promo' ? .84 : .94;
+      const incrementalBuyouts = Math.max(1,Math.round(draftBudget/Math.max(420,avgProfit*.7)*responseFactor));
+      const incrementalMargin = Math.round(incrementalBuyouts*avgProfit);
+      const createdProfit = incrementalMargin-draftBudget;
+      const promoConflict = products.some(p=>p.promo);
+      const stockConflict = products.some(p=>p.daysOOS<14);
+      const confidence = Math.max(42,tracking.confidence-(promoConflict?7:0)-(stockConflict?6:0));
+      const id = 'x'+Date.now();
+      const created = {
+        id,name:String(draft.name).trim(),channel:draft.channel,channelIcon:channelIcons[draft.channel]||'campaign',status:'active',statusLabel:'анализ готов · до '+formatIso(draft.end),
+        start:formatIso(draft.start),end:formatIso(draft.end),spend:draftBudget,budget:draftBudget,skus:draftSkuIds,tracking:tracking.label,trackingKey:draft.tracking,
+        baselineBuyouts,actualBuyouts:baselineBuyouts+incrementalBuyouts,incrementalBuyouts,incrementalRevenue:Math.round(incrementalBuyouts*avgPrice),incrementalMargin,profitAfter:createdProfit,romi:createdProfit/draftBudget*100,confidence,
+        baselineDaily:Number(baselineDaily.toFixed(1)),actualDaily:Number(((baselineBuyouts+incrementalBuyouts)/days).toFixed(1)),
+        excluded:[promoConflict?'пересечение с акцией WB':'дни изменения цены проверены',stockConflict?'риск out-of-stock учтён':'дни без остатка исключены'].join(' · '),
+        verdict:createdProfit>0?'scale':'stop',verdictLabel:createdProfit>0?'Масштабировать после проверки':'Не увеличивать бюджет',verdictDetail:createdProfit>0?'Оценённый прирост покрывает расход. Следующий шаг — подтвердить небольшой тест роста бюджета.':'Дополнительная маржа пока не покрывает внешний рекламный расход.',
+      };
+      this.setState(s=>({externalCampaigns:[created,...s.externalCampaigns],externalSelected:id,externalOpen:false,adsView:'external',externalDraft:defaultDraft()}));
+      this.toast('Кампания добавлена — baseline и экономика рассчитаны');
+    };
     return {
+      adsTabs: [
+        {label:'Реклама WB',badge:String(C.length),selected:st.adsView==='wb',go:()=>this.setState({adsView:'wb'}),st:st.adsView==='wb'?'background:#fff;color:#17231C;box-shadow:0 2px 8px rgba(0,0,0,.14);':'',badgeSt:`margin-left:5px;font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.7;`},
+        {label:'Внешние кампании',badge:String(external.length),selected:st.adsView==='external',go:()=>this.setState({adsView:'external'}),st:st.adsView==='external'?'background:#fff;color:#17231C;box-shadow:0 2px 8px rgba(0,0,0,.14);':'',badgeSt:`margin-left:5px;font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.7;`},
+      ],
+      adsIsWB:st.adsView==='wb', adsIsExternal:st.adsView==='external',
+      adsNewExternal:()=>this.setState({externalOpen:true,externalDraft:defaultDraft()}),
       adSummary: [
         { k:'Расход · 7 дней', v:M.fmtR(spend), sub:'6 кампаний · бюджет под guardrails', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;` },
         { k:'Прибыль после рекламы', v:M.fmtSR(profitAfter), sub:'маржа выкупов − расход', vSt:`font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;color:#13693F;` },
@@ -2651,6 +2916,35 @@ class Component extends DCLogic {
           numSt, dimSt,
         };
       }),
+      externalSummary: [
+        {k:'Внешний расход',v:M.fmtR(extSpend),sub:external.length+' кампании в измерении',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;`},
+        {k:'Оценённая прибыль',v:M.fmtSR(extProfit),sub:'инкрементальная маржа − расход',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;color:${extProfit>=0?'#13693F':'#B0432F'};`},
+        {k:'Уверенность',v:avgConfidence+'%',sub:'метод и чистота окна',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;color:#13693F;`},
+        {k:'Решение',v:external.filter(c=>c.verdict==='scale').length+' масштабировать',sub:external.filter(c=>c.verdict!=='scale').length+' не окупается',vSt:`font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:750;margin-top:4px;`},
+      ],
+      externalCount:external.length+' кампании',
+      externalRows:external.map(c=>{const active=c.id===selectedExternal.id;return {name:c.name,icon:c.channelIcon||'campaign',period:c.start+' — '+c.end,profit:M.fmtSR(c.profitAfter),confidence:'уверенность '+c.confidence+'%',skus:c.skus.length+' SKU',selected:active,open:()=>this.setState({externalSelected:c.id}),st:active?'background:#EDF5F0;box-shadow:inset 3px 0 0 #1B8A57;':'',dotSt:`width:7px;height:7px;border-radius:50%;background:${c.status==='active'?'#1B8A57':'#AAB5AD'};flex:none;`,profitSt:`font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:750;color:${c.profitAfter>=0?'#13693F':'#B0432F'};`};}),
+      externalSelectedIcon:selectedExternal.channelIcon||'campaign', externalSelectedName:selectedExternal.name,
+      externalStatus:selectedExternal.statusLabel, externalStatusSt:`font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;border-radius:6px;padding:3px 6px;background:${selectedExternal.status==='active'?'#DFEEE5':'#E7ECE7'};color:${selectedExternal.status==='active'?'#13693F':'#5A665D'};`,
+      externalSelectedSub:selectedExternal.channel+' · '+selectedExternal.start+' — '+selectedExternal.end+' · '+selectedExternal.tracking,
+      externalConfidence:selectedExternal.confidence+'%', externalBaseline:M.fmtN(selectedExternal.baselineBuyouts), externalActual:M.fmtN(selectedExternal.actualBuyouts), externalIncrement:'+'+M.fmtN(selectedExternal.incrementalBuyouts),
+      externalSkus:selectedExternal.skus.map(M.byId).filter(Boolean).map(p=>({mono:p.mono,name:p.name,open:()=>this.setState({drill:p.id,drillTab:'eco'})})),
+      externalMetrics:[
+        {k:'Расход',v:M.fmtR(selectedExternal.spend),sub:'внешний канал',vSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:750;margin-top:4px;`},
+        {k:'Доп. выручка',v:M.fmtSR(selectedExternal.incrementalRevenue),sub:'оценённый прирост',vSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:750;margin-top:4px;`},
+        {k:'Прибыль после',v:M.fmtSR(selectedExternal.profitAfter),sub:'после внешнего расхода',vSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;margin-top:4px;color:${selectedExternal.profitAfter>=0?'#13693F':'#B0432F'};`},
+        {k:'ROMI',v:(selectedExternal.romi>0?'+':'')+selectedExternal.romi.toFixed(1).replace('.',',')+'%',sub:'прибыль / расход',vSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;margin-top:4px;color:${selectedExternal.romi>=0?'#13693F':'#B0432F'};`},
+      ],
+      externalMethod:selectedExternal.tracking+' + сопоставимый baseline по дням недели.', externalExcluded:selectedExternal.excluded,
+      externalOpen:st.externalOpen, externalClose:()=>this.setState({externalOpen:false}),
+      externalDraftName:draft.name,externalDraftChannel:draft.channel,externalDraftStart:draft.start,externalDraftEnd:draft.end,externalDraftBudget:draft.budget,
+      externalNameChange:e=>updateDraft({name:e.target.value}),externalChannelChange:e=>updateDraft({channel:e.target.value}),externalStartChange:e=>updateDraft({start:e.target.value}),externalEndChange:e=>updateDraft({end:e.target.value}),externalBudgetChange:e=>updateDraft({budget:e.target.value}),
+      externalChannels:['Telegram / блогеры','VK Реклама','Яндекс Директ','Посевы / PR'].map(v=>({value:v,label:v})),
+      externalDraftSkuCount:draftSkuIds.length+' выбрано',
+      externalDraftSkus:M.PRODUCTS.slice(0,6).map(p=>{const selected=!!(draft.skus||{})[p.id];return {name:p.name,mono:p.mono,tile:p.tile,sub:p.code+' · маржа '+Math.round(p.margin)+'%',selected,check:selected?'check_box':'check_box_outline_blank',checkColor:selected?'#1B8A57':'#AAB5AD',st:selected?'border-color:#7FC59E;background:#F5FBF6;':'',toggle:()=>this.setState(s=>({externalDraft:{...s.externalDraft,skus:{...s.externalDraft.skus,[p.id]:!s.externalDraft.skus[p.id]}}}))};}),
+      externalTrackingOptions:Object.entries(trackingMeta).map(([key,t])=>{const selected=draft.tracking===key;return {label:t.label,icon:t.icon,sub:t.sub,selected,st:selected?'border-color:#1B8A57;background:#F5FBF6;box-shadow:inset 0 0 0 1px #1B8A57;':'',pick:()=>updateDraft({tracking:key})};}),
+      externalValidation:validation,externalValidationSt:validation?'display:block;background:#F6E2DD;color:#9E3B2B;border-radius:9px;padding:8px 10px;margin-top:10px;font-size:10.5px;font-weight:650;':'display:none;',
+      externalCreate:createExternal,externalCreateLabel:formValid?'Сохранить и рассчитать':'Проверьте данные',externalCreateSt:`appearance:none;margin-left:auto;border:0;border-radius:10px;padding:10px 15px;font-family:'Onest',sans-serif;font-size:12px;font-weight:800;${formValid?'background:#1B8A57;color:#fff;cursor:pointer;':'background:#E7ECE7;color:#8C968E;cursor:not-allowed;'}`,
     };
   }
 

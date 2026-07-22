@@ -139,6 +139,24 @@ export const GUARDRAILS = [
   { id:'g5', label:'Предупреждать при остатке < 14 дней', value:'вкл', on:true, hits:'«Авто · Джинсы»' },
 ];
 
+// ---- Внешняя реклама · измерение инкрементального эффекта
+export const EXTERNAL_CAMPAIGNS = [
+  {
+    id:'x1', name:'Telegram · Летний дроп', channel:'Telegram / блогеры', channelIcon:'send', status:'active', statusLabel:'идёт до 18 июл',
+    start:'01.07.2026', end:'18.07.2026', spend:84000, budget:120000, skus:['p1','p5','p6'], tracking:'UTM + промокод LOOMA10', trackingKey:'utm',
+    baselineBuyouts:132, actualBuyouts:247, incrementalBuyouts:115, incrementalRevenue:286400, incrementalMargin:121800, profitAfter:37800, romi:45.0, confidence:86,
+    baselineDaily:7.3, actualDaily:13.7, excluded:'Очищено: акция WB по «Мие», 2 дня без остатка размера 46',
+    verdict:'scale', verdictLabel:'Добавить 24 000 ₽ под guardrail', verdictDetail:'Прирост устойчив на трёх SKU. Дополнительный бюджет окупится, если цена выкупа останется ниже 1 060 ₽.',
+  },
+  {
+    id:'x2', name:'VK · Ретаргетинг базы', channel:'VK Реклама', channelIcon:'language', status:'done', statusLabel:'завершена · 30 июн',
+    start:'17.06.2026', end:'30.06.2026', spend:46000, budget:46000, skus:['p7','p8'], tracking:'Промокод BASE15', trackingKey:'promo',
+    baselineBuyouts:218, actualBuyouts:247, incrementalBuyouts:29, incrementalRevenue:25810, incrementalMargin:16800, profitAfter:-29200, romi:-63.5, confidence:74,
+    baselineDaily:15.6, actualDaily:17.6, excluded:'Учтён рост внутренней рекламы WB; пересечений с изменением цены нет',
+    verdict:'stop', verdictLabel:'Не перезапускать аудиторию', verdictDetail:'Продажи выросли, но дополнительной маржи недостаточно для покрытия закупки трафика.',
+  },
+];
+
 // ---- Логистика
 export const WAREHOUSES = ['КЛД','ЭЛС','КЗН','КРД','НСК'];
 export const WH_NAMES = { КЛД:'Коледино', ЭЛС:'Электросталь', КЗН:'Казань', КРД:'Краснодар', НСК:'Новосибирск' };
