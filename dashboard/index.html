@@ -119,16 +119,83 @@
     .period-popover__footer{display:flex;align-items:center;gap:9px;margin-top:12px;}
     .period-popover__apply{appearance:none;margin-left:auto;border:0;border-radius:9px;background:#1B8A57;color:#fff;padding:8px 12px;font-family:'Onest',sans-serif;font-size:11.5px;font-weight:800;cursor:pointer;}
     .period-popover__apply:hover{background:#13693F;}
+    .sku-drill-tabs{overflow-x:auto;scrollbar-width:none;}
+    .sku-drill-tabs::-webkit-scrollbar{display:none;}
+    .sku-drill-actions{display:flex;align-items:center;gap:14px;flex:none;}
+    .sku-chart-shell{background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;overflow:hidden;box-shadow:0 18px 42px -38px rgba(14,44,31,.72);}
+    .sku-chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:15px 17px;border-bottom:1px solid rgba(23,35,28,.08);}
+    .sku-chart-periods{display:flex;align-items:center;gap:3px;padding:3px;background:#ECF0EC;border-radius:9px;overflow-x:auto;scrollbar-width:none;}
+    .sku-chart-periods::-webkit-scrollbar{display:none;}
+    .sku-chart-period{appearance:none;border:0;border-radius:7px;padding:6px 9px;background:transparent;color:#5A665D;font:700 11.5px 'Onest',sans-serif;white-space:nowrap;cursor:pointer;}
+    .sku-chart-period:hover{background:rgba(255,255,255,.7);color:#17231C;}
+    .sku-chart-period:focus-visible,.sku-chart-metric:focus-visible,.sku-chart-apply:focus-visible,.sku-chart-date:focus-visible{outline:3px solid rgba(27,138,87,.24);outline-offset:2px;}
+    .sku-chart-custom{display:grid;grid-template-columns:1fr 1fr auto;gap:9px;align-items:end;padding:11px 17px;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.08);animation:fadein .16s ease-out;}
+    .sku-chart-field{display:flex;flex-direction:column;gap:5px;font:700 9px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7A857C;}
+    .sku-chart-date{width:100%;min-width:0;border:1px solid rgba(23,35,28,.14);border-radius:9px;background:#fff;color:#17231C;padding:8px 9px;font:600 11.5px 'JetBrains Mono',monospace;}
+    .sku-chart-apply{appearance:none;border:0;border-radius:9px;background:#1B8A57;color:#fff;padding:9px 13px;font:800 11.5px 'Onest',sans-serif;cursor:pointer;}
+    .sku-chart-apply:hover{background:#13693F;}
+    .sku-chart-error{grid-column:1/-1;color:#B0432F;font-size:11px;}
+    .sku-chart-layout{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:390px;}
+    .sku-chart-sidebar{padding:15px;border-right:1px solid rgba(23,35,28,.08);background:#FBFCFB;}
+    .sku-chart-metrics{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+    .sku-chart-metric{appearance:none;width:100%;border:1px solid rgba(23,35,28,.09);border-radius:9px;background:#fff;color:#38443B;padding:8px 9px;font:700 11.5px 'Onest',sans-serif;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;}
+    .sku-chart-metric:hover{border-color:rgba(27,138,87,.48);background:#F8FBF8;}
+    .sku-chart-metric-dot{width:8px;height:8px;border-radius:50%;flex:none;}
+    .sku-chart-metric-check{margin-left:auto;width:17px;height:17px;border:1px solid rgba(23,35,28,.15);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:12px;}
+    .sku-chart-main{min-width:0;padding:15px 17px 12px;display:flex;flex-direction:column;}
+    .sku-chart-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
+    .sku-chart-legend-item{min-width:0;border:1px solid rgba(23,35,28,.08);border-radius:10px;padding:9px 10px;background:#FBFCFB;}
+    .sku-chart-canvas{min-height:245px;margin-top:10px;display:flex;align-items:center;}
+    .sku-chart-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:9px;border-top:1px solid rgba(23,35,28,.07);font:500 10px 'JetBrains Mono',monospace;color:#8C968E;}
     .home-brief{display:flex;align-items:center;gap:16px;}
     .home-brief__copy{flex:1;min-width:0;}
     .cards-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .cards-subnav{display:flex;align-items:center;gap:3px;width:max-content;padding:3px;background:#E4EAE5;border-radius:11px;}
+    .cards-subnav__button{appearance:none;border:0;border-radius:8px;background:transparent;color:#5A665D;padding:8px 13px;font:750 12px 'Onest',sans-serif;display:flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap;}
+    .cards-subnav__button:hover{background:rgba(255,255,255,.65);color:#17231C;}
+    .cards-subnav__button:focus-visible,.info-product:focus-visible,.info-slide:focus-visible,.info-option:focus-visible,.info-generate:focus-visible,.info-download:focus-visible{outline:3px solid rgba(27,138,87,.24);outline-offset:2px;}
+    .info-command{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;margin-top:13px;padding:15px 17px;border-radius:15px;background:#0E2C1F;color:#EAF2EC;box-shadow:0 20px 42px -32px rgba(14,44,31,.9);}
+    .info-command:after{content:"";position:absolute;right:150px;top:-95px;width:240px;height:240px;border-radius:50%;border:44px solid rgba(127,197,158,.08);pointer-events:none;}
+    .info-command__icon{width:38px;height:38px;border-radius:11px;background:#7FC59E;color:#0E2C1F;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:21px;flex:none;}
+    .info-workspace{display:grid;grid-template-columns:220px minmax(390px,1fr) 254px;gap:13px;margin-top:13px;align-items:start;}
+    .info-panel{background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px -34px rgba(14,44,31,.72);}
+    .info-panel__section{padding:13px 14px;}
+    .info-panel__section+.info-panel__section{border-top:1px solid rgba(23,35,28,.08);}
+    .info-kicker{font:700 9.5px 'JetBrains Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;}
+    .info-product-list,.info-slide-list{display:flex;flex-direction:column;gap:6px;margin-top:9px;}
+    .info-product{appearance:none;width:100%;border:1px solid rgba(23,35,28,.09);border-radius:10px;background:#fff;color:#17231C;padding:8px;text-align:left;font-family:'Onest',sans-serif;display:flex;align-items:center;gap:8px;cursor:pointer;min-width:0;}
+    .info-product:hover{border-color:#7FC59E;background:#F8FBF8;}
+    .info-slide{appearance:none;width:100%;border:0;border-radius:8px;background:transparent;color:#5A665D;padding:7px 8px;text-align:left;font-family:'Onest',sans-serif;display:flex;align-items:center;gap:8px;cursor:pointer;}
+    .info-slide:hover{background:#F0F4F1;color:#17231C;}
+    .info-stage{min-width:0;border:1px solid rgba(23,35,28,.10);border-radius:14px;background:#E6EBE7;overflow:hidden;box-shadow:0 16px 38px -34px rgba(14,44,31,.72);}
+    .info-stage__bar{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;}
+    .info-stage__canvas{min-height:570px;padding:24px;display:flex;align-items:center;justify-content:center;background-color:#E9EDEA;background-image:radial-gradient(rgba(23,35,28,.09) .8px,transparent .8px);background-size:14px 14px;}
+    .info-canvas{position:relative;isolation:isolate;width:min(390px,100%);border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(14,44,31,.55);display:flex;flex-direction:column;padding:25px;transition:background .2s,color .2s,aspect-ratio .2s;}
+    .info-canvas:after{content:"";position:absolute;z-index:-1;right:-38%;bottom:-22%;width:92%;aspect-ratio:1;border-radius:50%;border:58px solid var(--info-soft);opacity:.58;}
+    .info-canvas__brand{display:flex;align-items:center;justify-content:space-between;font:700 10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;}
+    .info-canvas__visual{position:relative;flex:1;min-height:190px;margin:20px 0 16px;border-radius:120px 120px 20px 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .info-canvas__visual:after{content:"";position:absolute;inset:12% 18%;border:1px solid currentColor;border-radius:50%;opacity:.11;transform:rotate(-12deg);}
+    .info-canvas__copy{position:relative;z-index:2;}
+    .info-canvas__title{max-width:92%;font-size:27px;font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-top:7px;}
+    .info-canvas__points{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:13px;}
+    .info-canvas__point{border:1px solid currentColor;border-radius:999px;padding:5px 8px;font-size:9.5px;font-weight:750;white-space:nowrap;opacity:.82;}
+    .info-option-grid{display:grid;grid-template-columns:1fr;gap:6px;margin-top:9px;}
+    .info-option{appearance:none;width:100%;border:1px solid rgba(23,35,28,.10);border-radius:9px;background:#fff;color:#38443B;padding:8px 9px;text-align:left;font:700 11.5px 'Onest',sans-serif;display:flex;align-items:center;gap:8px;cursor:pointer;}
+    .info-option:hover{border-color:#7FC59E;background:#FBFDFB;}
+    .info-palette{width:17px;height:17px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(23,35,28,.12);flex:none;}
+    .info-generate,.info-download{appearance:none;width:100%;border-radius:10px;padding:10px 12px;font:800 12px 'Onest',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;}
+    .info-generate{border:0;background:#1B8A57;color:#fff;}
+    .info-generate:hover{background:#13693F;}
+    .info-download{margin-top:7px;border:1px solid rgba(23,35,28,.13);background:#fff;color:#38443B;}
+    .info-download:hover{border-color:#1B8A57;color:#13693F;background:#F7FAF7;}
+    .new-card-modal{width:min(760px,calc(100vw - 24px))!important;}
     .mobile-nav{display:none;}
     .mobile-nav-item{appearance:none;border:0;background:transparent;color:#8EA597;min-width:0;padding:7px 3px 6px;font-family:'Onest',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;}
-    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.info-workspace{grid-template-columns:205px minmax(390px,1fr)}.info-settings{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.info-settings .info-panel__section:last-child{grid-column:1/-1}.info-settings .info-panel__section+.info-panel__section{border-top:0;border-left:1px solid rgba(23,35,28,.08)}}
     @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-ai{grid-template-columns:1fr}}
     @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.app-main{padding-bottom:72px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));left:10px;right:10px;bottom:8px;z-index:75;border:1px solid rgba(234,242,236,.16);border-radius:15px;background:rgba(14,44,31,.96);box-shadow:0 18px 42px -18px rgba(7,24,16,.85);backdrop-filter:blur(12px);overflow:hidden}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
     @media(max-width:720px){.period-presets{display:none}.period-range-button{border-left:0;border-radius:8px;max-width:142px}.period-range__desktop{display:none}.period-range__mobile{display:block;overflow:hidden;text-overflow:ellipsis}.period-popover{position:fixed;top:68px;left:10px;right:10px;width:auto}.period-popover__quick .period-chip{display:block}}
-    @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}}
+    @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}.cards-subnav{width:100%}.cards-subnav__button{flex:1;justify-content:center}.info-command{align-items:flex-start;flex-wrap:wrap}.info-command__copy{flex:1 1 calc(100% - 54px)!important}.info-command__action{width:100%;justify-content:center!important;margin-left:0!important}.info-workspace{grid-template-columns:1fr}.info-product-list,.info-slide-list{flex-direction:row;overflow-x:auto;padding-bottom:2px}.info-product{min-width:205px}.info-slide{min-width:145px}.info-stage__canvas{min-height:430px;padding:14px}.info-canvas{padding:20px;max-width:330px}.info-canvas__title{font-size:23px}.info-settings{grid-column:auto;display:block}.info-settings .info-panel__section+.info-panel__section{border-left:0;border-top:1px solid rgba(23,35,28,.08)}.info-settings .info-panel__section:last-child{grid-column:auto}.new-card-modal{max-height:94vh!important}.new-card-head{padding:13px 14px!important}.new-card-pipeline{display:none}.new-card-body{padding:14px!important}.new-card-grid{grid-template-columns:1fr!important}.new-card-footer{padding:11px 14px!important}.new-card-footer>*{flex:1 1 100%!important;justify-content:center}.sku-drill-head{display:grid!important;grid-template-columns:44px minmax(0,1fr) 32px;align-items:center!important;padding:12px!important;gap:9px!important}.sku-drill-identity{min-width:0}.sku-drill-identity>div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku-drill-actions{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sku-drill-action{justify-content:center!important}.sku-drill-close{grid-column:3;grid-row:1}.sku-drill-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sku-drill-kpi{border-bottom:1px solid rgba(23,35,28,.06);padding:10px 12px!important}.sku-drill-tabs{padding-left:12px!important;padding-right:12px!important}.sku-drill-body{padding:16px 12px 24px!important}.sku-chart-head{flex-direction:column}.sku-chart-periods{width:100%}.sku-chart-layout{grid-template-columns:1fr}.sku-chart-sidebar{border-right:0;border-bottom:1px solid rgba(23,35,28,.08)}.sku-chart-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sku-chart-legend{grid-template-columns:1fr}.sku-chart-custom{grid-template-columns:1fr 1fr}.sku-chart-apply{grid-column:1/-1}.sku-chart-foot{align-items:flex-start;flex-direction:column}}
   </style>
 </helmet>
 
@@ -1061,6 +1128,13 @@
       <!-- ============ КАРТОЧКИ ============ -->
       <sc-if value="{{ isCards }}" hint-placeholder-val="{{ false }}">
         <section data-screen-label="Карточки" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <div class="cards-subnav">
+            <sc-for list="{{ cardsTabs }}" as="tab" hint-placeholder-count="2">
+              <button type="button" onClick="{{ tab.go }}" class="cards-subnav__button" style="{{ tab.st }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ tab.icon }}</span>{{ tab.label }}</button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ cardsCatalog }}" hint-placeholder-val="{{ true }}">
           <div class="cards-toolbar">
             <div onClick="{{ cdNew }}" style="display:flex;align-items:center;gap:8px;background:#1B8A57;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">
               <span style="font-family:'Material Symbols Rounded';font-size:17px;">auto_awesome</span>Новая карточка с ИИ
@@ -1106,6 +1180,85 @@
               </div>
             </sc-for>
           </div>
+          </sc-if>
+
+          <sc-if value="{{ cardsInfographic }}" hint-placeholder-val="{{ false }}">
+            <div class="info-command">
+              <div class="info-command__icon">auto_fix_high</div>
+              <div class="info-command__copy" style="flex:1;min-width:0;position:relative;z-index:1;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:15px;font-weight:800;">Студия инфографики</span><span style="font:700 9.5px 'JetBrains Mono',monospace;color:#0E2C1F;background:#7FC59E;border-radius:6px;padding:3px 7px;">AI DESIGN</span></div>
+                <div style="font-size:11.5px;color:#AFC6B7;margin-top:3px;">Обложки и слайды для карточек WB</div>
+              </div>
+              <button type="button" onClick="{{ infoGenerate }}" class="info-command__action info-generate" style="width:auto;position:relative;z-index:1;margin-left:auto;background:#7FC59E;color:#0E2C1F;padding:10px 15px;"><span style="font-family:'Material Symbols Rounded';font-size:17px;">{{ infoGenerateIcon }}</span>{{ infoGenerateLabel }}</button>
+            </div>
+
+            <div class="info-workspace">
+              <aside class="info-panel">
+                <div class="info-panel__section">
+                  <div class="info-kicker">Товар</div>
+                  <div class="info-product-list">
+                    <sc-for list="{{ infoProducts }}" as="product" hint-placeholder-count="6">
+                      <button type="button" onClick="{{ product.pick }}" class="info-product" style="{{ product.st }}">
+                        <span style="{{ product.tileSt }}">{{ product.mono }}</span>
+                        <span style="min-width:0;"><span style="display:block;font-size:11.5px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ product.name }}</span><span style="display:block;font:500 9px 'JetBrains Mono',monospace;color:#8C968E;margin-top:2px;">{{ product.meta }}</span></span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div class="info-panel__section">
+                  <div class="info-kicker">Комплект · 4 слайда</div>
+                  <div class="info-slide-list">
+                    <sc-for list="{{ infoSlides }}" as="slide" hint-placeholder-count="4">
+                      <button type="button" onClick="{{ slide.pick }}" class="info-slide" style="{{ slide.st }}"><span style="font:700 9.5px 'JetBrains Mono',monospace;color:#8C968E;">{{ slide.n }}</span><span style="font-size:11.5px;font-weight:700;">{{ slide.label }}</span><span style="font-family:'Material Symbols Rounded';font-size:14px;margin-left:auto;color:#1B8A57;">{{ slide.done }}</span></button>
+                    </sc-for>
+                  </div>
+                </div>
+              </aside>
+
+              <div class="info-stage">
+                <div class="info-stage__bar">
+                  <span style="font-size:12px;font-weight:800;">{{ infoSlideLabel }}</span>
+                  <span style="font:600 9.5px 'JetBrains Mono',monospace;color:#8C968E;">{{ infoFormatLabel }}</span>
+                  <sc-if value="{{ infoGenerated }}" hint-placeholder-val="{{ false }}"><span style="margin-left:auto;display:flex;align-items:center;gap:4px;border-radius:6px;background:#DFEEE5;color:#13693F;padding:4px 7px;font:700 9.5px 'JetBrains Mono',monospace;"><span style="font-family:'Material Symbols Rounded';font-size:12px;">verified</span>готово</span></sc-if>
+                </div>
+                <div class="info-stage__canvas">
+                  <div class="info-canvas" style="{{ infoCanvasSt }}">
+                    <div class="info-canvas__brand"><span>LOOMA</span><span>{{ infoCanvasPage }}</span></div>
+                    <div class="info-canvas__visual" style="{{ infoVisualSt }}"><span style="font-family:'Material Symbols Rounded';font-size:92px;font-variation-settings:'FILL' 0,'wght' 200;opacity:.72;">{{ infoCanvasIcon }}</span><span style="position:absolute;right:14px;bottom:12px;border-radius:8px;padding:5px 7px;background:rgba(255,255,255,.78);color:#17231C;font:700 9px 'JetBrains Mono',monospace;">{{ infoCanvasSku }}</span></div>
+                    <div class="info-canvas__copy">
+                      <div style="font:700 9.5px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;opacity:.68;">{{ infoCanvasEyebrow }}</div>
+                      <div class="info-canvas__title" style="{{ infoCanvasTitleSt }}">{{ infoCanvasTitle }}</div>
+                      <div style="font-size:11px;font-weight:600;line-height:1.4;margin-top:8px;max-width:90%;opacity:.72;">{{ infoCanvasSub }}</div>
+                      <div class="info-canvas__points"><sc-for list="{{ infoCanvasPoints }}" as="point" hint-placeholder-count="3"><span class="info-canvas__point">{{ point.t }}</span></sc-for></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="info-panel info-settings">
+                <div class="info-panel__section">
+                  <div class="info-kicker">Шаблон</div>
+                  <div class="info-option-grid"><sc-for list="{{ infoTemplates }}" as="option" hint-placeholder-count="3"><button type="button" onClick="{{ option.pick }}" class="info-option" style="{{ option.st }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">{{ option.icon }}</span>{{ option.label }}<span style="font-family:'Material Symbols Rounded';font-size:14px;margin-left:auto;">{{ option.check }}</span></button></sc-for></div>
+                </div>
+                <div class="info-panel__section">
+                  <div class="info-kicker">Палитра</div>
+                  <div class="info-option-grid"><sc-for list="{{ infoPalettes }}" as="option" hint-placeholder-count="4"><button type="button" onClick="{{ option.pick }}" class="info-option" style="{{ option.st }}"><span class="info-palette" style="{{ option.swatchSt }}"></span>{{ option.label }}<span style="font-family:'Material Symbols Rounded';font-size:14px;margin-left:auto;">{{ option.check }}</span></button></sc-for></div>
+                </div>
+                <div class="info-panel__section">
+                  <div class="info-kicker">Формат</div>
+                  <div style="display:flex;gap:5px;margin-top:9px;"><sc-for list="{{ infoFormats }}" as="option" hint-placeholder-count="3"><button type="button" onClick="{{ option.pick }}" class="info-option" style="{{ option.st }}">{{ option.label }}</button></sc-for></div>
+                </div>
+                <div class="info-panel__section">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;"><div class="info-kicker">Тезисы</div><span style="font:600 9px 'JetBrains Mono',monospace;color:#8C968E;">до 3</span></div>
+                  <div class="info-option-grid"><sc-for list="{{ infoClaims }}" as="claim" hint-placeholder-count="4"><button type="button" onClick="{{ claim.toggle }}" class="info-option" style="{{ claim.st }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">{{ claim.icon }}</span>{{ claim.label }}</button></sc-for></div>
+                </div>
+                <div class="info-panel__section">
+                  <button type="button" onClick="{{ infoGenerate }}" class="info-generate"><span style="font-family:'Material Symbols Rounded';font-size:17px;">{{ infoGenerateIcon }}</span>{{ infoGenerateLabel }}</button>
+                  <sc-if value="{{ infoGenerated }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ infoDownload }}" class="info-download"><span style="font-family:'Material Symbols Rounded';font-size:16px;">download</span>Скачать комплект</button></sc-if>
+                </div>
+              </aside>
+            </div>
+          </sc-if>
         </section>
       </sc-if>
 
@@ -1474,15 +1627,15 @@
   <!-- ============ НОВАЯ КАРТОЧКА (AI) ============ -->
   <sc-if value="{{ ncOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ ncClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.45);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadein .18s;">
-      <div onClick="{{ stopProp }}" style="width:760px;max-height:86vh;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);display:flex;flex-direction:column;overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
-        <div style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);">
+      <div class="new-card-modal" onClick="{{ stopProp }}" style="width:760px;max-height:86vh;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);display:flex;flex-direction:column;overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
+        <div class="new-card-head" style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);">
           <span style="font-family:'Material Symbols Rounded';font-size:19px;color:#1B8A57;">auto_awesome</span>
           <span style="font-size:16px;font-weight:800;">Новая карточка · пайплайн Марка</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8C968E;">фото → распознавание → черновик → вы редактируете → публикация</span>
+          <span class="new-card-pipeline" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8C968E;">фото → распознавание → черновик → вы редактируете → публикация</span>
           <div onClick="{{ ncClose }}" style="margin-left:auto;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5A665D;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:19px;">close</span></div>
         </div>
-        <div style="flex:1;overflow-y:auto;padding:18px 22px;">
-          <div style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start;">
+        <div class="new-card-body" style="flex:1;overflow-y:auto;padding:18px 22px;">
+          <div class="new-card-grid" style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start;">
             <div>
               <div style="border:1.5px dashed rgba(23,35,28,.22);border-radius:13px;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#F7FAF7,#F7FAF7 8px,#F2F6F2 8px,#F2F6F2 16px);">
                 <span style="font-family:'Material Symbols Rounded';font-size:30px;color:#1B8A57;">photo_camera</span>
@@ -1526,8 +1679,9 @@
             </div>
           </div>
         </div>
-        <div style="padding:14px 22px;border-top:1px solid rgba(23,35,28,.08);display:flex;gap:9px;background:#fff;">
+        <div class="new-card-footer" style="padding:14px 22px;border-top:1px solid rgba(23,35,28,.08);display:flex;gap:9px;background:#fff;flex-wrap:wrap;">
           <div onClick="{{ ncDraft }}" style="flex:1;text-align:center;background:#1B8A57;color:#fff;border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">Сохранить как черновик</div>
+          <button type="button" onClick="{{ ncInfographic }}" style="appearance:none;flex:none;border:1px solid #0E2C1F;background:#0E2C1F;color:#EAF2EC;border-radius:11px;padding:11px 15px;font-family:'Onest',sans-serif;font-size:12.5px;font-weight:750;cursor:pointer;display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#7FC59E;">auto_fix_high</span>Генерация инфографики</button>
           <div onClick="{{ ncEdit }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Редактировать поля</div>
           <div onClick="{{ ncClose }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div>
         </div>
@@ -1624,9 +1778,9 @@
   <sc-if value="{{ drOpen }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ drClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.38);backdrop-filter:blur(3px);z-index:80;animation:fadein .18s;">
       <div onClick="{{ stopProp }}" style="position:absolute;top:0;right:0;bottom:0;width:min(1010px,94vw);background:#FBFCFB;box-shadow:-30px 0 70px -30px rgba(12,28,20,.5);animation:slidein .28s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;">
-        <div style="display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;">
-          <div style="{{ drTileSt }}">{{ drMono }}</div>
-          <div style="flex:1;min-width:0;">
+        <div class="sku-drill-head" style="display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;">
+          <div class="sku-drill-tile" style="{{ drTileSt }}">{{ drMono }}</div>
+          <div class="sku-drill-identity" style="flex:1;min-width:0;">
             <div style="display:flex;align-items:center;gap:9px;">
               <span style="font-size:17px;font-weight:800;letter-spacing:-.01em;">{{ drName }}</span>
               <span style="{{ drAbcSt }}">{{ drAbc }}</span>
@@ -1634,14 +1788,16 @@
             </div>
             <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8C968E;margin-top:3px;">{{ drSub }}</div>
           </div>
-          <div onClick="{{ drRule }}" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 13px;font-size:12px;font-weight:650;color:#38443B;cursor:pointer;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:15px;">gavel</span>Правило цены</div>
-          <div onClick="{{ drSupply }}" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 13px;font-size:12px;font-weight:650;color:#38443B;cursor:pointer;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:15px;">local_shipping</span>В поставку</div>
-          <div onClick="{{ drClose }}" style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5A665D;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:20px;">close</span></div>
+          <div class="sku-drill-actions">
+            <div class="sku-drill-action" onClick="{{ drRule }}" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 13px;font-size:12px;font-weight:650;color:#38443B;cursor:pointer;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:15px;">gavel</span>Правило цены</div>
+            <div class="sku-drill-action" onClick="{{ drSupply }}" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:9px;padding:8px 13px;font-size:12px;font-weight:650;color:#38443B;cursor:pointer;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:15px;">local_shipping</span>В поставку</div>
+          </div>
+          <div class="sku-drill-close" onClick="{{ drClose }}" style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5A665D;flex:none;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:20px;">close</span></div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;">
+        <div class="sku-drill-kpis" style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-bottom:1px solid rgba(23,35,28,.08);background:#fff;">
           <sc-for list="{{ drKpis }}" as="k" hint-placeholder-count="6">
-            <div style="padding:12px 18px;border-right:1px solid rgba(23,35,28,.06);">
+            <div class="sku-drill-kpi" style="padding:12px 18px;border-right:1px solid rgba(23,35,28,.06);">
               <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8C968E;">{{ k.k }}</div>
               <div style="{{ k.vSt }}">{{ k.v }}</div>
               <div style="font-size:10.5px;color:#8C968E;">{{ k.sub }}</div>
@@ -1649,13 +1805,13 @@
           </sc-for>
         </div>
 
-        <div style="display:flex;gap:2px;padding:10px 24px 0;background:#fff;border-bottom:1px solid rgba(23,35,28,.08);">
-          <sc-for list="{{ drTabs }}" as="t" hint-placeholder-count="5">
+        <div class="sku-drill-tabs" style="display:flex;gap:2px;padding:10px 24px 0;background:#fff;border-bottom:1px solid rgba(23,35,28,.08);">
+          <sc-for list="{{ drTabs }}" as="t" hint-placeholder-count="6">
             <div onClick="{{ t.go }}" style="{{ t.st }}" style-hover="color:#13693F">{{ t.label }}</div>
           </sc-for>
         </div>
 
-        <div style="flex:1;overflow-y:auto;padding:20px 24px 28px;">
+        <div class="sku-drill-body" style="flex:1;overflow-y:auto;padding:20px 24px 28px;">
 
           <!-- Экономика -->
           <sc-if value="{{ drTabEco }}" hint-placeholder-val="{{ false }}">
@@ -1685,6 +1841,67 @@
                   <div style="font-size:11px;color:#5A665D;margin-top:2px;">{{ e.sub }}</div>
                 </div>
               </sc-for>
+            </div>
+          </sc-if>
+
+          <!-- Настраиваемый график -->
+          <sc-if value="{{ drTabChart }}" hint-placeholder-val="{{ false }}">
+            <div class="sku-chart-shell">
+              <div class="sku-chart-head">
+                <div>
+                  <div style="font-size:14px;font-weight:800;">Динамика показателей</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;margin-top:4px;">{{ drChartRange }} · индекс 100 в начале периода</div>
+                </div>
+                <div class="sku-chart-periods" aria-label="Период графика">
+                  <sc-for list="{{ drChartPeriods }}" as="period" hint-placeholder-count="5">
+                    <button type="button" onClick="{{ period.go }}" class="sku-chart-period" style="{{ period.st }}">{{ period.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+
+              <sc-if value="{{ drChartCustomOpen }}" hint-placeholder-val="{{ false }}">
+                <div class="sku-chart-custom">
+                  <label class="sku-chart-field">С
+                    <input type="date" value="{{ drChartDraftStart }}" max="{{ drChartMaxDate }}" onChange="{{ drChartStartSet }}" class="sku-chart-date">
+                  </label>
+                  <label class="sku-chart-field">По
+                    <input type="date" value="{{ drChartDraftEnd }}" max="{{ drChartMaxDate }}" onChange="{{ drChartEndSet }}" class="sku-chart-date">
+                  </label>
+                  <button type="button" onClick="{{ drChartApply }}" class="sku-chart-apply">Применить</button>
+                  <sc-if value="{{ drChartHasError }}" hint-placeholder-val="{{ false }}"><div class="sku-chart-error">{{ drChartError }}</div></sc-if>
+                </div>
+              </sc-if>
+
+              <div class="sku-chart-layout">
+                <aside class="sku-chart-sidebar">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
+                    <span style="font-size:12.5px;font-weight:800;">Показатели</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#8C968E;">{{ drChartMetricCount }}/3</span>
+                  </div>
+                  <div class="sku-chart-metrics">
+                    <sc-for list="{{ drChartMetrics }}" as="metric" hint-placeholder-count="8">
+                      <button type="button" onClick="{{ metric.go }}" class="sku-chart-metric" style="{{ metric.st }}" aria-pressed="{{ metric.pressed }}">
+                        <span class="sku-chart-metric-dot" style="{{ metric.dotSt }}"></span>
+                        <span>{{ metric.label }}</span>
+                        <span class="sku-chart-metric-check" style="{{ metric.checkSt }}">{{ metric.check }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </aside>
+
+                <div class="sku-chart-main">
+                  <div class="sku-chart-legend">
+                    <sc-for list="{{ drChartLegend }}" as="item" hint-placeholder-count="3">
+                      <div class="sku-chart-legend-item">
+                        <div style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:#5A665D;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span class="sku-chart-metric-dot" style="{{ item.dotSt }}"></span>{{ item.label }}</div>
+                        <div style="display:flex;align-items:baseline;gap:7px;margin-top:5px;"><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;white-space:nowrap;">{{ item.value }}</span><span style="{{ item.changeSt }}">{{ item.change }}</span></div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div class="sku-chart-canvas">{{ drMetricChart }}</div>
+                  <div class="sku-chart-foot"><span>WB Analytics · Finance · Stocks</span></div>
+                </div>
+              </div>
             </div>
           </sc-if>
 
@@ -1961,7 +2178,7 @@ class Component extends DCLogic {
     periodStart:'', periodEnd:'', periodDraftStart:'', periodDraftEnd:'', periodRangeError:'',
     qFilter:'все', eventOpen:null, eventDone:{},
     chatOpen:false, chatMsgs:[], chatTyping:false, chatInput:'',
-    drill:null, drillTab:'eco',
+    drill:null, drillTab:'eco', drillCharts:{},
     finPreset:'all', finGroup:'sku', finSort:{key:'profit',dir:-1}, finQ:'', finView:'profit', finFiltersOpen:false,
     finSavedView:'unit', finViewsOpen:false, finSaveOpen:false, finViewName:'', finCustomViews:[], finDataMode:'closed',
     finConditions:[], finDraftField:'margin', finDraftOp:'lt', finDraftValues:[], finDraftNumber:'15',
@@ -1972,7 +2189,8 @@ class Component extends DCLogic {
     homeDecision:'e1', homeCalcOpen:false,
     adsChart:'spend', adsView:'wb', externalCampaigns:[], externalSelected:'x1', externalOpen:false,
     externalDraft:{name:'Telegram · Новый запуск',channel:'Telegram / блогеры',start:'2026-07-22',end:'2026-08-05',budget:'60000',tracking:'utm',skus:{p1:true,p6:true}},
-    cardsSel:{}, cardsProblemsOnly:false, mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
+    cardsSel:{}, cardsProblemsOnly:false, cardsTab:'catalog', mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
+    infoSku:'new', infoSlide:'cover', infoTemplate:'clean', infoPalette:'sage', infoFormat:'3x4', infoClaims:{fit:true,fabric:true,sizes:true,care:false}, infoGenerating:false, infoGenerated:false,
     importOpen:false, importFileName:'Файл ещё не выбран', importRows:[], importedCards:[],
     toasts:[], searchQ:'', liveAdded:false,
   };
@@ -2813,14 +3031,129 @@ class Component extends DCLogic {
     ].filter(Boolean);
     return React.createElement('svg',{width:'100%',viewBox:`0 0 ${w} ${h}`,style:{display:'block'}},els);
   }
+  skuChartDefs(p) {
+    const M=this.M;
+    const moneyDay=(value)=>(value<0?'−':'')+M.fmtN(Math.abs(value))+' ₽/день';
+    return [
+      {id:'revenue',label:'Выручка',color:'#1B8A57',value:p.rev30/30,format:moneyDay},
+      {id:'profit',label:'Прибыль',color:'#0E2C1F',value:p.profit30/30,format:moneyDay},
+      {id:'orders',label:'Заказы',color:'#3E7894',value:p.oD,format:(v)=>M.fmtN(v)+' /день'},
+      {id:'margin',label:'Маржа',color:'#B5751A',value:p.margin,format:(v)=>M.pct(v,1)},
+      {id:'ads',label:'Реклама',color:'#B0432F',value:p.sold30*p.ad/30,format:moneyDay},
+      {id:'stock',label:'Остаток',color:'#7A6A9B',value:p.stockT,format:(v)=>M.fmtN(v)+' шт'},
+      {id:'buyout',label:'Выкуп',color:'#5A9A73',value:p.buyout,format:(v)=>M.pct(v,1)},
+      {id:'price',label:'Цена',color:'#C58C35',value:p.price,format:(v)=>M.fmtR(v)},
+    ];
+  }
+  skuMetricChart(p, selected, days, start, end) {
+    const M=this.M, allDefs=this.skuChartDefs(p), byId=Object.fromEntries(allDefs.map(d=>[d.id,d]));
+    const defs=selected.map(id=>byId[id]).filter(Boolean);
+    const count=Math.max(2,Math.min(30,days));
+    const spark=Array.isArray(p.spark)&&p.spark.length?p.spark:[p.oD,p.oD];
+    const sparkAt=(i)=>{
+      const pos=i/(count-1)*(spark.length-1),lo=Math.floor(pos),hi=Math.min(spark.length-1,Math.ceil(pos)),mix=pos-lo;
+      return spark[lo]*(1-mix)+spark[hi]*mix;
+    };
+    const lastSpark=Math.max(.1,sparkAt(count-1));
+    const skuSeed=Math.max(1,Number(String(p.id).replace(/\D/g,''))||1);
+    const factorFor=(id,i)=>{
+      const t=i/(count-1),demand=sparkAt(i)/lastSpark,season=Math.sin((i+skuSeed)*1.31)*.018;
+      let factor=1;
+      if(id==='revenue') factor=Math.pow(demand,.96)+season;
+      if(id==='profit') factor=1+(demand-1)*1.28+season*1.35;
+      if(id==='orders') factor=demand+season*.6;
+      if(id==='margin') factor=1+(demand-1)*.20+season*.45;
+      if(id==='ads') factor=1+(demand-1)*.58+Math.sin((i+skuSeed)*.83)*.035;
+      if(id==='stock') factor=1+(1-t)*Math.min(.62,(p.oD*days/Math.max(p.stockT,1))*.62)+season*.4;
+      if(id==='buyout') factor=1+(demand-1)*.08+season*.35;
+      if(id==='price') factor=1+(p.promo?(1-t)*.10:0)+season*.18;
+      return Math.max(.24,factor);
+    };
+    const series=defs.map(def=>{
+      const factors=Array.from({length:count},(_,i)=>factorFor(def.id,i));
+      const first=Math.max(.01,factors[0]),last=Math.max(.01,factors[count-1]);
+      return {def,points:factors.map(v=>100*v/first),change:(last/first-1)*100};
+    });
+    const indices=series.flatMap(s=>s.points);
+    let low=Math.floor((Math.min(100,...indices)-3)/5)*5,high=Math.ceil((Math.max(100,...indices)+3)/5)*5;
+    if(high-low<20){const middle=(high+low)/2;low=Math.floor((middle-10)/5)*5;high=Math.ceil((middle+10)/5)*5;}
+    low=Math.max(0,low);
+    const w=760,h=300,left=46,right=18,top=18,bottom=35;
+    const x=(i)=>left+i/(count-1)*(w-left-right);
+    const y=(v)=>top+(high-v)/(high-low)*(h-top-bottom);
+    const els=[React.createElement('rect',{key:'bg',x:0,y:0,width:w,height:h,rx:10,fill:'#FBFCFB'})];
+    const ticks=Array.from({length:5},(_,i)=>low+(high-low)*i/4);
+    ticks.forEach((tick,i)=>{
+      const yy=y(tick),base=Math.abs(tick-100)<.1;
+      els.push(React.createElement('line',{key:'gy'+i,x1:left,x2:w-right,y1:yy,y2:yy,stroke:base?'#A9B8AE':'#DFE5E0',strokeWidth:base?1.2:1,strokeDasharray:base?'4 4':undefined}));
+      els.push(React.createElement('text',{key:'gt'+i,x:left-9,y:yy+3.5,textAnchor:'end',fontFamily:'JetBrains Mono',fontSize:9.5,fontWeight:base?700:500,fill:base?'#526057':'#8C968E'},String(Math.round(tick))));
+    });
+    if(series.length){
+      const first=series[0],area=[`${x(0)},${h-bottom}`,...first.points.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`),`${x(count-1)},${h-bottom}`].join(' ');
+      els.push(React.createElement('polygon',{key:'area',points:area,fill:first.def.color,opacity:.055}));
+    }
+    series.forEach((item,sIndex)=>{
+      const pts=item.points.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+      els.push(React.createElement('polyline',{key:'line'+item.def.id,points:pts,fill:'none',stroke:item.def.color,strokeWidth:sIndex===0?2.5:2.1,strokeLinejoin:'round',strokeLinecap:'round'}));
+      els.push(React.createElement('circle',{key:'dot'+item.def.id,cx:x(count-1),cy:y(item.points[count-1]),r:4,fill:item.def.color,stroke:'#fff',strokeWidth:2}));
+    });
+    const labelSlots=[0,Math.round((count-1)*.25),Math.round((count-1)*.5),Math.round((count-1)*.75),count-1].filter((v,i,a)=>a.indexOf(v)===i);
+    labelSlots.forEach((idx,i)=>{
+      const date=this.shiftIso(start,Math.round((days-1)*idx/(count-1)));
+      els.push(React.createElement('text',{key:'xl'+i,x:x(idx),y:h-12,textAnchor:idx===0?'start':idx===count-1?'end':'middle',fontFamily:'JetBrains Mono',fontSize:9.5,fill:'#8C968E'},this.compactDate(date,(start||'').slice(0,4)!==(end||'').slice(0,4))));
+    });
+    const aria=defs.map(d=>d.label).join(', ')+' за '+days+' дней';
+    const svg=React.createElement('svg',{width:'100%',viewBox:`0 0 ${w} ${h}`,style:{display:'block'},role:'img','aria-label':aria},els);
+    const legend=series.map(item=>({
+      label:item.def.label,value:item.def.format(item.def.value),change:M.spct(item.change,1),
+      dotSt:`background:${item.def.color};`,changeSt:`font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:${item.change<0?'#B0432F':'#13693F'};white-space:nowrap;`,
+    }));
+    return {svg,legend};
+  }
   vDrill() {
     const M = this.M, st = this.state;
     const p = st.drill ? M && M.byId(st.drill) : null;
     if (!p) return { drOpen:false, drKpis:[], drTabs:[], drWater:[], drWaterLegend:[], drEco30:[], drPriceRows:[], drCompList:[], drStockRows:[], drRecs:[] };
+    const chartDefaults={metrics:['revenue','profit','orders'],period:'30',start:'',end:'',draftStart:'',draftEnd:'',customOpen:false,error:''};
+    const chartCfg={...chartDefaults,...((st.drillCharts||{})[p.id]||{})};
+    const chartPatch=(patch)=>this.setState(s=>({drillCharts:{...(s.drillCharts||{}),[p.id]:{...chartDefaults,...((s.drillCharts||{})[p.id]||{}),...patch}}}));
+    const chartDefs=this.skuChartDefs(p),chartIds=new Set(chartDefs.map(d=>d.id));
+    const chartSelected=(Array.isArray(chartCfg.metrics)?chartCfg.metrics:chartDefaults.metrics).filter(id=>chartIds.has(id));
+    const chartMetrics=chartSelected.length?chartSelected:chartDefaults.metrics;
+    const chartToggleMetric=(id)=>{
+      if(chartMetrics.includes(id)){
+        if(chartMetrics.length===1){this.toast('На графике должен остаться хотя бы один показатель');return;}
+        chartPatch({metrics:chartMetrics.filter(metric=>metric!==id)});return;
+      }
+      if(chartMetrics.length>=3){this.toast('Можно сравнить не больше трёх показателей');return;}
+      chartPatch({metrics:[...chartMetrics,id]});
+    };
+    const today=this.localIso(new Date());
+    const customDays=this.rangeDays(chartCfg.start,chartCfg.end);
+    const chartDays=chartCfg.period==='custom'&&customDays?customDays:Math.max(2,Number.parseInt(chartCfg.period,10)||30);
+    const chartEnd=chartCfg.period==='custom'&&chartCfg.end?chartCfg.end:today;
+    const chartStart=chartCfg.period==='custom'&&chartCfg.start?chartCfg.start:this.shiftIso(chartEnd,-(chartDays-1));
+    const chartDifferentYears=chartStart.slice(0,4)!==chartEnd.slice(0,4);
+    const chartRange=`${this.compactDate(chartStart,chartDifferentYears)}–${this.compactDate(chartEnd,chartDifferentYears)}`;
+    const chartModel=this.skuMetricChart(p,chartMetrics,chartDays,chartStart,chartEnd);
+    const chartCustomToggle=()=>{
+      if(chartCfg.customOpen){chartPatch({customOpen:false,error:''});return;}
+      const end=chartCfg.period==='custom'&&chartCfg.end?chartCfg.end:today;
+      const start=chartCfg.period==='custom'&&chartCfg.start?chartCfg.start:this.shiftIso(end,-(chartDays-1));
+      chartPatch({customOpen:true,draftStart:start,draftEnd:end,error:''});
+    };
+    const chartApply=()=>{
+      const start=chartCfg.draftStart,end=chartCfg.draftEnd,days=this.rangeDays(start,end);
+      if(!start||!end){chartPatch({error:'Укажите обе даты.'});return;}
+      if(!days){chartPatch({error:'Дата окончания должна быть не раньше даты начала.'});return;}
+      if(days<2){chartPatch({error:'Для графика выберите минимум два дня.'});return;}
+      if(this.isoDay(end)>this.isoDay(today)){chartPatch({error:'Период не может заканчиваться в будущем.'});return;}
+      chartPatch({period:'custom',start,end,customOpen:false,error:''});
+    };
     const target = st.drTarget==null ? 15 : st.drTarget;
     const safeCalc = Math.ceil((p.cost+p.logi+p.stor+p.ad)/(p.k-target/100)/10)*10;
     const flag = p.priceFlag;
-    const tabs = [['eco','Экономика'],['price','Цена и правило'],['comp','Конкуренты'],['stock','Остатки'],['recs','Рекомендации']];
+    const tabs = [['eco','Экономика'],['chart','График'],['price','Цена'],['comp','Конкуренты'],['stock','Остатки'],['recs','Рекомендации']];
     const segs = [
       ['Комиссия WB + налог', Math.round(p.price*(1-p.k)), '#3E5C70'],
       ['Логистика', p.logi, '#6B8CA3'],
@@ -2850,7 +3183,16 @@ class Component extends DCLogic {
       ],
       drTabs: tabs.map(([id,label]) => ({ label, go:()=>this.setState({drillTab:id}),
         st:`padding:9px 14px;font-size:13px;font-weight:650;cursor:pointer;border-bottom:2.5px solid ${st.drillTab===id?'#1B8A57':'transparent'};color:${st.drillTab===id?'#13693F':'#5A665D'};margin-bottom:-1px;` })),
-      drTabEco: st.drillTab==='eco', drTabPrice: st.drillTab==='price', drTabComp: st.drillTab==='comp', drTabStock: st.drillTab==='stock', drTabRecs: st.drillTab==='recs',
+      drTabEco: st.drillTab==='eco', drTabChart:st.drillTab==='chart', drTabPrice: st.drillTab==='price', drTabComp: st.drillTab==='comp', drTabStock: st.drillTab==='stock', drTabRecs: st.drillTab==='recs',
+      drChartRange:chartRange,drChartMetricCount:String(chartMetrics.length),drMetricChart:chartModel.svg,drChartLegend:chartModel.legend,
+      drChartMetrics:chartDefs.map(def=>{
+        const pressed=chartMetrics.includes(def.id);
+        return {label:def.label,pressed,go:()=>chartToggleMetric(def.id),dotSt:`background:${def.color};`,check:pressed?'check':'',checkSt:pressed?'background:#DFEEE5;border-color:#8FC6A7;color:#13693F;':'background:#fff;color:transparent;',st:pressed?'border-color:rgba(27,138,87,.34);background:#F2F8F4;color:#17231C;':''};
+      }),
+      drChartPeriods:[7,14,30,90].map(days=>({label:days+' д',go:()=>chartPatch({period:String(days),customOpen:false,error:''}),st:chartCfg.period===String(days)?'background:#fff;color:#13693F;box-shadow:0 1px 4px rgba(23,35,28,.13);':''})).concat([{label:'Свой период',go:chartCustomToggle,st:chartCfg.period==='custom'||chartCfg.customOpen?'background:#0E2C1F;color:#fff;':''}]),
+      drChartCustomOpen:chartCfg.customOpen,drChartDraftStart:chartCfg.draftStart,drChartDraftEnd:chartCfg.draftEnd,drChartMaxDate:today,
+      drChartStartSet:(e)=>chartPatch({draftStart:e.target.value,error:''}),drChartEndSet:(e)=>chartPatch({draftEnd:e.target.value,error:''}),drChartApply:chartApply,
+      drChartHasError:!!chartCfg.error,drChartError:chartCfg.error,
       drWater: segs.map(([k,v,c]) => ({ title:`${k}: ${M.fmtR(v)}`, st:`width:${(v/p.price*100).toFixed(1)}%;background:${c};` })),
       drWaterLegend: [
         { k:'Цена продажи', perUnit:M.fmtR(p.price), perMonth:M.fmtN(p.rev30/1000)+'т/мес', dotSt:'width:9px;height:9px;border-radius:3px;background:#17231C;flex:none;' },
@@ -3140,7 +3482,7 @@ class Component extends DCLogic {
   // ---------- карточки ----------
   vCards() {
     const M = this.M, st = this.state;
-    if (!M) return { cdRows:[], ncAttrs:[], ncSeo:[], ncOpen:false, mergeRows:[], importRows:[] };
+    if (!M) return { cdRows:[], ncAttrs:[], ncSeo:[], ncOpen:false, mergeRows:[], importRows:[], cardsTabs:[], infoProducts:[], infoSlides:[], infoTemplates:[], infoPalettes:[], infoFormats:[], infoClaims:[], infoCanvasPoints:[] };
     const modSt = (m) => `justify-self:start;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;${m==='Опубликована'?'background:#DFEEE5;color:#13693F;':m==='Черновик'?'background:#E7ECE7;color:#5A665D;':'background:#DEEAF1;color:#3E5C70;'}`;
     const issue = (text) => {
       const crit = /^(2 фото|Мало фото|Нет таблицы размеров)/.test(text);
@@ -3172,7 +3514,43 @@ class Component extends DCLogic {
     const problemCount = cards.reduce((n,c)=>n+c.issues.length,0);
     const imported = st.importRows || [];
     const NC = M.NEW_CARD;
+    const draftProduct={id:'new',name:'Жакет «Лея»',mono:'ЖЛ',tile:'#E9DFD2',nm:'AI-черновик',code:'LM-JK-NEW',cat:'Жакеты',sizes:'42–52'};
+    const infoProduct=st.infoSku==='new'?draftProduct:(M.byId(st.infoSku)||draftProduct);
+    const paletteMap={
+      sage:{label:'Шалфей',bg:'#E8F0EA',soft:'#BFD9C8',ink:'#0E2C1F',accent:'#1B8A57'},
+      sand:{label:'Песок',bg:'#F1E9DD',soft:'#DEC9A9',ink:'#352B20',accent:'#A96C17'},
+      blue:{label:'Воздух',bg:'#E6EEF2',soft:'#BED6E1',ink:'#173146',accent:'#3E7894'},
+      rose:{label:'Пудра',bg:'#F2E6E3',soft:'#E2C4BC',ink:'#442824',accent:'#B0432F'},
+    };
+    const palette=paletteMap[st.infoPalette]||paletteMap.sage;
+    const template=st.infoTemplate||'clean';
+    const canvasBg=template==='contrast'?`linear-gradient(155deg,${palette.ink} 0%,${palette.ink} 63%,${palette.accent} 100%)`:template==='editorial'?`linear-gradient(168deg,#fff 0%,#fff 54%,${palette.bg} 54%,${palette.soft} 100%)`:`linear-gradient(150deg,#fff 0%,${palette.bg} 100%)`;
+    const canvasColor=template==='contrast'?'#F3F7F4':palette.ink;
+    const selectedClaims=Object.entries(st.infoClaims||{}).filter(([,selected])=>selected).map(([id])=>id);
+    const claimMeta={
+      fit:{label:'Свободная посадка',icon:'accessibility_new'},fabric:{label:'Дышащая ткань',icon:'texture'},
+      sizes:{label:'Размеры '+String(infoProduct.sizes||'42–52').split(' · ')[0],icon:'straighten'},care:{label:'Лёгкий уход',icon:'local_laundry_service'},
+    };
+    const slideMap={
+      cover:{label:'Обложка',eyebrow:'Новая коллекция',title:infoProduct.name,sub:`${infoProduct.cat} · ${String(infoProduct.sizes||'42–52').split(' · ')[0]}`,icon:'checkroom'},
+      benefits:{label:'Преимущества',eyebrow:'Продумано для вас',title:'Комфорт в каждой детали',sub:'Лаконичный силуэт для города, офиса и путешествий',icon:'styler'},
+      fabric:{label:'Материал',eyebrow:'Фактура и состав',title:'Ткань, которая держит форму',sub:'Мягкая, дышащая и комфортная в течение дня',icon:'texture'},
+      sizes:{label:'Размеры',eyebrow:'Точная посадка',title:'Ваш размер — без компромиссов',sub:String(infoProduct.sizes||'42–52').split(' · ')[0]+' · российская размерная сетка',icon:'straighten'},
+    };
+    const activeSlide=slideMap[st.infoSlide]||slideMap.cover;
+    const formatMap={'3x4':{label:'3:4 · WB',ratio:'3 / 4'},'1x1':{label:'1:1',ratio:'1 / 1'},'4x5':{label:'4:5',ratio:'4 / 5'}};
+    const format=formatMap[st.infoFormat]||formatMap['3x4'];
+    const generateInfo=()=>{
+      if(st.infoGenerating)return;
+      this.setState({infoGenerating:true,infoGenerated:false});
+      setTimeout(()=>{this.setState({infoGenerating:false,infoGenerated:true});this.toast('Комплект из 4 слайдов готов');},900);
+    };
     return {
+      cardsTabs:[
+        {label:'Карточки',icon:'view_list',go:()=>this.setState({cardsTab:'catalog'}),st:st.cardsTab!=='info'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':''},
+        {label:'Инфографика',icon:'auto_fix_high',go:()=>this.setState({cardsTab:'info'}),st:st.cardsTab==='info'?'background:#0E2C1F;color:#fff;box-shadow:0 1px 4px rgba(23,35,28,.18);':''},
+      ],
+      cardsCatalog:st.cardsTab!=='info',cardsInfographic:st.cardsTab==='info',
       cdRows: rows,
       cdNew:()=>this.setState({newCardOpen:true}),
       cdClone:()=>this.toast('Выберите карточку-донор — скопирую структуру, фото-слоты и атрибуты'),
@@ -3197,7 +3575,28 @@ class Component extends DCLogic {
       ncRecognized:NC.recognized, ncTitle:NC.title, ncDesc:NC.desc,
       ncAttrs:NC.attrs, ncSeo:NC.seo.map(t=>({t})), ncSizes:NC.sizes,
       ncDraft:()=>{ this.setState({newCardOpen:false}); this.toast('Черновик «Жакет Лея» сохранён — проверка обязательных полей: 14/14'); },
+      ncInfographic:()=>this.setState({newCardOpen:false,cardsTab:'info',infoSku:'new',infoSlide:'cover',infoGenerated:false}),
       ncEdit:()=>this.toast('Редактор полей откроется в полной версии — все AI-поля можно править вручную'),
+      infoProducts:[draftProduct,...M.PRODUCTS.slice(0,4)].map(product=>({
+        mono:product.mono,name:product.name,meta:product.id==='new'?'черновик · без фото':product.code,
+        tileSt:`width:30px;height:30px;border-radius:8px;background:${product.tile};display:flex;align-items:center;justify-content:center;flex:none;font:700 9px 'JetBrains Mono',monospace;color:#38443B;`,
+        st:st.infoSku===product.id?'border-color:#1B8A57;background:#F2F8F4;box-shadow:inset 0 0 0 1px #1B8A57;':'',
+        pick:()=>this.setState({infoSku:product.id,infoGenerated:false}),
+      })),
+      infoSlides:Object.entries(slideMap).map(([id,slide],index)=>({n:String(index+1).padStart(2,'0'),label:slide.label,done:st.infoGenerated?'check_circle':'',pick:()=>this.setState({infoSlide:id}),st:st.infoSlide===id?'background:#EDF5F0;color:#13492F;':''})),
+      infoSlideLabel:activeSlide.label,infoFormatLabel:format.label,infoGenerated:st.infoGenerated,
+      infoCanvasSt:`--info-soft:${palette.soft};aspect-ratio:${format.ratio};background:${canvasBg};color:${canvasColor};${st.infoFormat==='1x1'?'padding:18px;':''}`,
+      infoVisualSt:`background:linear-gradient(145deg,${palette.soft},${palette.bg});color:${palette.ink};box-shadow:inset 0 0 0 1px rgba(23,35,28,.06);${st.infoFormat==='1x1'?'min-height:125px;margin:12px 0 10px;':''}`,
+      infoCanvasTitleSt:st.infoFormat==='1x1'?'font-size:23px;max-width:100%;':'',
+      infoCanvasPage:(Object.keys(slideMap).indexOf(st.infoSlide)+1||1)+'/4',infoCanvasIcon:activeSlide.icon,infoCanvasSku:infoProduct.code,
+      infoCanvasEyebrow:activeSlide.eyebrow,infoCanvasTitle:activeSlide.title,infoCanvasSub:activeSlide.sub,
+      infoCanvasPoints:selectedClaims.slice(0,3).map(id=>({t:claimMeta[id].label})),
+      infoTemplates:[['clean','Воздух','space_dashboard'],['editorial','Редакционный','article'],['contrast','Контраст','contrast']].map(([id,label,icon])=>({label,icon,check:template===id?'check':'',pick:()=>this.setState({infoTemplate:id,infoGenerated:false}),st:template===id?'border-color:#1B8A57;background:#F2F8F4;color:#13492F;':''})),
+      infoPalettes:Object.entries(paletteMap).map(([id,item])=>({label:item.label,check:st.infoPalette===id?'check':'',swatchSt:`background:linear-gradient(135deg,${item.bg} 0 48%,${item.accent} 48%);`,pick:()=>this.setState({infoPalette:id,infoGenerated:false}),st:st.infoPalette===id?'border-color:#1B8A57;background:#F2F8F4;color:#13492F;':''})),
+      infoFormats:Object.entries(formatMap).map(([id,item])=>({label:item.label,pick:()=>this.setState({infoFormat:id,infoGenerated:false}),st:`justify-content:center;${st.infoFormat===id?'border-color:#1B8A57;background:#0E2C1F;color:#fff;':''}`})),
+      infoClaims:Object.entries(claimMeta).map(([id,item])=>{const selected=selectedClaims.includes(id);return {label:item.label,icon:selected?'check_box':'check_box_outline_blank',toggle:()=>{if(!selected&&selectedClaims.length>=3){this.toast('На одном слайде помещается не больше трёх тезисов');return;}this.setState(s=>({infoClaims:{...s.infoClaims,[id]:!s.infoClaims[id]},infoGenerated:false}));},st:selected?'border-color:#9BCBAE;background:#F2F8F4;color:#13492F;':''};}),
+      infoGenerate:generateInfo,infoGenerateLabel:st.infoGenerating?'Создаю комплект…':'Сгенерировать 4 слайда',infoGenerateIcon:st.infoGenerating?'progress_activity':'auto_awesome',
+      infoDownload:()=>this.toast('Комплект PNG · 4 файла подготовлен к скачиванию'),
     };
   }
   // ---------- логистика ----------
