@@ -135,6 +135,8 @@
     .sku-chart-apply{appearance:none;border:0;border-radius:9px;background:#1B8A57;color:#fff;padding:9px 13px;font:800 11.5px 'Onest',sans-serif;cursor:pointer;}
     .sku-chart-apply:hover{background:#13693F;}
     .sku-chart-error{grid-column:1/-1;color:#B0432F;font-size:11px;}
+    .sku-chart-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:12px 17px;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.08);}
+    .sku-chart-summary-item{min-width:0;border:1px solid rgba(23,35,28,.08);border-radius:10px;background:#fff;padding:9px 11px;}
     .sku-chart-layout{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:390px;}
     .sku-chart-sidebar{padding:15px;border-right:1px solid rgba(23,35,28,.08);background:#FBFCFB;}
     .sku-chart-metrics{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
@@ -146,6 +148,7 @@
     .sku-chart-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
     .sku-chart-legend-item{min-width:0;border:1px solid rgba(23,35,28,.08);border-radius:10px;padding:9px 10px;background:#FBFCFB;}
     .sku-chart-canvas{min-height:245px;margin-top:10px;display:flex;align-items:center;}
+    .sku-chart-canvas svg{cursor:crosshair;touch-action:pan-y;}
     .sku-chart-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:9px;border-top:1px solid rgba(23,35,28,.07);font:500 10px 'JetBrains Mono',monospace;color:#8C968E;}
     .home-brief{display:flex;align-items:center;gap:16px;}
     .home-brief__copy{flex:1;min-width:0;}
@@ -195,7 +198,7 @@
     @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-ai{grid-template-columns:1fr}}
     @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.app-main{padding-bottom:72px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));left:10px;right:10px;bottom:8px;z-index:75;border:1px solid rgba(234,242,236,.16);border-radius:15px;background:rgba(14,44,31,.96);box-shadow:0 18px 42px -18px rgba(7,24,16,.85);backdrop-filter:blur(12px);overflow:hidden}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
     @media(max-width:720px){.period-presets{display:none}.period-range-button{border-left:0;border-radius:8px;max-width:142px}.period-range__desktop{display:none}.period-range__mobile{display:block;overflow:hidden;text-overflow:ellipsis}.period-popover{position:fixed;top:68px;left:10px;right:10px;width:auto}.period-popover__quick .period-chip{display:block}}
-    @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}.cards-subnav{width:100%}.cards-subnav__button{flex:1;justify-content:center}.info-command{align-items:flex-start;flex-wrap:wrap}.info-command__copy{flex:1 1 calc(100% - 54px)!important}.info-command__action{width:100%;justify-content:center!important;margin-left:0!important}.info-workspace{grid-template-columns:1fr}.info-product-list,.info-slide-list{flex-direction:row;overflow-x:auto;padding-bottom:2px}.info-product{min-width:205px}.info-slide{min-width:145px}.info-stage__canvas{min-height:430px;padding:14px}.info-canvas{padding:20px;max-width:330px}.info-canvas__title{font-size:23px}.info-settings{grid-column:auto;display:block}.info-settings .info-panel__section+.info-panel__section{border-left:0;border-top:1px solid rgba(23,35,28,.08)}.info-settings .info-panel__section:last-child{grid-column:auto}.new-card-modal{max-height:94vh!important}.new-card-head{padding:13px 14px!important}.new-card-pipeline{display:none}.new-card-body{padding:14px!important}.new-card-grid{grid-template-columns:1fr!important}.new-card-footer{padding:11px 14px!important}.new-card-footer>*{flex:1 1 100%!important;justify-content:center}.sku-drill-head{display:grid!important;grid-template-columns:44px minmax(0,1fr) 32px;align-items:center!important;padding:12px!important;gap:9px!important}.sku-drill-identity{min-width:0}.sku-drill-identity>div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku-drill-actions{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sku-drill-action{justify-content:center!important}.sku-drill-close{grid-column:3;grid-row:1}.sku-drill-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sku-drill-kpi{border-bottom:1px solid rgba(23,35,28,.06);padding:10px 12px!important}.sku-drill-tabs{padding-left:12px!important;padding-right:12px!important}.sku-drill-body{padding:16px 12px 24px!important}.sku-chart-head{flex-direction:column}.sku-chart-periods{width:100%}.sku-chart-layout{grid-template-columns:1fr}.sku-chart-sidebar{border-right:0;border-bottom:1px solid rgba(23,35,28,.08)}.sku-chart-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sku-chart-legend{grid-template-columns:1fr}.sku-chart-custom{grid-template-columns:1fr 1fr}.sku-chart-apply{grid-column:1/-1}.sku-chart-foot{align-items:flex-start;flex-direction:column}}
+    @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}.cards-subnav{width:100%}.cards-subnav__button{flex:1;justify-content:center}.info-command{align-items:flex-start;flex-wrap:wrap}.info-command__copy{flex:1 1 calc(100% - 54px)!important}.info-command__action{width:100%;justify-content:center!important;margin-left:0!important}.info-workspace{grid-template-columns:1fr}.info-product-list,.info-slide-list{flex-direction:row;overflow-x:auto;padding-bottom:2px}.info-product{min-width:205px}.info-slide{min-width:145px}.info-stage__canvas{min-height:430px;padding:14px}.info-canvas{padding:20px;max-width:330px}.info-canvas__title{font-size:23px}.info-settings{grid-column:auto;display:block}.info-settings .info-panel__section+.info-panel__section{border-left:0;border-top:1px solid rgba(23,35,28,.08)}.info-settings .info-panel__section:last-child{grid-column:auto}.new-card-modal{max-height:94vh!important}.new-card-head{padding:13px 14px!important}.new-card-pipeline{display:none}.new-card-body{padding:14px!important}.new-card-grid{grid-template-columns:1fr!important}.new-card-footer{padding:11px 14px!important}.new-card-footer>*{flex:1 1 100%!important;justify-content:center}.sku-drill-head{display:grid!important;grid-template-columns:44px minmax(0,1fr) 32px;align-items:center!important;padding:12px!important;gap:9px!important}.sku-drill-identity{min-width:0}.sku-drill-identity>div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku-drill-actions{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sku-drill-action{justify-content:center!important}.sku-drill-close{grid-column:3;grid-row:1}.sku-drill-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sku-drill-kpi{border-bottom:1px solid rgba(23,35,28,.06);padding:10px 12px!important}.sku-drill-tabs{padding-left:12px!important;padding-right:12px!important}.sku-drill-body{padding:16px 12px 24px!important}.sku-chart-head{flex-direction:column}.sku-chart-periods{width:100%}.sku-chart-summary{grid-template-columns:repeat(2,minmax(0,1fr));padding:10px 12px}.sku-chart-layout{grid-template-columns:1fr}.sku-chart-sidebar{border-right:0;border-bottom:1px solid rgba(23,35,28,.08)}.sku-chart-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sku-chart-legend{grid-template-columns:1fr}.sku-chart-custom{grid-template-columns:1fr 1fr}.sku-chart-apply{grid-column:1/-1}.sku-chart-foot{align-items:flex-start;flex-direction:column}}
   </style>
 </helmet>
 
@@ -1872,6 +1875,15 @@
                 </div>
               </sc-if>
 
+              <div class="sku-chart-summary">
+                <sc-for list="{{ drChartSummary }}" as="item" hint-placeholder-count="4">
+                  <div class="sku-chart-summary-item">
+                    <div style="font:700 9px 'JetBrains Mono',monospace;letter-spacing:.07em;text-transform:uppercase;color:#8C968E;">{{ item.label }}</div>
+                    <div style="display:flex;align-items:baseline;gap:7px;margin-top:5px;min-width:0;"><span style="{{ item.valueSt }}">{{ item.value }}</span><span style="{{ item.changeSt }}">{{ item.change }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+
               <div class="sku-chart-layout">
                 <aside class="sku-chart-sidebar">
                   <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
@@ -2178,7 +2190,7 @@ class Component extends DCLogic {
     periodStart:'', periodEnd:'', periodDraftStart:'', periodDraftEnd:'', periodRangeError:'',
     qFilter:'все', eventOpen:null, eventDone:{},
     chatOpen:false, chatMsgs:[], chatTyping:false, chatInput:'',
-    drill:null, drillTab:'eco', drillCharts:{},
+    drill:null, drillTab:'eco', drillCharts:{}, drillChartHover:null,
     finPreset:'all', finGroup:'sku', finSort:{key:'profit',dir:-1}, finQ:'', finView:'profit', finFiltersOpen:false,
     finSavedView:'unit', finViewsOpen:false, finSaveOpen:false, finViewName:'', finCustomViews:[], finDataMode:'closed',
     finConditions:[], finDraftField:'margin', finDraftOp:'lt', finDraftValues:[], finDraftNumber:'15',
@@ -3034,21 +3046,22 @@ class Component extends DCLogic {
   skuChartDefs(p) {
     const M=this.M;
     const moneyDay=(value)=>(value<0?'−':'')+M.fmtN(Math.abs(value))+' ₽/день';
+    const moneyPoint=(value)=>(value<0?'−':'')+M.fmtN(Math.abs(value))+' ₽';
     return [
-      {id:'revenue',label:'Выручка',color:'#1B8A57',value:p.rev30/30,format:moneyDay},
-      {id:'profit',label:'Прибыль',color:'#0E2C1F',value:p.profit30/30,format:moneyDay},
-      {id:'orders',label:'Заказы',color:'#3E7894',value:p.oD,format:(v)=>M.fmtN(v)+' /день'},
-      {id:'margin',label:'Маржа',color:'#B5751A',value:p.margin,format:(v)=>M.pct(v,1)},
-      {id:'ads',label:'Реклама',color:'#B0432F',value:p.sold30*p.ad/30,format:moneyDay},
-      {id:'stock',label:'Остаток',color:'#7A6A9B',value:p.stockT,format:(v)=>M.fmtN(v)+' шт'},
-      {id:'buyout',label:'Выкуп',color:'#5A9A73',value:p.buyout,format:(v)=>M.pct(v,1)},
-      {id:'price',label:'Цена',color:'#C58C35',value:p.price,format:(v)=>M.fmtR(v)},
+      {id:'revenue',label:'Выручка',color:'#1B8A57',value:p.rev30/30,format:moneyDay,pointFormat:moneyPoint},
+      {id:'profit',label:'Прибыль',color:'#0E2C1F',value:p.profit30/30,format:moneyDay,pointFormat:moneyPoint},
+      {id:'orders',label:'Заказы',color:'#3E7894',value:p.oD,format:(v)=>M.fmtN(v)+' /день',pointFormat:(v)=>M.fmtN(v)+' шт'},
+      {id:'margin',label:'Маржа',color:'#B5751A',value:p.margin,format:(v)=>M.pct(v,1),pointFormat:(v)=>M.pct(v,1)},
+      {id:'ads',label:'Реклама',color:'#B0432F',value:p.sold30*p.ad/30,format:moneyDay,pointFormat:moneyPoint},
+      {id:'stock',label:'Остаток',color:'#7A6A9B',value:p.stockT,format:(v)=>M.fmtN(v)+' шт',pointFormat:(v)=>M.fmtN(v)+' шт'},
+      {id:'buyout',label:'Выкуп',color:'#5A9A73',value:p.buyout,format:(v)=>M.pct(v,1),pointFormat:(v)=>M.pct(v,1)},
+      {id:'price',label:'Цена',color:'#C58C35',value:p.price,format:(v)=>M.fmtR(v),pointFormat:(v)=>M.fmtR(v)},
     ];
   }
   skuMetricChart(p, selected, days, start, end) {
     const M=this.M, allDefs=this.skuChartDefs(p), byId=Object.fromEntries(allDefs.map(d=>[d.id,d]));
     const defs=selected.map(id=>byId[id]).filter(Boolean);
-    const count=Math.max(2,Math.min(30,days));
+    const count=Math.max(2,Math.min(366,days));
     const spark=Array.isArray(p.spark)&&p.spark.length?p.spark:[p.oD,p.oD];
     const sparkAt=(i)=>{
       const pos=i/(count-1)*(spark.length-1),lo=Math.floor(pos),hi=Math.min(spark.length-1,Math.ceil(pos)),mix=pos-lo;
@@ -3069,10 +3082,30 @@ class Component extends DCLogic {
       if(id==='price') factor=1+(p.promo?(1-t)*.10:0)+season*.18;
       return Math.max(.24,factor);
     };
-    const series=defs.map(def=>{
+    const dates=Array.from({length:count},(_,i)=>this.shiftIso(start,Math.round((days-1)*i/(count-1))));
+    const makeSeries=(def)=>{
       const factors=Array.from({length:count},(_,i)=>factorFor(def.id,i));
       const first=Math.max(.01,factors[0]),last=Math.max(.01,factors[count-1]);
-      return {def,points:factors.map(v=>100*v/first),change:(last/first-1)*100};
+      return {def,points:factors.map(v=>100*v/first),raw:factors.map(v=>def.value*v/last),change:(last/first-1)*100};
+    };
+    const needed=[...new Set([...defs.map(def=>def.id),'revenue','profit','orders','margin'])];
+    const dataById=Object.fromEntries(needed.map(id=>[id,makeSeries(byId[id])]));
+    const series=defs.map(def=>dataById[def.id]);
+    const compactMoney=(value)=>{
+      const abs=Math.abs(value),formatted=abs>=100000?M.fmtM(abs):M.fmtN(abs);
+      return (value<0?'−':'')+formatted+' ₽';
+    };
+    const summary=[
+      {id:'revenue',label:'Выручка',aggregate:'sum'},
+      {id:'profit',label:'Прибыль',aggregate:'sum'},
+      {id:'orders',label:'Заказы',aggregate:'sum'},
+      {id:'margin',label:'Средняя маржа',aggregate:'avg'},
+    ].map(meta=>{
+      const item=dataById[meta.id],average=item.raw.reduce((sum,value)=>sum+value,0)/item.raw.length;
+      const value=meta.aggregate==='sum'?average*days:average;
+      const formatted=meta.id==='orders'?M.fmtN(value)+' шт':meta.id==='margin'?M.pct(value,1):compactMoney(value);
+      const negative=(meta.id==='profit'||meta.id==='margin')&&value<0;
+      return {label:meta.label,value:formatted,change:M.spct(item.change,1),valueSt:`font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:${negative?'#B0432F':'#17231C'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;`,changeSt:`font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:${item.change<0?'#B0432F':'#13693F'};white-space:nowrap;`};
     });
     const indices=series.flatMap(s=>s.points);
     let low=Math.floor((Math.min(100,...indices)-3)/5)*5,high=Math.ceil((Math.max(100,...indices)+3)/5)*5;
@@ -3099,16 +3132,42 @@ class Component extends DCLogic {
     });
     const labelSlots=[0,Math.round((count-1)*.25),Math.round((count-1)*.5),Math.round((count-1)*.75),count-1].filter((v,i,a)=>a.indexOf(v)===i);
     labelSlots.forEach((idx,i)=>{
-      const date=this.shiftIso(start,Math.round((days-1)*idx/(count-1)));
+      const date=dates[idx];
       els.push(React.createElement('text',{key:'xl'+i,x:x(idx),y:h-12,textAnchor:idx===0?'start':idx===count-1?'end':'middle',fontFamily:'JetBrains Mono',fontSize:9.5,fill:'#8C968E'},this.compactDate(date,(start||'').slice(0,4)!==(end||'').slice(0,4))));
     });
+    const hoverState=this.state.drillChartHover;
+    const hoverIndex=hoverState&&hoverState.sku===p.id?Math.max(0,Math.min(count-1,hoverState.index)):null;
+    const setHover=(event)=>{
+      const rect=event.currentTarget.getBoundingClientRect();
+      const ratio=Math.max(0,Math.min(1,(event.clientX-rect.left)/Math.max(1,rect.width)));
+      const index=Math.round(ratio*(count-1)),current=this.state.drillChartHover;
+      if(!current||current.sku!==p.id||current.index!==index)this.setState({drillChartHover:{sku:p.id,index}});
+    };
+    const clearHover=()=>{if(this.state.drillChartHover&&this.state.drillChartHover.sku===p.id)this.setState({drillChartHover:null});};
+    if(hoverIndex!==null){
+      const hx=x(hoverIndex),tooltipW=218,tooltipH=31+series.length*21,tooltipX=hx+tooltipW+14>w-right?hx-tooltipW-12:hx+12,tooltipY=top+7;
+      els.push(React.createElement('line',{key:'hover-line',x1:hx,x2:hx,y1:top,y2:h-bottom,stroke:'#526057',strokeWidth:1,strokeDasharray:'3 3',opacity:.72}));
+      series.forEach(item=>els.push(React.createElement('circle',{key:'hover-dot-'+item.def.id,cx:hx,cy:y(item.points[hoverIndex]),r:4.5,fill:item.def.color,stroke:'#fff',strokeWidth:2})));
+      const tooltipChildren=[
+        React.createElement('rect',{key:'tip-bg',x:tooltipX,y:tooltipY,width:tooltipW,height:tooltipH,rx:9,fill:'#0E2C1F',opacity:.97}),
+        React.createElement('text',{key:'tip-date',x:tooltipX+12,y:tooltipY+18,fontFamily:'JetBrains Mono',fontSize:10,fontWeight:700,fill:'#EAF2EC'},this.compactDate(dates[hoverIndex],true)),
+      ];
+      series.forEach((item,index)=>{
+        const rowY=tooltipY+39+index*21;
+        tooltipChildren.push(React.createElement('circle',{key:'tip-dot-'+item.def.id,cx:tooltipX+13,cy:rowY-3,r:3.5,fill:item.def.color}));
+        tooltipChildren.push(React.createElement('text',{key:'tip-label-'+item.def.id,x:tooltipX+22,y:rowY,fontFamily:'Onest',fontSize:10.5,fontWeight:600,fill:'#AFC6B7'},item.def.label));
+        tooltipChildren.push(React.createElement('text',{key:'tip-value-'+item.def.id,x:tooltipX+tooltipW-12,y:rowY,textAnchor:'end',fontFamily:'JetBrains Mono',fontSize:10.5,fontWeight:700,fill:'#fff'},item.def.pointFormat(item.raw[hoverIndex])));
+      });
+      els.push(React.createElement('g',{key:'hover-tooltip',className:'sku-chart-tooltip',style:{pointerEvents:'none'},'data-date':dates[hoverIndex]},tooltipChildren));
+    }
+    els.push(React.createElement('rect',{key:'hover-hit',x:left,y:top,width:w-left-right,height:h-top-bottom,fill:'transparent',style:{cursor:'crosshair'},onPointerMove:setHover,onPointerDown:setHover,onPointerLeave:clearHover}));
     const aria=defs.map(d=>d.label).join(', ')+' за '+days+' дней';
     const svg=React.createElement('svg',{width:'100%',viewBox:`0 0 ${w} ${h}`,style:{display:'block'},role:'img','aria-label':aria},els);
     const legend=series.map(item=>({
-      label:item.def.label,value:item.def.format(item.def.value),change:M.spct(item.change,1),
+      label:item.def.label,value:item.def.format(item.raw[item.raw.length-1]),change:M.spct(item.change,1),
       dotSt:`background:${item.def.color};`,changeSt:`font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:${item.change<0?'#B0432F':'#13693F'};white-space:nowrap;`,
     }));
-    return {svg,legend};
+    return {svg,legend,summary};
   }
   vDrill() {
     const M = this.M, st = this.state;
@@ -3165,7 +3224,7 @@ class Component extends DCLogic {
     const recs = this.events().filter(e => e.skus.includes(p.id) && !this.state.eventDone[e.id]);
     const kpiTone = (v) => `font-family:'JetBrains Mono',monospace;font-size:16.5px;font-weight:700;margin-top:3px;${v}`;
     return {
-      drOpen:true, drClose:()=>this.setState({drill:null}),
+      drOpen:true, drClose:()=>this.setState({drill:null,drillChartHover:null}),
       drMono:p.mono, drTileSt:this.tileSt(p, 44), drName:p.name,
       drAbc:p.abc+'/'+p.xyz, drAbcSt:`flex:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${p.abc==='A'?'#DFEEE5':p.abc==='B'?'#E7ECE7':'#F4E8D2'};color:${p.abc==='A'?'#13693F':p.abc==='B'?'#5A665D':'#9A6414'};`,
       drFlag: flag==='loss'?'ниже break-even':flag==='unsafe'?'ниже безопасной цены':'цена в норме',
@@ -3184,7 +3243,7 @@ class Component extends DCLogic {
       drTabs: tabs.map(([id,label]) => ({ label, go:()=>this.setState({drillTab:id}),
         st:`padding:9px 14px;font-size:13px;font-weight:650;cursor:pointer;border-bottom:2.5px solid ${st.drillTab===id?'#1B8A57':'transparent'};color:${st.drillTab===id?'#13693F':'#5A665D'};margin-bottom:-1px;` })),
       drTabEco: st.drillTab==='eco', drTabChart:st.drillTab==='chart', drTabPrice: st.drillTab==='price', drTabComp: st.drillTab==='comp', drTabStock: st.drillTab==='stock', drTabRecs: st.drillTab==='recs',
-      drChartRange:chartRange,drChartMetricCount:String(chartMetrics.length),drMetricChart:chartModel.svg,drChartLegend:chartModel.legend,
+      drChartRange:chartRange,drChartMetricCount:String(chartMetrics.length),drMetricChart:chartModel.svg,drChartLegend:chartModel.legend,drChartSummary:chartModel.summary,
       drChartMetrics:chartDefs.map(def=>{
         const pressed=chartMetrics.includes(def.id);
         return {label:def.label,pressed,go:()=>chartToggleMetric(def.id),dotSt:`background:${def.color};`,check:pressed?'check':'',checkSt:pressed?'background:#DFEEE5;border-color:#8FC6A7;color:#13693F;':'background:#fff;color:transparent;',st:pressed?'border-color:rgba(27,138,87,.34);background:#F2F8F4;color:#17231C;':''};
