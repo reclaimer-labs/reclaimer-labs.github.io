@@ -202,6 +202,151 @@
     .cards-subnav__button{appearance:none;border:0;border-radius:8px;background:transparent;color:#5A665D;padding:8px 13px;font:750 12px 'Onest',sans-serif;display:flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap;}
     .cards-subnav__button:hover{background:rgba(255,255,255,.65);color:#17231C;}
     .cards-subnav__button:focus-visible,.info-product:focus-visible,.info-slide:focus-visible,.info-option:focus-visible,.info-generate:focus-visible,.info-download:focus-visible{outline:3px solid rgba(27,138,87,.24);outline-offset:2px;}
+    .cards-command{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;gap:18px;margin-top:13px;padding:18px 19px;border-radius:16px;background:#0E2C1F;color:#EAF2EC;box-shadow:0 22px 44px -34px rgba(14,44,31,.94);}
+    .cards-command:after{content:"";position:absolute;z-index:-1;right:16%;top:-118px;width:290px;height:290px;border-radius:50%;border:52px solid rgba(127,197,158,.07);pointer-events:none;}
+    .cards-command__score{width:74px;height:74px;border-radius:24px 24px 24px 8px;background:#7FC59E;color:#0E2C1F;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;box-shadow:0 16px 30px -20px rgba(127,197,158,.7);}
+    .cards-command__actions{margin-left:auto;display:flex;align-items:center;gap:7px;position:relative;z-index:1;}
+    .cards-primary,.cards-secondary{appearance:none;border-radius:10px;padding:10px 13px;font:800 11.5px 'Onest',sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;}
+    .cards-primary{border:1px solid #7FC59E;background:#7FC59E;color:#0E2C1F;}
+    .cards-primary:hover{background:#9BD5B5;transform:translateY(-1px);}
+    .cards-secondary{border:1px solid rgba(234,242,236,.18);background:rgba(234,242,236,.08);color:#EAF2EC;}
+    .cards-secondary:hover{border-color:rgba(127,197,158,.58);background:rgba(234,242,236,.13);}
+    .cards-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px;}
+    .cards-kpi{appearance:none;min-width:0;border:1px solid rgba(23,35,28,.09);border-radius:13px;background:#fff;color:#17231C;padding:12px 13px;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;box-shadow:0 15px 32px -32px rgba(14,44,31,.72);transition:transform .15s,border-color .15s,box-shadow .15s;}
+    .cards-kpi:hover{transform:translateY(-2px);border-color:rgba(27,138,87,.35);box-shadow:0 18px 34px -28px rgba(14,44,31,.5);}
+    .cards-overview-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,.7fr);gap:12px;margin-top:12px;align-items:start;}
+    .cards-panel{border:1px solid rgba(23,35,28,.10);border-radius:14px;background:#fff;box-shadow:0 18px 40px -38px rgba(14,44,31,.72);overflow:hidden;}
+    .cards-panel__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid rgba(23,35,28,.08);background:#FBFCFB;}
+    .cards-task{appearance:none;width:100%;border:0;border-top:1px solid rgba(23,35,28,.065);background:#fff;color:#17231C;padding:12px 14px;text-align:left;font-family:'Onest',sans-serif;display:grid;grid-template-columns:36px minmax(210px,1.2fr) minmax(130px,.75fr) 116px 132px;gap:11px;align-items:center;cursor:pointer;}
+    .cards-task:hover{background:#F7FAF7;}
+    .cards-task__rank{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font:800 10px 'JetBrains Mono',monospace;}
+    .cards-task__action{appearance:none;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#fff;color:#38443B;padding:8px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;}
+    .cards-task__action:hover{border-color:#1B8A57;color:#13693F;background:#F5FBF6;}
+    .cards-coverage{padding:13px 15px;display:flex;flex-direction:column;gap:12px;}
+    .cards-coverage__row{display:grid;grid-template-columns:90px minmax(80px,1fr) 44px;gap:9px;align-items:center;}
+    .cards-progress{height:7px;border-radius:999px;background:#E8EDE9;overflow:hidden;}
+    .cards-progress>span{display:block;height:100%;border-radius:inherit;}
+    .cards-draft{margin:0 15px 15px;border:1px solid rgba(27,138,87,.22);border-radius:11px;background:#F3F8F4;padding:11px 12px;}
+    .cards-catalog-head{display:flex;align-items:flex-start;gap:12px;justify-content:space-between;margin-top:13px;padding:14px 15px;border:1px solid rgba(23,35,28,.10);border-radius:14px 14px 0 0;background:#fff;}
+    .cards-catalog-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end;}
+    .cards-search{min-width:230px;height:35px;display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#F9FBF9;padding:0 10px;}
+    .cards-search input{min-width:0;width:100%;border:0;background:transparent;color:#17231C;font:600 11.5px 'Onest',sans-serif;}
+    .cards-select{height:35px;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#fff;color:#38443B;padding:0 9px;font:700 11px 'Onest',sans-serif;}
+    .cards-filterbar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-left:1px solid rgba(23,35,28,.10);border-right:1px solid rgba(23,35,28,.10);background:#FBFCFB;overflow-x:auto;scrollbar-width:none;}
+    .cards-filterbar::-webkit-scrollbar{display:none;}
+    .cards-filter{appearance:none;border:1px solid rgba(23,35,28,.10);border-radius:8px;background:#fff;color:#5A665D;padding:7px 9px;font:750 10.5px 'Onest',sans-serif;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:5px;}
+    .cards-filter:hover{border-color:rgba(27,138,87,.42);color:#13693F;}
+    .cards-bulkbar{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid rgba(27,138,87,.26);background:#E8F3EC;color:#13492F;animation:fadein .15s ease-out;}
+    .cards-bulkbar button{appearance:none;border:1px solid rgba(27,138,87,.22);border-radius:8px;background:#fff;color:#24563A;padding:7px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;}
+    .cards-table-scroll{overflow:auto;border:1px solid rgba(23,35,28,.10);border-radius:0 0 14px 14px;background:#fff;}
+    .cards-grid-head,.cards-row{min-width:1040px;display:grid;grid-template-columns:42px minmax(250px,1.35fr) 118px 172px 176px minmax(210px,1fr) 132px;gap:10px;align-items:center;padding:0 13px;}
+    .cards-grid-head{position:sticky;top:0;z-index:5;height:40px;background:#EEF2EE;color:#7A857C;font:700 9px 'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid rgba(23,35,28,.09);}
+    .cards-row{min-height:72px;border-top:1px solid rgba(23,35,28,.065);cursor:pointer;transition:background .12s,box-shadow .12s;}
+    .cards-row:hover{background:#F7FAF7;box-shadow:inset 3px 0 0 #7FC59E;}
+    .cards-check{appearance:none;border:0;background:transparent;width:28px;height:28px;border-radius:7px;color:#AAB5AD;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Material Symbols Rounded';font-size:18px;}
+    .cards-check:hover{background:#E7EFE9;color:#1B8A57;}
+    .cards-quality{display:flex;align-items:center;gap:8px;}
+    .cards-quality__ring{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--quality-color) calc(var(--quality)*1%),#E7ECE8 0);font:800 9px 'JetBrains Mono',monospace;color:#17231C;}
+    .cards-quality__ring:before{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
+    .cards-quality__ring>span{position:relative;z-index:1;}
+    .cards-content-list{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+    .cards-content-chip{display:inline-flex;align-items:center;gap:3px;border-radius:6px;padding:3px 5px;font:700 9px 'JetBrains Mono',monospace;}
+    .cards-issue-summary{display:flex;align-items:flex-start;gap:7px;min-width:0;}
+    .cards-row-action{appearance:none;border:1px solid rgba(23,35,28,.11);border-radius:9px;background:#fff;color:#38443B;padding:8px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;}
+    .cards-row-action:hover{border-color:#1B8A57;background:#F5FBF6;color:#13693F;}
+    .cards-empty{min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#7A857C;padding:30px;}
+    .card-inspector{position:absolute;top:0;right:0;bottom:0;width:min(520px,94vw);background:#F8FAF8;box-shadow:-30px 0 70px -30px rgba(12,28,20,.55);display:flex;flex-direction:column;animation:slidein .25s cubic-bezier(.2,.7,.2,1);}
+    .card-inspector__head{padding:15px 17px;background:#0E2C1F;color:#EAF2EC;}
+    .card-inspector__body{flex:1;overflow-y:auto;padding:15px 17px 22px;}
+    .card-inspector__score{display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:center;border:1px solid rgba(23,35,28,.09);border-radius:13px;background:#fff;padding:13px;}
+    .card-inspector__meter{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--quality-color) calc(var(--quality)*1%),#E7ECE8 0);}
+    .card-inspector__meter:before{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff;}
+    .card-inspector__meter>span{position:relative;z-index:1;font:800 19px 'JetBrains Mono',monospace;}
+    .card-inspector__metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px;}
+    .card-inspector__metric{border:1px solid rgba(23,35,28,.08);border-radius:10px;background:#fff;padding:9px 10px;}
+    .card-inspector__issue{display:flex;align-items:flex-start;gap:8px;border:1px solid rgba(23,35,28,.08);border-radius:10px;background:#fff;padding:9px 10px;margin-top:6px;}
+    .card-inspector__footer{display:flex;gap:8px;padding:12px 17px;border-top:1px solid rgba(23,35,28,.09);background:#fff;}
+    .cards-primary:focus-visible,.cards-secondary:focus-visible,.cards-kpi:focus-visible,.cards-task:focus-visible,.cards-task__action:focus-visible,.cards-filter:focus-visible,.cards-check:focus-visible,.cards-row-action:focus-visible,.cards-select:focus-visible,.cards-search:focus-within{outline:3px solid rgba(27,138,87,.24);outline-offset:2px;}
+    .pipeline-overlay{position:fixed;inset:0;z-index:120;background:#EDF1ED;animation:fadein .16s ease-out;}
+    .pipeline-shell{height:100dvh;display:grid;grid-template-rows:62px minmax(0,1fr);color:#17231C;background-color:#EDF1ED;background-image:radial-gradient(rgba(23,35,28,.055) .7px,transparent .7px);background-size:15px 15px;}
+    .pipeline-topbar{display:flex;align-items:center;gap:12px;padding:0 18px;background:#0C2E20;color:#EAF2EC;border-bottom:1px solid rgba(234,242,236,.1);box-shadow:0 10px 32px -24px rgba(7,24,16,.9);}
+    .pipeline-mark{width:35px;height:35px;border-radius:11px 11px 11px 4px;background:#7FC59E;color:#0C2E20;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:20px;flex:none;}
+    .pipeline-live{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid rgba(234,242,236,.12);border-radius:8px;background:rgba(234,242,236,.055);padding:6px 9px;color:#AFC6B7;font:650 9px 'JetBrains Mono',monospace;}
+    .pipeline-close{appearance:none;width:34px;height:34px;border:1px solid rgba(234,242,236,.13);border-radius:9px;background:rgba(234,242,236,.06);color:#EAF2EC;font-family:'Material Symbols Rounded';font-size:19px;cursor:pointer;}
+    .pipeline-close:hover{background:rgba(234,242,236,.12);}
+    .pipeline-layout{min-height:0;display:grid;grid-template-columns:236px minmax(0,1fr);}
+    .pipeline-rail{min-height:0;overflow-y:auto;background:#123A29;color:#DCE9E0;padding:18px 13px;display:flex;flex-direction:column;}
+    .pipeline-rail__label{padding:0 9px 10px;color:#6F9982;font:700 8.5px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;}
+    .pipeline-step{appearance:none;width:100%;display:grid;grid-template-columns:29px minmax(0,1fr) 18px;gap:8px;align-items:center;border:0;border-radius:10px;background:transparent;color:#83A892;padding:9px;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;}
+    .pipeline-step+.pipeline-step{margin-top:3px;}
+    .pipeline-step:hover{background:rgba(234,242,236,.055);color:#EAF2EC;}
+    .pipeline-step__n{width:27px;height:27px;border-radius:8px;background:rgba(234,242,236,.07);display:grid;place-items:center;font:750 9px 'JetBrains Mono',monospace;}
+    .pipeline-step__title{display:block;font-size:11.5px;font-weight:750;}
+    .pipeline-step__sub{display:block;margin-top:2px;font-size:9.5px;color:#71947F;line-height:1.25;}
+    .pipeline-rail__help{margin-top:auto;border:1px solid rgba(127,197,158,.18);border-radius:11px;background:rgba(7,28,18,.18);padding:11px;color:#9EC0AB;font-size:9.5px;line-height:1.45;}
+    .pipeline-main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;}
+    .pipeline-progress{height:4px;background:#D8E0D9;overflow:hidden;}
+    .pipeline-progress span{display:block;height:100%;border-radius:0 4px 4px 0;background:#1B8A57;transition:width .25s ease;}
+    .pipeline-scroll{min-height:0;overflow-y:auto;padding:24px clamp(18px,3vw,44px) 32px;}
+    .pipeline-stage{max-width:1120px;margin:0 auto;animation:rise .22s cubic-bezier(.2,.7,.2,1);}
+    .pipeline-stage__eyebrow{color:#1B8A57;font:750 9px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;}
+    .pipeline-stage__title{margin-top:6px;font-size:25px;font-weight:850;letter-spacing:-.035em;}
+    .pipeline-stage__lead{max-width:720px;margin-top:7px;color:#667269;font-size:11.5px;line-height:1.5;}
+    .pipeline-workspace{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.72fr);gap:13px;margin-top:18px;align-items:start;}
+    .pipeline-card{border:1px solid rgba(23,35,28,.1);border-radius:14px;background:#fff;box-shadow:0 18px 42px -38px rgba(14,44,31,.72);overflow:hidden;}
+    .pipeline-card__head{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(23,35,28,.075);}
+    .pipeline-card__body{padding:14px;}
+    .pipeline-kicker{color:#859087;font:700 8.5px 'JetBrains Mono',monospace;letter-spacing:.09em;text-transform:uppercase;}
+    .pipeline-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+    .pipeline-choice{appearance:none;min-height:105px;border:1px solid rgba(23,35,28,.11);border-radius:11px;background:#fff;color:#38443B;padding:12px;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;transition:border-color .12s,transform .12s,background .12s;}
+    .pipeline-choice:hover{border-color:#7FC59E;transform:translateY(-1px);}
+    .pipeline-choice__icon{width:31px;height:31px;border-radius:9px;background:#E8F3EC;color:#13693F;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:18px;}
+    .pipeline-choice__title{display:block;margin-top:10px;font-size:11.5px;font-weight:800;}
+    .pipeline-choice__sub{display:block;margin-top:4px;color:#7A857C;font-size:9.5px;line-height:1.35;}
+    .pipeline-upload{display:flex;align-items:center;gap:13px;margin-top:10px;border:1.5px dashed #8FC4A4;border-radius:11px;background:#F3F8F4;padding:13px;}
+    .pipeline-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px;}
+    .pipeline-field{display:flex;flex-direction:column;gap:5px;min-width:0;}
+    .pipeline-field--wide{grid-column:1/-1;}
+    .pipeline-label{color:#7A857C;font:700 8.5px 'JetBrains Mono',monospace;letter-spacing:.07em;text-transform:uppercase;}
+    .pipeline-input,.pipeline-textarea,.pipeline-select{width:100%;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#FBFCFB;color:#17231C;padding:9px 10px;font:650 11.5px 'Onest',sans-serif;outline:0;}
+    .pipeline-textarea{min-height:125px;resize:vertical;line-height:1.5;}
+    .pipeline-input:focus,.pipeline-textarea:focus,.pipeline-select:focus{border-color:#1B8A57;box-shadow:0 0 0 3px rgba(27,138,87,.11);background:#fff;}
+    .pipeline-aside-note{border-radius:11px;background:#0E2C1F;color:#DDEAE1;padding:13px;}
+    .pipeline-recognition{display:grid;grid-template-columns:105px minmax(0,1fr);gap:12px;align-items:center;border:1px solid rgba(23,35,28,.09);border-radius:11px;background:#F9FBF9;padding:11px;}
+    .pipeline-score{width:82px;height:82px;border-radius:25px 25px 25px 7px;background:#7FC59E;color:#0E2C1F;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .pipeline-data-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 0;border-top:1px solid rgba(23,35,28,.065);font-size:10.5px;}
+    .pipeline-data-row:first-child{border-top:0;}
+    .pipeline-seo{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+    .pipeline-seo span{border-radius:7px;background:#E8F3EC;color:#13693F;padding:5px 7px;font:650 9px 'JetBrains Mono',monospace;}
+    .pipeline-photo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+    .pipeline-photo{appearance:none;position:relative;aspect-ratio:4/5;border:1px solid rgba(23,35,28,.1);border-radius:10px;background:#F1F4F1;color:#87928A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font:650 9px 'JetBrains Mono',monospace;cursor:pointer;overflow:hidden;}
+    .pipeline-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,transparent 45%,rgba(27,138,87,.06));pointer-events:none;}
+    .pipeline-photo--filled{background:linear-gradient(145deg,#E7DDD1,#CFDCCD);color:#284436;border-color:#9FC6AE;}
+    .pipeline-toggle{appearance:none;width:100%;display:flex;align-items:center;gap:9px;border:1px solid rgba(23,35,28,.1);border-radius:10px;background:#fff;color:#38443B;padding:10px;text-align:left;font-family:'Onest',sans-serif;cursor:pointer;}
+    .pipeline-toggle+.pipeline-toggle{margin-top:7px;}
+    .pipeline-toggle__icon{font-family:'Material Symbols Rounded';font-size:18px;color:#AAB5AD;}
+    .pipeline-checklist{display:flex;flex-direction:column;gap:7px;}
+    .pipeline-check{display:flex;align-items:flex-start;gap:8px;border:1px solid rgba(23,35,28,.08);border-radius:10px;background:#fff;padding:10px;}
+    .pipeline-preview{border-radius:13px;background:#0E2C1F;color:#EAF2EC;padding:15px;position:relative;overflow:hidden;}
+    .pipeline-preview:after{content:"";position:absolute;right:-55px;bottom:-82px;width:190px;height:190px;border:35px solid rgba(127,197,158,.08);border-radius:50%;}
+    .pipeline-footer{display:flex;align-items:center;gap:8px;padding:11px 18px;border-top:1px solid rgba(23,35,28,.1);background:rgba(255,255,255,.94);backdrop-filter:blur(10px);}
+    .pipeline-footer__meta{margin-right:auto;color:#7A857C;font-size:9.5px;}
+    .pipeline-btn{appearance:none;min-height:38px;border-radius:9px;padding:0 13px;font:780 11.5px 'Onest',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
+    .pipeline-btn--ghost{border:1px solid rgba(23,35,28,.12);background:#fff;color:#536158;}
+    .pipeline-btn--primary{border:0;background:#1B8A57;color:#fff;min-width:150px;}
+    .pipeline-btn--primary:hover{background:#13693F;}
+    .pipeline-btn--dark{border:0;background:#0E2C1F;color:#EAF2EC;}
+    .pipeline-btn:disabled{cursor:not-allowed;background:#E1E7E2;color:#8C968E;border-color:transparent;}
+    .pipeline-flow{display:grid;grid-template-columns:minmax(150px,1fr) 34px minmax(150px,1fr);gap:8px;align-items:center;}
+    .pipeline-flow__arrow{font-family:'Material Symbols Rounded';font-size:20px;text-align:center;color:#1B8A57;}
+    .pipeline-strategy{display:grid;grid-template-columns:minmax(150px,.8fr) 1fr;gap:12px;align-items:center;padding:11px 0;border-top:1px solid rgba(23,35,28,.07);}
+    .pipeline-strategy:first-child{border-top:0;padding-top:0;}
+    .pipeline-segmented{display:flex;border:1px solid rgba(23,35,28,.1);border-radius:9px;background:#F1F4F1;padding:3px;gap:3px;}
+    .pipeline-segmented button{appearance:none;flex:1;border:0;border-radius:6px;background:transparent;color:#6C786F;padding:7px 8px;font:700 9.5px 'Onest',sans-serif;cursor:pointer;}
+    .pipeline-conflict{border:1px solid rgba(23,35,28,.09);border-radius:11px;background:#fff;padding:11px;}
+    .pipeline-conflict+.pipeline-conflict{margin-top:8px;}
+    .pipeline-done{max-width:680px;margin:8vh auto 0;text-align:center;border:1px solid rgba(23,35,28,.1);border-radius:18px;background:#fff;padding:34px;box-shadow:0 28px 70px -52px rgba(14,44,31,.75);}
+    .pipeline-done__icon{width:66px;height:66px;margin:0 auto;border-radius:22px 22px 22px 7px;background:#7FC59E;color:#0E2C1F;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:32px;}
     .info-command{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;margin-top:13px;padding:15px 17px;border-radius:15px;background:#0E2C1F;color:#EAF2EC;box-shadow:0 20px 42px -32px rgba(14,44,31,.9);}
     .info-command:after{content:"";position:absolute;right:150px;top:-95px;width:240px;height:240px;border-radius:50%;border:44px solid rgba(127,197,158,.08);pointer-events:none;}
     .info-command__icon{width:38px;height:38px;border-radius:11px;background:#7FC59E;color:#0E2C1F;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:21px;flex:none;}
@@ -240,10 +385,15 @@
     .mobile-nav{display:none;}
     .mobile-nav-item{appearance:none;border:0;background:transparent;color:#8EA597;min-width:0;padding:7px 3px 6px;font-family:'Onest',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;}
     @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-summary-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.info-workspace{grid-template-columns:205px minmax(390px,1fr)}.info-settings{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.info-settings .info-panel__section:last-child{grid-column:1/-1}.info-settings .info-panel__section+.info-panel__section{border-top:0;border-left:1px solid rgba(23,35,28,.08)}}
+    @media(max-width:1180px){.cards-overview-grid{grid-template-columns:1fr}.cards-task{grid-template-columns:36px minmax(200px,1.2fr) minmax(120px,.7fr) 108px 126px}}
     @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-ai{grid-template-columns:1fr}}
+    @media(max-width:900px){.cards-kpis{grid-template-columns:1fr 1fr}.cards-command{align-items:flex-start;flex-wrap:wrap}.cards-command__actions{width:100%;margin-left:0}.cards-catalog-head{flex-direction:column}.cards-catalog-tools{width:100%;justify-content:flex-start}.cards-search{flex:1}.cards-task{grid-template-columns:36px minmax(180px,1fr) 120px}.cards-task__impact,.cards-task__meta{display:none}}
+    @media(max-width:900px){.pipeline-layout{grid-template-columns:190px minmax(0,1fr)}.pipeline-workspace{grid-template-columns:1fr}.pipeline-choice-grid{grid-template-columns:1fr}.pipeline-photo-grid{grid-template-columns:repeat(4,minmax(70px,1fr))}.pipeline-flow{grid-template-columns:1fr}.pipeline-flow__arrow{transform:rotate(90deg)}.pipeline-strategy{grid-template-columns:1fr}}
     @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.app-main{padding-bottom:72px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));left:10px;right:10px;bottom:8px;z-index:75;border:1px solid rgba(234,242,236,.16);border-radius:15px;background:rgba(14,44,31,.96);box-shadow:0 18px 42px -18px rgba(7,24,16,.85);backdrop-filter:blur(12px);overflow:hidden}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
     @media(max-width:720px){.period-presets{display:none}.period-range-button{border-left:0;border-radius:8px;max-width:142px}.period-range__desktop{display:none}.period-range__mobile{display:block;overflow:hidden;text-overflow:ellipsis}.period-popover{position:fixed;top:68px;left:10px;right:10px;width:auto}.period-popover__quick .period-chip{display:block}}
     @media(max-width:720px){.fin-section{padding:12px 10px 88px!important}.fin-context-tabs{display:flex}.fin-summary-hero{padding:14px;flex-direction:column;gap:12px}.fin-summary-actions{width:100%;justify-content:flex-start}.fin-summary-actions .fin-btn{flex:1;justify-content:center}.fin-summary-kpis{grid-template-columns:1fr 1fr;gap:7px}.fin-summary-kpi{padding:10px 11px}.fin-report-card__head{align-items:stretch;flex-direction:column}.fin-summary-views{width:100%}.fin-summary-view{flex:1}.fin-summary-table-wrap{max-height:520px}.fin-summary-delta{display:none}.fin-summary-note{padding:9px 11px}}
+    @media(max-width:720px){.cards-section{padding:12px 10px 88px!important}.cards-subnav{width:100%;overflow-x:auto;scrollbar-width:none}.cards-subnav__button{flex:1;padding:8px 9px}.cards-command{padding:14px;gap:12px}.cards-command__score{width:62px;height:62px;border-radius:19px 19px 19px 7px}.cards-command__copy{flex:1 1 calc(100% - 78px)}.cards-command__actions{display:grid;grid-template-columns:1fr 1fr}.cards-command__actions>*{width:100%}.cards-kpis{gap:7px}.cards-kpi{padding:10px 11px}.cards-task{grid-template-columns:30px minmax(0,1fr);padding:11px 12px}.cards-task__action{grid-column:2;width:100%;margin-top:2px}.cards-panel__head{padding:12px}.cards-catalog-tools{display:grid;grid-template-columns:1fr 112px}.cards-search{grid-column:1/-1;min-width:0}.cards-catalog-head{padding:12px}.cards-grid-head{display:none}.cards-table-scroll{border-radius:0 0 13px 13px}.cards-row{min-width:0;grid-template-columns:30px minmax(0,1fr) 54px;grid-auto-rows:auto;gap:7px 9px;padding:11px 10px;align-items:start}.cards-row__select{grid-column:1;grid-row:1}.cards-row__product{grid-column:2;grid-row:1}.cards-row__quality{grid-column:3;grid-row:1}.cards-row__content{grid-column:2/4;grid-row:2}.cards-row__search{grid-column:2/4;grid-row:3}.cards-row__issues{grid-column:2/4;grid-row:4}.cards-row__action{grid-column:2/4;grid-row:5}.cards-row-action{width:100%}.cards-quality__ring{width:34px;height:34px}.cards-bulkbar{overflow-x:auto}.card-inspector{width:calc(100vw - 10px)}.card-inspector__head{padding:13px}.card-inspector__body{padding:12px}.card-inspector__footer{padding:10px 12px;flex-wrap:wrap}.card-inspector__footer>*{flex:1 1 100%}.cards-coverage__row{grid-template-columns:80px minmax(70px,1fr) 40px}}
+    @media(max-width:720px){.pipeline-shell{grid-template-rows:56px minmax(0,1fr)}.pipeline-topbar{padding:0 10px;gap:8px}.pipeline-topbar__sub,.pipeline-live{display:none}.pipeline-layout{display:flex;flex-direction:column;min-height:0}.pipeline-rail{flex:none;display:flex;flex-direction:row;gap:4px;padding:7px 9px;overflow-x:auto}.pipeline-rail__label,.pipeline-rail__help{display:none}.pipeline-step{min-width:50px;width:auto;display:flex;padding:6px;background:transparent}.pipeline-step__n{width:33px;height:30px}.pipeline-step__copy,.pipeline-step>span:last-child{display:none}.pipeline-main{flex:1;min-height:0}.pipeline-scroll{padding:17px 11px 24px}.pipeline-stage__title{font-size:20px}.pipeline-workspace{margin-top:13px}.pipeline-form-grid{grid-template-columns:1fr}.pipeline-field--wide{grid-column:auto}.pipeline-choice{min-height:86px}.pipeline-photo-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.pipeline-photo{font-size:8px}.pipeline-recognition{grid-template-columns:80px minmax(0,1fr)}.pipeline-score{width:70px;height:70px}.pipeline-footer{padding:9px 10px;flex-wrap:wrap}.pipeline-footer__meta{display:none}.pipeline-btn{flex:1;min-width:0}.pipeline-btn--primary{flex:1.35}.pipeline-done{margin:2vh auto 0;padding:24px 17px}.pipeline-segmented{overflow-x:auto}.pipeline-segmented button{white-space:nowrap}.pipeline-card__body{padding:11px}}
     @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}.cards-subnav{width:100%}.cards-subnav__button{flex:1;justify-content:center}.info-command{align-items:flex-start;flex-wrap:wrap}.info-command__copy{flex:1 1 calc(100% - 54px)!important}.info-command__action{width:100%;justify-content:center!important;margin-left:0!important}.info-workspace{grid-template-columns:1fr}.info-product-list,.info-slide-list{flex-direction:row;overflow-x:auto;padding-bottom:2px}.info-product{min-width:205px}.info-slide{min-width:145px}.info-stage__canvas{min-height:430px;padding:14px}.info-canvas{padding:20px;max-width:330px}.info-canvas__title{font-size:23px}.info-settings{grid-column:auto;display:block}.info-settings .info-panel__section+.info-panel__section{border-left:0;border-top:1px solid rgba(23,35,28,.08)}.info-settings .info-panel__section:last-child{grid-column:auto}.new-card-modal{max-height:94vh!important}.new-card-head{padding:13px 14px!important}.new-card-pipeline{display:none}.new-card-body{padding:14px!important}.new-card-grid{grid-template-columns:1fr!important}.new-card-footer{padding:11px 14px!important}.new-card-footer>*{flex:1 1 100%!important;justify-content:center}.sku-drill-head{display:grid!important;grid-template-columns:44px minmax(0,1fr) 32px;align-items:center!important;padding:12px!important;gap:9px!important}.sku-drill-identity{min-width:0}.sku-drill-identity>div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku-drill-actions{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sku-drill-action{justify-content:center!important}.sku-drill-close{grid-column:3;grid-row:1}.sku-drill-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sku-drill-kpi{border-bottom:1px solid rgba(23,35,28,.06);padding:10px 12px!important}.sku-drill-tabs{padding-left:12px!important;padding-right:12px!important}.sku-drill-body{padding:16px 12px 24px!important}.sku-chart-head{flex-direction:column}.sku-chart-periods{width:100%}.sku-chart-summary{grid-template-columns:repeat(2,minmax(0,1fr));padding:10px 12px}.sku-chart-layout{grid-template-columns:1fr}.sku-chart-sidebar{border-right:0;border-bottom:1px solid rgba(23,35,28,.08)}.sku-chart-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sku-chart-legend{grid-template-columns:1fr}.sku-chart-custom{grid-template-columns:1fr 1fr}.sku-chart-apply{grid-column:1/-1}.sku-chart-foot{align-items:flex-start;flex-direction:column}}
   </style>
 </helmet>
@@ -1344,59 +1494,103 @@
 
       <!-- ============ КАРТОЧКИ ============ -->
       <sc-if value="{{ isCards }}" hint-placeholder-val="{{ false }}">
-        <section data-screen-label="Карточки" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+        <section class="cards-section" data-screen-label="Карточки" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
           <div class="cards-subnav">
-            <sc-for list="{{ cardsTabs }}" as="tab" hint-placeholder-count="2">
+            <sc-for list="{{ cardsTabs }}" as="tab" hint-placeholder-count="3">
               <button type="button" onClick="{{ tab.go }}" class="cards-subnav__button" style="{{ tab.st }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ tab.icon }}</span>{{ tab.label }}</button>
             </sc-for>
           </div>
-
-          <sc-if value="{{ cardsCatalog }}" hint-placeholder-val="{{ true }}">
-          <div class="cards-toolbar">
-            <div onClick="{{ cdNew }}" style="display:flex;align-items:center;gap:8px;background:#1B8A57;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">
-              <span style="font-family:'Material Symbols Rounded';font-size:17px;">auto_awesome</span>Новая карточка с ИИ
-            </div>
-            <div onClick="{{ cdImport }}" style="display:flex;align-items:center;gap:7px;border:1px solid #BCDCCB;background:#DFEEE5;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;color:#13693F;cursor:pointer;" style-hover="background:#CDE6D7"><span style="font-family:'Material Symbols Rounded';font-size:16px;">upload_file</span>Импорт из Excel</div>
-            <div onClick="{{ cdClone }}" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:650;color:#38443B;cursor:pointer;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:16px;">content_copy</span>Клонировать</div>
-            <div onClick="{{ cdMass }}" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(23,35,28,.12);background:#fff;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:650;color:#38443B;cursor:pointer;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:16px;">edit_note</span>Массовые правки</div>
-            <div onClick="{{ cdProblems }}" style="display:flex;align-items:center;gap:7px;border:1px solid #E7C0B5;background:#FFF7F3;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;color:#B0432F;cursor:pointer;" style-hover="background:#F6E2DD"><span style="font-family:'Material Symbols Rounded';font-size:16px;">error</span>{{ cdProblemsLabel }}</div>
-            <div onClick="{{ cdMerge }}" style="{{ cdMergeSt }}" style-hover="filter:brightness(.97)"><span style="font-family:'Material Symbols Rounded';font-size:16px;">merge</span>{{ cdMergeLabel }}</div>
-            <div class="cards-toolbar__spacer" style="flex:1;"></div>
-            <div class="cards-toolbar__draft" style="font-size:11.5px;color:#8C968E;">Черновик: <b style="color:#38443B;">«Жакет Лея»</b></div>
+            <div style="display:flex;align-items:center;gap:6px;color:#7A857C;font:600 9.5px 'JetBrains Mono',monospace;"><span style="width:6px;height:6px;border-radius:50%;background:#1B8A57;"></span>WB Content API · 07:42</div>
           </div>
 
-          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;background:#DFEEE5;border-radius:10px;padding:8px 13px;font-size:12.5px;color:#13492F;">
-            <span style="font-family:'Material Symbols Rounded';font-size:15px;color:#13693F;">tips_and_updates</span>
-            <span><b>Марк:</b> 74/100 · приоритеты: дубли «Бейс» и фото «Ася».</span>
-          </div>
-
-          <div style="background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:14px;margin-top:14px;overflow:hidden;">
-            <div style="display:grid;grid-template-columns:270px 120px 150px 170px 90px 70px 1fr 120px;align-items:center;padding:11px 16px;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#8C968E;">
-              <span>Карточка</span><span>Модерация</span><span>Качество</span><span>Позиция в поиске</span><span>Фото</span><span>Rich</span><span>Проблемы</span><span></span>
-            </div>
-            <sc-for list="{{ cdRows }}" as="r" hint-placeholder-count="8">
-              <div style="display:grid;grid-template-columns:270px 120px 150px 170px 90px 70px 1fr 120px;align-items:center;padding:10px 16px;border-top:1px solid rgba(23,35,28,.06);">
-                <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-                  <div onClick="{{ r.toggle }}" title="Выбрать для объединения" style="{{ r.selectSt }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ r.selectIcon }}</span></div>
-                  <div style="{{ r.tileSt }}">{{ r.mono }}</div>
-                  <div style="min-width:0;">
-                    <div style="font-size:12.5px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;">{{ r.nm }}</div>
-                  </div>
-                </div>
-                <span style="{{ r.modSt }}">{{ r.mod }}</span>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <div style="width:64px;height:5px;background:#ECF0EC;border-radius:3px;"><div style="{{ r.qBarSt }}"></div></div>
-                  <span style="{{ r.qSt }}">{{ r.q }}</span>
-                </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5A665D;">{{ r.pos }}</span>
-                <span style="{{ r.photosSt }}">{{ r.photos }}</span>
-                <span style="{{ r.richSt }}">{{ r.rich }}</span>
-                <div style="display:flex;flex-wrap:wrap;gap:4px;padding-right:10px;"><sc-for list="{{ r.issues }}" as="issue" hint-placeholder-count="2"><span style="{{ issue.st }}">{{ issue.t }}</span></sc-for></div>
-                <div onClick="{{ r.act }}" style="{{ r.actSt }}" style-hover="filter:brightness(.96)">{{ r.actLabel }}</div>
+          <sc-if value="{{ cardsOverview }}" hint-placeholder-val="{{ true }}">
+            <div class="cards-command">
+              <div class="cards-command__score"><span style="font:850 23px 'JetBrains Mono',monospace;letter-spacing:-.06em;">{{ cardsHealthScore }}</span><span style="font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;">из 100</span></div>
+              <div class="cards-command__copy" style="min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:16px;font-weight:850;">Контент-центр</span><span style="border-radius:6px;background:#F4E8D2;color:#7C5215;padding:3px 7px;font:750 9px 'JetBrains Mono',monospace;">{{ cardsUrgentCount }} СРОЧНО</span></div>
+                <div style="max-width:610px;margin-top:4px;color:#AFC6B7;font-size:11.5px;line-height:1.45;">Марк собрал карточки в порядке влияния на продажи. Начните с первых трёх — остальное можно не трогать сегодня.</div>
               </div>
-            </sc-for>
-          </div>
+              <div class="cards-command__actions">
+                <button type="button" onClick="{{ cardsQueueOpen }}" class="cards-secondary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">checklist</span>Разобрать очередь</button>
+                <button type="button" onClick="{{ cdNew }}" class="cards-primary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">auto_awesome</span>Новая с ИИ</button>
+              </div>
+            </div>
+
+            <div class="cards-kpis">
+              <sc-for list="{{ cardsOverviewKpis }}" as="kpi" hint-placeholder-count="4">
+                <button type="button" onClick="{{ kpi.go }}" class="cards-kpi">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;"><span style="font:700 9px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#819087;">{{ kpi.label }}</span><span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ kpi.color }};">{{ kpi.icon }}</span></div>
+                  <div style="display:flex;align-items:baseline;gap:7px;margin-top:8px;"><span style="font:800 21px 'JetBrains Mono',monospace;letter-spacing:-.04em;color:{{ kpi.valueColor }};">{{ kpi.value }}</span><span style="font-size:10px;color:#7A857C;">{{ kpi.unit }}</span></div>
+                  <div style="margin-top:5px;font-size:10.5px;color:#65736A;">{{ kpi.note }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <div class="cards-overview-grid">
+              <div class="cards-panel">
+                <div class="cards-panel__head">
+                  <div><div style="font-size:13.5px;font-weight:850;">Что сделать сегодня</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">Очередь рассчитана по риску, позиции и полноте контента</div></div>
+                  <button type="button" onClick="{{ cardsQueueOpen }}" style="appearance:none;border:0;background:transparent;color:#13693F;font:750 10.5px 'Onest',sans-serif;cursor:pointer;">Весь каталог →</button>
+                </div>
+                <sc-for list="{{ cardsTasks }}" as="task" hint-placeholder-count="4">
+                  <div onClick="{{ task.open }}" class="cards-task" role="button" tabindex="0">
+                    <span class="cards-task__rank" style="{{ task.rankSt }}">{{ task.rank }}</span>
+                    <div style="display:flex;align-items:center;gap:9px;min-width:0;"><span style="{{ task.tileSt }}">{{ task.mono }}</span><span style="min-width:0;"><span style="display:block;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ task.title }}</span><span style="display:block;font-size:10.5px;color:#7A857C;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ task.reason }}</span></span></div>
+                    <div class="cards-task__impact"><div style="font:700 9px 'JetBrains Mono',monospace;text-transform:uppercase;color:#8C968E;">Эффект</div><div style="font-size:11px;font-weight:750;color:{{ task.impactColor }};margin-top:3px;">{{ task.impact }}</div></div>
+                    <div class="cards-task__meta"><div style="font-size:10.5px;font-weight:700;">{{ task.owner }}</div><div style="font:600 9px 'JetBrains Mono',monospace;color:#8C968E;margin-top:3px;">{{ task.due }}</div></div>
+                    <button type="button" onClick="{{ task.act }}" class="cards-task__action"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ task.actionIcon }}</span>{{ task.action }}</button>
+                  </div>
+                </sc-for>
+              </div>
+
+              <aside class="cards-panel">
+                <div class="cards-panel__head"><div><div style="font-size:13.5px;font-weight:850;">Покрытие контентом</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">По опубликованным карточкам</div></div><span style="font:800 12px 'JetBrains Mono',monospace;color:#13693F;">{{ cardsCoverageTotal }}</span></div>
+                <div class="cards-coverage">
+                  <sc-for list="{{ cardsCoverage }}" as="item" hint-placeholder-count="4">
+                    <div class="cards-coverage__row"><span style="font-size:10.5px;font-weight:700;color:#536158;">{{ item.label }}</span><span class="cards-progress"><span style="{{ item.barSt }}"></span></span><span style="font:700 10px 'JetBrains Mono',monospace;text-align:right;color:{{ item.color }};">{{ item.value }}</span></div>
+                  </sc-for>
+                </div>
+                <div class="cards-draft">
+                  <div style="display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">edit_document</span><span style="font-size:11.5px;font-weight:800;">Черновик «Жакет Лея»</span><span style="margin-left:auto;font:700 9px 'JetBrains Mono',monospace;color:#13693F;">14/14</span></div>
+                  <div style="font-size:10px;color:#6C786F;margin-top:5px;">Атрибуты готовы · осталось собрать фото</div>
+                  <button type="button" onClick="{{ cardsDraftContinue }}" style="appearance:none;width:100%;margin-top:9px;border:1px solid rgba(27,138,87,.28);border-radius:8px;background:#fff;color:#13693F;padding:7px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;">Продолжить в инфографике →</button>
+                </div>
+              </aside>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ cardsCatalog }}" hint-placeholder-val="{{ false }}">
+            <div class="cards-catalog-head">
+              <div><div style="font-size:14px;font-weight:850;">Каталог карточек</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">{{ cdCatalogSummary }}</div></div>
+              <div class="cards-catalog-tools">
+                <label class="cards-search"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#8C968E;">search</span><input value="{{ cdQuery }}" onChange="{{ cdSearchChange }}" placeholder="Название или артикул"></label>
+                <select class="cards-select" value="{{ cdSort }}" onChange="{{ cdSortChange }}" aria-label="Сортировка карточек"><sc-for list="{{ cdSortOptions }}" as="option" hint-placeholder-count="3"><option value="{{ option.id }}">{{ option.label }}</option></sc-for></select>
+                <button type="button" onClick="{{ cdNew }}" class="cards-primary" style="padding:9px 11px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;">add</span>Создать</button>
+                <button type="button" onClick="{{ cdImport }}" style="appearance:none;height:35px;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#fff;color:#38443B;padding:0 10px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;">upload_file</span>Импорт</button>
+              </div>
+            </div>
+            <div class="cards-filterbar">
+              <sc-for list="{{ cdFilters }}" as="filter" hint-placeholder-count="5"><button type="button" onClick="{{ filter.go }}" class="cards-filter" aria-pressed="{{ filter.pressed }}" style="{{ filter.st }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ filter.icon }}</span>{{ filter.label }}<span style="font:700 9px 'JetBrains Mono',monospace;color:#8C968E;">{{ filter.count }}</span></button></sc-for>
+            </div>
+            <sc-if value="{{ cdHasSelection }}" hint-placeholder-val="{{ false }}">
+              <div class="cards-bulkbar"><span style="font:800 10.5px 'JetBrains Mono',monospace;white-space:nowrap;">Выбрано: {{ cdSelectedCount }}</span><button type="button" onClick="{{ cdClone }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">content_copy</span>Клонировать</button><button type="button" onClick="{{ cdMass }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">edit_note</span>Массовые правки</button><button type="button" onClick="{{ cdMerge }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">merge</span>{{ cdMergeLabel }}</button><button type="button" onClick="{{ cdClearSelection }}" style="margin-left:auto;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">close</span>Снять выбор</button></div>
+            </sc-if>
+            <div class="cards-table-scroll">
+              <div class="cards-grid-head"><button type="button" onClick="{{ cdSelectVisible }}" class="cards-check" title="Выбрать видимые карточки">{{ cdSelectVisibleIcon }}</button><span>Карточка</span><span>Качество</span><span>Контент</span><span>Поиск</span><span>Главная проблема</span><span>Следующий шаг</span></div>
+              <sc-if value="{{ cdNoRows }}" hint-placeholder-val="{{ false }}"><div class="cards-empty"><span style="font-family:'Material Symbols Rounded';font-size:32px;color:#AAB5AD;">search_off</span><div style="font-size:14px;font-weight:800;color:#38443B;margin-top:7px;">Карточки не найдены</div><div style="font-size:11px;margin-top:4px;">Очистите поиск или выберите другой фильтр.</div><button type="button" onClick="{{ cdReset }}" class="cards-primary" style="margin-top:12px;">Сбросить фильтры</button></div></sc-if>
+              <sc-for list="{{ cdRows }}" as="r" hint-placeholder-count="8">
+                <div onClick="{{ r.open }}" class="cards-row" role="button" tabindex="0">
+                  <div class="cards-row__select"><button type="button" onClick="{{ r.toggle }}" class="cards-check" title="Выбрать карточку" style="{{ r.selectSt }}">{{ r.selectIcon }}</button></div>
+                  <div class="cards-row__product" style="display:flex;align-items:center;gap:9px;min-width:0;"><span style="{{ r.tileSt }}">{{ r.mono }}</span><span style="min-width:0;"><span style="display:flex;align-items:center;gap:6px;"><span style="font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</span><span style="{{ r.statusSt }}">{{ r.statusLabel }}</span></span><span style="display:block;font:600 9.5px 'JetBrains Mono',monospace;color:#8C968E;margin-top:3px;">{{ r.nm }}</span></span></div>
+                  <div class="cards-row__quality cards-quality"><span class="cards-quality__ring" style="{{ r.qualitySt }}"><span>{{ r.q }}</span></span><span style="font-size:9.5px;color:#7A857C;">{{ r.qualityLabel }}</span></div>
+                  <div class="cards-row__content cards-content-list"><sc-for list="{{ r.content }}" as="item" hint-placeholder-count="4"><span class="cards-content-chip" title="{{ item.title }}" style="{{ item.st }}"><span style="font-family:'Material Symbols Rounded';font-size:12px;">{{ item.icon }}</span>{{ item.value }}</span></sc-for></div>
+                  <div class="cards-row__search"><div style="font:700 10.5px 'JetBrains Mono',monospace;color:#38443B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.pos }}</div><div style="font:650 9px 'JetBrains Mono',monospace;color:{{ r.trendColor }};margin-top:4px;">{{ r.trend }}</div></div>
+                  <div class="cards-row__issues cards-issue-summary"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ r.issueColor }};">{{ r.issueIcon }}</span><span style="min-width:0;"><span style="display:block;font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.mainIssue }}</span><span style="display:block;font-size:9.5px;color:#8C968E;margin-top:3px;">{{ r.issueCountLabel }}</span></span></div>
+                  <div class="cards-row__action"><button type="button" onClick="{{ r.act }}" class="cards-row-action"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ r.actionIcon }}</span>{{ r.actLabel }}</button></div>
+                </div>
+              </sc-for>
+            </div>
           </sc-if>
 
           <sc-if value="{{ cardsInfographic }}" hint-placeholder-val="{{ false }}">
@@ -1841,66 +2035,118 @@
     </div>
   </sc-if>
 
+  <!-- ============ ИНСПЕКТОР КАРТОЧКИ ============ -->
+  <sc-if value="{{ ciOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ciClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.42);backdrop-filter:blur(3px);z-index:100;animation:fadein .16s;">
+      <aside onClick="{{ stopProp }}" class="card-inspector" aria-label="Инспектор карточки">
+        <header class="card-inspector__head">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="{{ ciTileSt }}">{{ ciMono }}</span>
+            <span style="min-width:0;flex:1;"><span style="display:block;font-size:14px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ ciName }}</span><span style="display:block;margin-top:3px;font:600 9.5px 'JetBrains Mono',monospace;color:#95B6A2;">{{ ciSub }}</span></span>
+            <button type="button" onClick="{{ ciClose }}" style="appearance:none;border:0;width:30px;height:30px;border-radius:8px;background:rgba(234,242,236,.08);color:#DDEAE1;font-family:'Material Symbols Rounded';font-size:18px;cursor:pointer;">close</button>
+          </div>
+        </header>
+        <div class="card-inspector__body">
+          <div class="card-inspector__score">
+            <div class="card-inspector__meter" style="{{ ciScoreSt }}"><span>{{ ciScore }}</span></div>
+            <div><div style="font:700 9px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8C968E;">Качество карточки</div><div style="font-size:14px;font-weight:850;color:{{ ciToneColor }};margin-top:5px;">{{ ciVerdict }}</div><div style="font-size:10.5px;color:#6C786F;line-height:1.45;margin-top:4px;">{{ ciVerdictNote }}</div></div>
+          </div>
+          <div class="card-inspector__metrics">
+            <sc-for list="{{ ciMetrics }}" as="metric" hint-placeholder-count="4"><div class="card-inspector__metric"><div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:{{ metric.color }};">{{ metric.icon }}</span><span style="font:700 8.5px 'JetBrains Mono',monospace;text-transform:uppercase;color:#8C968E;">{{ metric.label }}</span></div><div style="font:800 14px 'JetBrains Mono',monospace;margin-top:6px;color:{{ metric.color }};">{{ metric.value }}</div><div style="font-size:9.5px;color:#7A857C;margin-top:3px;">{{ metric.note }}</div></div></sc-for>
+          </div>
+          <div style="margin-top:13px;border:1px solid rgba(27,138,87,.20);border-radius:12px;background:#EAF4ED;padding:11px 12px;">
+            <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">auto_awesome</span><span style="font-size:11.5px;font-weight:850;color:#13492F;">Рекомендация Марка</span></div>
+            <div style="font-size:11px;line-height:1.5;color:#41634E;margin-top:6px;">{{ ciRecommendation }}</div>
+            <div style="display:flex;align-items:center;gap:7px;margin-top:8px;"><span style="border-radius:6px;background:#fff;color:#13693F;padding:4px 7px;font:750 9px 'JetBrains Mono',monospace;">{{ ciImpact }}</span><span style="font-size:9.5px;color:#6A8271;">{{ ciDue }}</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;"><span style="font-size:12.5px;font-weight:850;">Что проверить</span><span style="font:650 9px 'JetBrains Mono',monospace;color:#8C968E;">{{ ciIssueCount }}</span></div>
+          <sc-for list="{{ ciIssues }}" as="issue" hint-placeholder-count="4"><div class="card-inspector__issue"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ issue.color }};">{{ issue.icon }}</span><span style="min-width:0;"><span style="display:block;font-size:10.5px;font-weight:750;color:#38443B;">{{ issue.title }}</span><span style="display:block;font-size:9.5px;color:#7A857C;line-height:1.4;margin-top:3px;">{{ issue.note }}</span></span></div></sc-for>
+        </div>
+        <footer class="card-inspector__footer">
+          <button type="button" onClick="{{ ciSecondary }}" class="cards-secondary" style="flex:1;border-color:rgba(23,35,28,.13);background:#fff;color:#38443B;"><span style="font-family:'Material Symbols Rounded';font-size:16px;">auto_fix_high</span>В инфографику</button>
+          <button type="button" onClick="{{ ciPrimary }}" class="cards-primary" style="flex:1;"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ ciPrimaryIcon }}</span>{{ ciPrimaryLabel }}</button>
+        </footer>
+      </aside>
+    </div>
+  </sc-if>
+
   <!-- ============ НОВАЯ КАРТОЧКА (AI) ============ -->
   <sc-if value="{{ ncOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ ncClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.45);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadein .18s;">
-      <div class="new-card-modal" onClick="{{ stopProp }}" style="width:760px;max-height:86vh;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);display:flex;flex-direction:column;overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
-        <div class="new-card-head" style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);">
-          <span style="font-family:'Material Symbols Rounded';font-size:19px;color:#1B8A57;">auto_awesome</span>
-          <span style="font-size:16px;font-weight:800;">Новая карточка · пайплайн Марка</span>
-          <span class="new-card-pipeline" style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8C968E;">фото → распознавание → черновик → вы редактируете → публикация</span>
-          <div onClick="{{ ncClose }}" style="margin-left:auto;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5A665D;" style-hover="background:#ECF0EC"><span style="font-family:'Material Symbols Rounded';font-size:19px;">close</span></div>
-        </div>
-        <div class="new-card-body" style="flex:1;overflow-y:auto;padding:18px 22px;">
-          <div class="new-card-grid" style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start;">
-            <div>
-              <div style="border:1.5px dashed rgba(23,35,28,.22);border-radius:13px;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,#F7FAF7,#F7FAF7 8px,#F2F6F2 8px,#F2F6F2 16px);">
-                <span style="font-family:'Material Symbols Rounded';font-size:30px;color:#1B8A57;">photo_camera</span>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5A665D;margin-top:6px;line-height:1.5;">IMG_4482.jpg<br>загружено ✓</div>
-              </div>
-              <div style="background:#DFEEE5;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:11.5px;color:#13492F;line-height:1.5;"><b>Распознано:</b> {{ ncRecognized }}</div>
-              <div style="font-size:10.5px;color:#8C968E;margin-top:8px;line-height:1.5;">SEO построено по лидерам категории — заголовки взяты по аналогии с карточками, которые продают больше всех.</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:11px;">
-              <div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;margin-bottom:5px;">Название (AI · SEO)</div>
-                <div style="background:#fff;border:1px solid rgba(23,35,28,.12);border-radius:10px;padding:10px 13px;font-size:13.5px;font-weight:650;">{{ ncTitle }}</div>
-              </div>
-              <div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;margin-bottom:5px;">Описание</div>
-                <div style="background:#fff;border:1px solid rgba(23,35,28,.12);border-radius:10px;padding:10px 13px;font-size:12.5px;color:#38443B;line-height:1.55;">{{ ncDesc }}</div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;">
-                <div>
-                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;margin-bottom:5px;">Характеристики</div>
-                  <div style="background:#fff;border:1px solid rgba(23,35,28,.12);border-radius:10px;padding:8px 13px;">
-                    <sc-for list="{{ ncAttrs }}" as="a" hint-placeholder-count="5">
-                      <div style="display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:4px 0;">
-                        <span style="color:#8C968E;">{{ a.k }}</span><span style="font-weight:650;text-align:right;">{{ a.v }}</span>
-                      </div>
-                    </sc-for>
-                  </div>
+    <div class="pipeline-overlay">
+      <div class="pipeline-shell">
+        <header class="pipeline-topbar">
+          <span class="pipeline-mark">add_box</span>
+          <span><span style="display:block;font-size:14px;font-weight:850;">Новая карточка</span><span class="pipeline-topbar__sub" style="display:block;margin-top:2px;color:#84A894;font:600 8.5px 'JetBrains Mono',monospace;">CONTENT PIPELINE · {{ ncDraftId }}</span></span>
+          <span class="pipeline-live"><span style="width:6px;height:6px;border-radius:50%;background:#7FC59E;"></span>Черновик сохранён · сейчас</span>
+          <button type="button" onClick="{{ ncClose }}" class="pipeline-close" aria-label="Закрыть пайплайн">close</button>
+        </header>
+        <div class="pipeline-layout">
+          <aside class="pipeline-rail">
+            <div class="pipeline-rail__label">Этапы создания</div>
+            <sc-for list="{{ ncSteps }}" as="step" hint-placeholder-count="5">
+              <button type="button" onClick="{{ step.go }}" class="pipeline-step" style="{{ step.st }}" aria-current="{{ step.current }}"><span class="pipeline-step__n" style="{{ step.numSt }}">{{ step.n }}</span><span class="pipeline-step__copy"><span class="pipeline-step__title">{{ step.title }}</span><span class="pipeline-step__sub">{{ step.sub }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ step.iconColor }};">{{ step.icon }}</span></button>
+            </sc-for>
+            <div class="pipeline-rail__help"><div style="display:flex;align-items:center;gap:5px;color:#CDE2D4;font-weight:800;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:#7FC59E;">shield</span>Без публикации</div><div style="margin-top:5px;">На последнем шаге Марк создаст пакет для вашего подтверждения. В WB ничего не уйдёт автоматически.</div></div>
+          </aside>
+          <main class="pipeline-main">
+            <div class="pipeline-progress"><span style="{{ ncProgressSt }}"></span></div>
+            <div class="pipeline-scroll">
+              <sc-if value="{{ ncWorking }}" hint-placeholder-val="{{ true }}">
+                <div class="pipeline-stage">
+                  <div class="pipeline-stage__eyebrow">Шаг {{ ncStepNumber }} из 5</div>
+                  <h2 class="pipeline-stage__title">{{ ncStepTitle }}</h2>
+                  <div class="pipeline-stage__lead">{{ ncStepLead }}</div>
+
+                  <sc-if value="{{ ncIsSource }}" hint-placeholder-val="{{ true }}">
+                    <div class="pipeline-workspace">
+                      <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">input</span><span style="font-size:12px;font-weight:820;">Откуда взять данные</span></div><div class="pipeline-card__body">
+                        <div class="pipeline-choice-grid"><sc-for list="{{ ncSources }}" as="source" hint-placeholder-count="3"><button type="button" onClick="{{ source.pick }}" class="pipeline-choice" style="{{ source.st }}"><span class="pipeline-choice__icon">{{ source.icon }}</span><span class="pipeline-choice__title">{{ source.title }}</span><span class="pipeline-choice__sub">{{ source.sub }}</span></button></sc-for></div>
+                        <div class="pipeline-upload"><span style="width:40px;height:40px;border-radius:11px;background:#DDEEE3;color:#13693F;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:21px;">photo_library</span><span style="min-width:0;flex:1;"><span style="display:block;font-size:11.5px;font-weight:800;">{{ ncUploadTitle }}</span><span style="display:block;margin-top:3px;color:#708078;font-size:9.5px;">JPG, PNG или HEIC · до 10 МБ · {{ ncPhotosLabel }}</span></span><button type="button" onClick="{{ ncAddPhoto }}" class="pipeline-btn pipeline-btn--ghost" style="min-height:32px;padding:0 10px;">Добавить фото</button></div>
+                        <div class="pipeline-form-grid"><label class="pipeline-field"><span class="pipeline-label">Артикул продавца *</span><input class="pipeline-input" value="{{ ncVendor }}" onChange="{{ ncVendorChange }}"></label><label class="pipeline-field"><span class="pipeline-label">Бренд *</span><input class="pipeline-input" value="{{ ncBrand }}" onChange="{{ ncBrandChange }}"></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Категория WB *</span><select class="pipeline-select" value="{{ ncCategory }}" onChange="{{ ncCategoryChange }}"><sc-for list="{{ ncCategories }}" as="category" hint-placeholder-count="4"><option value="{{ category.id }}">{{ category.label }}</option></sc-for></select></label></div>
+                      </div></div>
+                      <aside><div class="pipeline-aside-note"><div class="pipeline-kicker" style="color:#7FC59E;">Что сделает Марк</div><div style="font-size:12.5px;font-weight:820;margin-top:8px;">Разберёт исходники за 40–60 секунд</div><div style="font-size:10px;line-height:1.5;color:#AFC6B7;margin-top:6px;">Определит товар, материал и цвет, сверит категорию, соберёт SEO-черновик и отметит недостающие ракурсы.</div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Перед продолжением</div><div class="pipeline-checklist" style="margin-top:9px;"><sc-for list="{{ ncSourceChecks }}" as="check" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:7px;font-size:10.5px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ check.color }};">{{ check.icon }}</span>{{ check.label }}</div></sc-for></div></div></div></aside>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ ncIsRecognition }}" hint-placeholder-val="{{ false }}">
+                    <div class="pipeline-workspace">
+                      <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">document_scanner</span><span style="font-size:12px;font-weight:820;">Результат распознавания</span><span style="margin-left:auto;border-radius:6px;background:#E8F3EC;color:#13693F;padding:4px 7px;font:750 8.5px 'JetBrains Mono',monospace;">AI · HIGH CONFIDENCE</span></div><div class="pipeline-card__body">
+                        <div class="pipeline-recognition"><div class="pipeline-score"><span style="font:850 23px 'JetBrains Mono',monospace;">98%</span><span style="font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;">уверенность</span></div><div><div style="font-size:14px;font-weight:850;">Жакет женский оверсайз</div><div style="font-size:10px;color:#708078;margin-top:4px;line-height:1.45;">Лён / вискоза · бежевый · прямой крой · летняя коллекция</div><div class="pipeline-seo"><span>жакет</span><span>лён</span><span>оверсайз</span><span>летний</span></div></div></div>
+                        <div style="margin-top:10px;"><sc-for list="{{ ncRecognizedFields }}" as="field" hint-placeholder-count="6"><div class="pipeline-data-row"><span style="color:#7A857C;">{{ field.label }}</span><span style="font-weight:750;text-align:right;">{{ field.value }}</span></div></sc-for></div>
+                      </div></div>
+                      <aside><button type="button" onClick="{{ ncApproveRecognition }}" class="pipeline-toggle" style="{{ ncApproveRecognitionSt }}"><span class="pipeline-toggle__icon" style="color:{{ ncApproveColor }};">{{ ncApproveIcon }}</span><span><span style="display:block;font-size:11px;font-weight:800;">Подтверждаю распознавание</span><span style="display:block;font-size:9.5px;color:#7A857C;margin-top:3px;">Категория, материал и цвет определены верно</span></span></button><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Источник сравнения</div><div style="font-size:10.5px;line-height:1.5;margin-top:7px;">32 лидера категории «Жакеты» · данные WB Content API · обновлено сегодня 07:42.</div></div></div></aside>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ ncIsContent }}" hint-placeholder-val="{{ false }}">
+                    <div class="pipeline-workspace">
+                      <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">edit_note</span><span style="font-size:12px;font-weight:820;">Текст карточки</span><span style="margin-left:auto;color:#7A857C;font:650 8.5px 'JetBrains Mono',monospace;">можно редактировать</span></div><div class="pipeline-card__body">
+                        <div class="pipeline-form-grid" style="margin-top:0;"><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Название *</span><input class="pipeline-input" value="{{ ncTitle }}" onChange="{{ ncTitleChange }}"><span style="text-align:right;color:{{ ncTitleCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncTitleCount }}</span></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Описание *</span><textarea class="pipeline-textarea" onChange="{{ ncDescriptionChange }}">{{ ncDesc }}</textarea><span style="text-align:right;color:{{ ncDescCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncDescCount }}</span></label></div>
+                        <div class="pipeline-kicker" style="margin-top:14px;">Характеристики</div><div style="margin-top:6px;"><sc-for list="{{ ncAttrs }}" as="a" hint-placeholder-count="5"><div class="pipeline-data-row"><span style="color:#7A857C;">{{ a.k }}</span><span style="font-weight:700;">{{ a.v }}</span></div></sc-for></div>
+                      </div></div>
+                      <aside><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">search</span><span style="font-size:11.5px;font-weight:820;">SEO-покрытие</span><span style="margin-left:auto;font:800 11px 'JetBrains Mono',monospace;color:#13693F;">92/100</span></div><div class="pipeline-card__body"><div class="pipeline-seo" style="margin-top:0;"><sc-for list="{{ ncSeo }}" as="s" hint-placeholder-count="3"><span>{{ s.t }}</span></sc-for></div><div style="font-size:9.5px;color:#7A857C;line-height:1.45;margin-top:10px;">Фразы распределены естественно. Переспама и запрещённых формулировок не найдено.</div></div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Размеры и баркоды</div><div style="font-size:10.5px;margin-top:7px;">{{ ncSizes }}</div><div style="display:flex;align-items:center;gap:5px;margin-top:8px;color:#13693F;font-size:9.5px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">check_circle</span>Обязательные атрибуты: 14/14</div></div></div></aside>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ ncIsMedia }}" hint-placeholder-val="{{ false }}">
+                    <div class="pipeline-workspace">
+                      <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">photo_library</span><span style="font-size:12px;font-weight:820;">Галерея · {{ ncPhotosLabel }}</span><span style="margin-left:auto;color:#7A857C;font-size:9.5px;">нажмите слот, чтобы добавить или убрать</span></div><div class="pipeline-card__body"><div class="pipeline-photo-grid"><sc-for list="{{ ncPhotoSlots }}" as="photo" hint-placeholder-count="8"><button type="button" onClick="{{ photo.pick }}" class="pipeline-photo {{ photo.className }}"><span style="font-family:'Material Symbols Rounded';font-size:22px;">{{ photo.icon }}</span><span>{{ photo.label }}</span></button></sc-for></div></div></div>
+                      <aside><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-size:11.5px;font-weight:820;">Контентные блоки</span></div><div class="pipeline-card__body"><sc-for list="{{ ncMediaOptions }}" as="option" hint-placeholder-count="2"><button type="button" onClick="{{ option.toggle }}" class="pipeline-toggle" style="{{ option.st }}"><span class="pipeline-toggle__icon" style="color:{{ option.color }};">{{ option.icon }}</span><span><span style="display:block;font-size:10.5px;font-weight:800;">{{ option.title }}</span><span style="display:block;font-size:9px;color:#7A857C;margin-top:3px;">{{ option.sub }}</span></span></button></sc-for></div></div><button type="button" onClick="{{ ncInfographic }}" class="pipeline-btn pipeline-btn--dark" style="width:100%;margin-top:9px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#7FC59E;">auto_fix_high</span>Открыть студию инфографики</button></aside>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ ncIsReview }}" hint-placeholder-val="{{ false }}">
+                    <div class="pipeline-workspace">
+                      <div><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">fact_check</span><span style="font-size:12px;font-weight:820;">Проверка готовности</span><span style="margin-left:auto;border-radius:6px;background:#E8F3EC;color:#13693F;padding:4px 7px;font:750 8.5px 'JetBrains Mono',monospace;">{{ ncReadyScore }}</span></div><div class="pipeline-card__body"><div class="pipeline-checklist"><sc-for list="{{ ncReviewChecks }}" as="check" hint-placeholder-count="6"><div class="pipeline-check"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:{{ check.color }};">{{ check.icon }}</span><span><span style="display:block;font-size:10.5px;font-weight:780;">{{ check.title }}</span><span style="display:block;font-size:9.5px;color:#7A857C;margin-top:3px;">{{ check.note }}</span></span></div></sc-for></div></div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__head"><span style="font-size:11.5px;font-weight:820;">После подтверждения</span></div><div class="pipeline-card__body"><sc-for list="{{ ncPublishModes }}" as="mode" hint-placeholder-count="2"><button type="button" onClick="{{ mode.pick }}" class="pipeline-toggle" style="{{ mode.st }}"><span class="pipeline-toggle__icon" style="color:{{ mode.color }};">{{ mode.icon }}</span><span><span style="display:block;font-size:10.5px;font-weight:800;">{{ mode.title }}</span><span style="display:block;font-size:9px;color:#7A857C;margin-top:3px;">{{ mode.sub }}</span></span></button></sc-for></div></div></div>
+                      <aside class="pipeline-preview"><div class="pipeline-kicker" style="color:#7FC59E;">Предпросмотр</div><div style="display:flex;align-items:center;gap:10px;margin-top:13px;position:relative;z-index:1;"><span style="width:58px;height:70px;border-radius:10px;background:linear-gradient(145deg,#E7DDD1,#C8D8CB);display:grid;place-items:center;color:#294A39;font:800 11px 'JetBrains Mono',monospace;">ЖЛ</span><span><span style="display:block;font-size:12.5px;font-weight:830;line-height:1.3;">{{ ncPreviewTitle }}</span><span style="display:block;margin-top:5px;color:#9DB8A7;font:600 8.5px 'JetBrains Mono',monospace;">{{ ncVendor }} · {{ ncBrand }}</span></span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:1;"><span style="border-radius:6px;background:rgba(127,197,158,.14);padding:4px 6px;font:650 8.5px 'JetBrains Mono',monospace;">{{ ncPhotosLabel }}</span><span style="border-radius:6px;background:rgba(127,197,158,.14);padding:4px 6px;font:650 8.5px 'JetBrains Mono',monospace;">14/14 атрибутов</span><span style="border-radius:6px;background:rgba(127,197,158,.14);padding:4px 6px;font:650 8.5px 'JetBrains Mono',monospace;">SEO 92</span></div><div style="font-size:9.5px;line-height:1.5;color:#AFC6B7;margin-top:14px;position:relative;z-index:1;">В центре подтверждений можно будет ещё раз сравнить данные до и после публикации.</div></aside>
+                    </div>
+                  </sc-if>
                 </div>
-                <div>
-                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;margin-bottom:5px;">SEO-запросы (частота)</div>
-                  <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                    <sc-for list="{{ ncSeo }}" as="s" hint-placeholder-count="3">
-                      <span style="background:#DFEEE5;color:#13693F;border-radius:8px;padding:5px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;">{{ s.t }}</span>
-                    </sc-for>
-                  </div>
-                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8C968E;margin:11px 0 5px;">Размеры и баркоды</div>
-                  <div style="background:#fff;border:1px solid rgba(23,35,28,.12);border-radius:10px;padding:9px 13px;font-size:11.5px;color:#38443B;">{{ ncSizes }}</div>
-                  <div style="display:flex;align-items:center;gap:6px;margin-top:9px;font-size:11px;color:#13693F;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">check_circle</span>Обязательные атрибуты WB: 14/14</div>
-                </div>
-              </div>
+              </sc-if>
+              <sc-if value="{{ ncDone }}" hint-placeholder-val="{{ false }}"><div class="pipeline-done"><div class="pipeline-done__icon">task_alt</div><div class="pipeline-stage__eyebrow" style="margin-top:18px;">Пакет {{ ncPackageId }}</div><div style="font-size:23px;font-weight:850;letter-spacing:-.03em;margin-top:7px;">Карточка готова к подтверждению</div><div style="max-width:510px;margin:8px auto 0;color:#6C786F;font-size:11px;line-height:1.55;">Черновик создан в каталоге. Публикация появилась в Центре подтверждений вместе с проверками, предпросмотром и журналом изменений.</div><div style="display:flex;justify-content:center;gap:8px;margin-top:20px;flex-wrap:wrap;"><button type="button" onClick="{{ ncGoApprovals }}" class="pipeline-btn pipeline-btn--primary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">fact_check</span>Открыть подтверждения</button><button type="button" onClick="{{ ncDoneClose }}" class="pipeline-btn pipeline-btn--ghost">Вернуться в карточки</button></div></div></sc-if>
             </div>
-          </div>
-        </div>
-        <div class="new-card-footer" style="padding:14px 22px;border-top:1px solid rgba(23,35,28,.08);display:flex;gap:9px;background:#fff;flex-wrap:wrap;">
-          <div onClick="{{ ncDraft }}" style="flex:1;text-align:center;background:#1B8A57;color:#fff;border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">Сохранить как черновик</div>
-          <button type="button" onClick="{{ ncInfographic }}" style="appearance:none;flex:none;border:1px solid #0E2C1F;background:#0E2C1F;color:#EAF2EC;border-radius:11px;padding:11px 15px;font-family:'Onest',sans-serif;font-size:12.5px;font-weight:750;cursor:pointer;display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#7FC59E;">auto_fix_high</span>Генерация инфографики</button>
-          <div onClick="{{ ncEdit }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Редактировать поля</div>
-          <div onClick="{{ ncClose }}" style="flex:none;border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div>
+            <sc-if value="{{ ncWorking }}" hint-placeholder-val="{{ true }}"><footer class="pipeline-footer"><button type="button" onClick="{{ ncBack }}" class="pipeline-btn pipeline-btn--ghost" style="{{ ncBackSt }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">arrow_back</span>Назад</button><button type="button" onClick="{{ ncDraft }}" class="pipeline-btn pipeline-btn--ghost"><span style="font-family:'Material Symbols Rounded';font-size:15px;">save</span>Сохранить</button><span class="pipeline-footer__meta">{{ ncValidation }}</span><button type="button" onClick="{{ ncNext }}" class="pipeline-btn pipeline-btn--primary" style="{{ ncNextSt }}">{{ ncNextLabel }}<span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ ncNextIcon }}</span></button></footer></sc-if>
+          </main>
         </div>
       </div>
     </div>
@@ -1908,18 +2154,22 @@
 
   <!-- ============ ОБЪЕДИНЕНИЕ КАРТОЧЕК ============ -->
   <sc-if value="{{ mergeOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ mergeClose }}" style="position:fixed;inset:0;background:rgba(12,28,20,.45);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;animation:fadein .18s;">
-      <div onClick="{{ stopProp }}" style="width:620px;background:#FBFCFB;border-radius:18px;box-shadow:0 40px 90px -30px rgba(12,28,20,.6);overflow:hidden;animation:rise .25s cubic-bezier(.2,.7,.2,1);">
-        <div style="display:flex;align-items:center;gap:10px;padding:17px 22px;border-bottom:1px solid rgba(23,35,28,.08);">
-          <span style="font-family:'Material Symbols Rounded';font-size:20px;color:#1B8A57;">merge</span><span style="font-size:16px;font-weight:800;">Объединить карточки</span>
-          <div onClick="{{ mergeClose }}" style="margin-left:auto;cursor:pointer;color:#5A665D;"><span style="font-family:'Material Symbols Rounded';font-size:20px;">close</span></div>
+    <div class="pipeline-overlay">
+      <div class="pipeline-shell">
+        <header class="pipeline-topbar"><span class="pipeline-mark">merge</span><span><span style="display:block;font-size:14px;font-weight:850;">Объединение карточек</span><span class="pipeline-topbar__sub" style="display:block;margin-top:2px;color:#84A894;font:600 8.5px 'JetBrains Mono',monospace;">MERGE PIPELINE · {{ mergeDraftId }}</span></span><span class="pipeline-live"><span style="width:6px;height:6px;border-radius:50%;background:#7FC59E;"></span>План сохранён · сейчас</span><button type="button" onClick="{{ mergeClose }}" class="pipeline-close" aria-label="Закрыть пайплайн">close</button></header>
+        <div class="pipeline-layout">
+          <aside class="pipeline-rail"><div class="pipeline-rail__label">Этапы объединения</div><sc-for list="{{ mergeSteps }}" as="step" hint-placeholder-count="5"><button type="button" onClick="{{ step.go }}" class="pipeline-step" style="{{ step.st }}" aria-current="{{ step.current }}"><span class="pipeline-step__n" style="{{ step.numSt }}">{{ step.n }}</span><span class="pipeline-step__copy"><span class="pipeline-step__title">{{ step.title }}</span><span class="pipeline-step__sub">{{ step.sub }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ step.iconColor }};">{{ step.icon }}</span></button></sc-for><div class="pipeline-rail__help"><div style="display:flex;align-items:center;gap:5px;color:#CDE2D4;font-weight:800;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:#7FC59E;">history</span>Обратимо до WB</div><div style="margin-top:5px;">Пакет можно отклонить в Центре подтверждений. Реальное объединение начнётся только после подтверждения.</div></div></aside>
+          <main class="pipeline-main"><div class="pipeline-progress"><span style="{{ mergeProgressSt }}"></span></div><div class="pipeline-scroll">
+            <sc-if value="{{ mergeWorking }}" hint-placeholder-val="{{ true }}"><div class="pipeline-stage"><div class="pipeline-stage__eyebrow">Шаг {{ mergeStepNumber }} из 5</div><h2 class="pipeline-stage__title">{{ mergeStepTitle }}</h2><div class="pipeline-stage__lead">{{ mergeStepLead }}</div>
+              <sc-if value="{{ mergeIsComposition }}" hint-placeholder-val="{{ true }}"><div class="pipeline-workspace"><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">inventory_2</span><span style="font-size:12px;font-weight:820;">В операции · {{ mergeCountLabel }}</span></div><div class="pipeline-card__body"><sc-for list="{{ mergeComposition }}" as="r" hint-placeholder-count="2"><div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid rgba(23,35,28,.07);"><span style="{{ r.tileSt }}">{{ r.mono }}</span><span style="min-width:0;flex:1;"><span style="display:block;font-size:11.5px;font-weight:800;">{{ r.name }}</span><span style="display:block;margin-top:3px;color:#7A857C;font:600 9px 'JetBrains Mono',monospace;">{{ r.nm }} · {{ r.position }}</span></span><span style="border-radius:6px;background:#E8F3EC;color:#13693F;padding:4px 6px;font:700 8.5px 'JetBrains Mono',monospace;">{{ r.rating }}</span></div></sc-for></div></div><aside><div class="pipeline-aside-note"><div class="pipeline-kicker" style="color:#7FC59E;">Проверка совместимости</div><div style="font-size:13px;font-weight:830;margin-top:8px;">Карточки можно объединить</div><div style="font-size:9.5px;line-height:1.5;color:#AFC6B7;margin-top:6px;">Одна категория и бренд, разные цвета. Размерная сетка совпадает на 100%.</div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-checklist"><sc-for list="{{ mergeCompatibility }}" as="check" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:7px;font-size:10.5px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ check.color }};">{{ check.icon }}</span>{{ check.label }}</div></sc-for></div></div></div></aside></div></sc-if>
+              <sc-if value="{{ mergeIsPrimary }}" hint-placeholder-val="{{ false }}"><div class="pipeline-workspace"><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">stars</span><span style="font-size:12px;font-weight:820;">Какая карточка останется</span></div><div class="pipeline-card__body"><sc-for list="{{ mergePrimaryRows }}" as="r" hint-placeholder-count="2"><button type="button" onClick="{{ r.pick }}" class="pipeline-toggle" style="{{ r.st }}"><span style="{{ r.tileSt }}">{{ r.mono }}</span><span style="min-width:0;flex:1;"><span style="display:block;font-size:11.5px;font-weight:800;">{{ r.name }}</span><span style="display:block;margin-top:3px;color:#7A857C;font:600 9px 'JetBrains Mono',monospace;">{{ r.nm }} · {{ r.position }}</span></span><span style="text-align:right;"><span style="display:block;font:800 11px 'JetBrains Mono',monospace;color:#13693F;">{{ r.rating }}</span><span style="display:block;margin-top:3px;color:#8C968E;font-size:8.5px;">{{ r.reviews }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:19px;color:#1B8A57;">{{ r.icon }}</span></button></sc-for></div></div><aside><div class="pipeline-card"><div class="pipeline-card__body"><div class="pipeline-kicker">Рекомендация Марка</div><div style="font-size:11.5px;font-weight:820;margin-top:8px;">Оставить белую карточку основной</div><div style="font-size:9.5px;color:#6C786F;line-height:1.5;margin-top:5px;">Она выше в поиске и собрала больше отзывов. Прогноз после объединения: позиция #9–11 вместо #14 и #31.</div><div style="margin-top:9px;border-radius:7px;background:#E8F3EC;color:#13693F;padding:6px 8px;font:750 9px 'JetBrains Mono',monospace;">+9,8 тыс ₽ / мес</div></div></div></aside></div></sc-if>
+              <sc-if value="{{ mergeIsTransfer }}" hint-placeholder-val="{{ false }}"><div class="pipeline-card" style="margin-top:18px;"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">account_tree</span><span style="font-size:12px;font-weight:820;">Правила переноса</span></div><div class="pipeline-card__body"><sc-for list="{{ mergeStrategyRows }}" as="strategy" hint-placeholder-count="4"><div class="pipeline-strategy"><div><div style="font-size:11px;font-weight:800;">{{ strategy.title }}</div><div style="font-size:9.5px;color:#7A857C;line-height:1.4;margin-top:3px;">{{ strategy.sub }}</div></div><div class="pipeline-segmented"><sc-for list="{{ strategy.options }}" as="option" hint-placeholder-count="3"><button type="button" onClick="{{ option.pick }}" style="{{ option.st }}">{{ option.label }}</button></sc-for></div></div></sc-for></div></div></sc-if>
+              <sc-if value="{{ mergeIsConflicts }}" hint-placeholder-val="{{ false }}"><div class="pipeline-workspace"><div><sc-for list="{{ mergeConflicts }}" as="conflict" hint-placeholder-count="3"><div class="pipeline-conflict"><div style="display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#9A6414;">difference</span><span style="font-size:11px;font-weight:820;">{{ conflict.title }}</span><span style="margin-left:auto;color:#8C968E;font:650 8.5px 'JetBrains Mono',monospace;">{{ conflict.field }}</span></div><div class="pipeline-segmented" style="margin-top:9px;"><sc-for list="{{ conflict.options }}" as="option" hint-placeholder-count="2"><button type="button" onClick="{{ option.pick }}" style="{{ option.st }}">{{ option.label }}</button></sc-for></div><div style="margin-top:7px;color:#7A857C;font-size:9.5px;">Итог: <b style="color:#38443B;">{{ conflict.result }}</b></div></div></sc-for></div><aside><div class="pipeline-aside-note"><div class="pipeline-kicker" style="color:#7FC59E;">Почему нужен выбор</div><div style="font-size:10px;line-height:1.5;color:#C0D5C7;margin-top:7px;">WB оставит только одно значение для общих полей. Цвета и баркоды сохранятся как отдельные варианты товара.</div></div></aside></div></sc-if>
+              <sc-if value="{{ mergeIsReview }}" hint-placeholder-val="{{ false }}"><div class="pipeline-workspace"><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">fact_check</span><span style="font-size:12px;font-weight:820;">Карта операции</span><span style="margin-left:auto;border-radius:6px;background:#E8F3EC;color:#13693F;padding:4px 7px;font:750 8.5px 'JetBrains Mono',monospace;">ГОТОВО К ОТПРАВКЕ</span></div><div class="pipeline-card__body"><div class="pipeline-flow"><div class="pipeline-preview"><div class="pipeline-kicker" style="color:#7FC59E;">Сейчас</div><div style="font-size:13px;font-weight:830;margin-top:8px;">2 карточки</div><div style="font-size:9.5px;color:#AFC6B7;margin-top:5px;">Позиции #14 и #31<br>отзывы разделены</div></div><div class="pipeline-flow__arrow">east</div><div class="pipeline-preview"><div class="pipeline-kicker" style="color:#7FC59E;">После</div><div style="font-size:13px;font-weight:830;margin-top:8px;">1 карточка · 2 цвета</div><div style="font-size:9.5px;color:#AFC6B7;margin-top:5px;">Прогноз #9–11<br>отзывы объединены</div></div></div><div class="pipeline-checklist" style="margin-top:12px;"><sc-for list="{{ mergeReviewChecks }}" as="check" hint-placeholder-count="5"><div class="pipeline-check"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:{{ check.color }};">{{ check.icon }}</span><span><span style="display:block;font-size:10.5px;font-weight:780;">{{ check.title }}</span><span style="display:block;font-size:9.5px;color:#7A857C;margin-top:3px;">{{ check.note }}</span></span></div></sc-for></div></div></div><aside><div class="pipeline-aside-note"><div class="pipeline-kicker" style="color:#7FC59E;">Контроль операции</div><div style="font-size:12.5px;font-weight:830;margin-top:8px;">Подтверждает Елена</div><div style="font-size:9.5px;line-height:1.5;color:#AFC6B7;margin-top:6px;">До подтверждения пакет можно отклонить. После отправки в WB Марк сохранит журнал и проверит результат через API.</div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Ожидаемый эффект</div><div style="font:850 20px 'JetBrains Mono',monospace;color:#13693F;margin-top:7px;">+9 800 ₽</div><div style="font-size:9.5px;color:#7A857C;margin-top:3px;">доп. прибыль в месяц</div></div></div></aside></div></sc-if>
+            </div></sc-if>
+            <sc-if value="{{ mergeDone }}" hint-placeholder-val="{{ false }}"><div class="pipeline-done"><div class="pipeline-done__icon">merge</div><div class="pipeline-stage__eyebrow" style="margin-top:18px;">Пакет {{ mergePackageId }}</div><div style="font-size:23px;font-weight:850;letter-spacing:-.03em;margin-top:7px;">План объединения создан</div><div style="max-width:510px;margin:8px auto 0;color:#6C786F;font-size:11px;line-height:1.55;">Основная карточка и правила переноса зафиксированы. Пакет ждёт подтверждения Елены; в WB пока ничего не изменилось.</div><div style="display:flex;justify-content:center;gap:8px;margin-top:20px;flex-wrap:wrap;"><button type="button" onClick="{{ mergeGoApprovals }}" class="pipeline-btn pipeline-btn--primary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">fact_check</span>Открыть подтверждения</button><button type="button" onClick="{{ mergeDoneClose }}" class="pipeline-btn pipeline-btn--ghost">Вернуться в карточки</button></div></div></sc-if>
+          </div><sc-if value="{{ mergeWorking }}" hint-placeholder-val="{{ true }}"><footer class="pipeline-footer"><button type="button" onClick="{{ mergeBack }}" class="pipeline-btn pipeline-btn--ghost" style="{{ mergeBackSt }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">arrow_back</span>Назад</button><button type="button" onClick="{{ mergeSave }}" class="pipeline-btn pipeline-btn--ghost"><span style="font-family:'Material Symbols Rounded';font-size:15px;">save</span>Сохранить</button><span class="pipeline-footer__meta">{{ mergeValidation }}</span><button type="button" onClick="{{ mergeNext }}" class="pipeline-btn pipeline-btn--primary">{{ mergeNextLabel }}<span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ mergeNextIcon }}</span></button></footer></sc-if></main>
         </div>
-        <div style="padding:18px 22px;">
-          <div style="font-size:12.5px;color:#5A665D;line-height:1.5;">Выберите основную карточку. Остальные будут присоединены к ней. Это доступно для любых совместимых карточек, не только для найденных дублей.</div>
-          <div style="display:flex;flex-direction:column;gap:7px;margin-top:14px;"><sc-for list="{{ mergeRows }}" as="r" hint-placeholder-count="2"><div onClick="{{ r.pick }}" style="{{ r.st }}"><div style="{{ r.tileSt }}">{{ r.mono }}</div><div style="flex:1;min-width:0;"><div style="font-size:12.5px;font-weight:700;">{{ r.name }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8C968E;">{{ r.nm }}</div></div><span style="font-family:'Material Symbols Rounded';font-size:19px;color:#1B8A57;">{{ r.icon }}</span></div></sc-for></div>
-          <div style="display:flex;align-items:flex-start;gap:7px;background:#F4E8D2;color:#7A4F10;border-radius:10px;padding:10px 12px;margin-top:14px;font-size:11.5px;line-height:1.45;"><span style="font-family:'Material Symbols Rounded';font-size:16px;">info</span><span>Перед отправкой в WB будет создан план объединения. Отзывы и рейтинг основной карточки сохраняются; действие потребует подтверждения.</span></div>
-        </div>
-        <div style="display:flex;gap:9px;padding:14px 22px;background:#fff;border-top:1px solid rgba(23,35,28,.08);"><div onClick="{{ mergeConfirm }}" style="flex:1;text-align:center;background:#1B8A57;color:#fff;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;" style-hover="background:#13693F">Создать план объединения</div><div onClick="{{ mergeClose }}" style="border:1px solid rgba(23,35,28,.14);border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;color:#5A665D;cursor:pointer;" style-hover="background:#ECF0EC">Отмена</div></div>
       </div>
     </div>
   </sc-if>
@@ -2416,7 +2666,10 @@ class Component extends DCLogic {
     homeDecision:'e1', homeCalcOpen:false,
     adsChart:'spend', adsView:'wb', externalCampaigns:[], externalSelected:'x1', externalOpen:false,
     externalDraft:{name:'Telegram · Новый запуск',channel:'Telegram / блогеры',start:'2026-07-22',end:'2026-08-05',budget:'60000',tracking:'utm',skus:{p1:true,p6:true}},
-    cardsSel:{}, cardsProblemsOnly:false, cardsTab:'catalog', mergeOpen:false, mergePrimary:null, newCardOpen:false, supplyOpen:false,
+    cardsSel:{}, cardsProblemsOnly:false, cardsTab:'overview', cardsQuery:'', cardsFilter:'all', cardsSort:'priority', cardsInspect:null,
+    newCardOpen:false, ncStep:0, ncSource:'photos', ncRecognitionApproved:true, ncPhotos:5, ncRich:true, ncInfo:true, ncPublishMode:'approval', ncSubmitted:false, ncPackageId:'',
+    ncForm:{vendor:'LM-JK-NEW',brand:'LOOMA',category:'Жакеты',title:'Жакет женский оверсайз льняной летний «Лея»',description:'Лёгкий жакет прямого кроя из смесового льна. Держит форму, не мнётся в носке, подходит для офиса и вечерних выходов. Подкладка из вискозы комфортна в жару.'},
+    mergeOpen:false, mergePrimary:null, mergeStep:0, mergeSubmitted:false, mergePackageId:'', mergeStrategies:{content:'primary',media:'combine',reviews:'primary',variants:'combine'}, mergeConflicts:{brand:'primary',category:'primary',title:'primary'}, supplyOpen:false,
     infoSku:'new', infoSlide:'cover', infoTemplate:'clean', infoPalette:'sage', infoFormat:'3x4', infoClaims:{fit:true,fabric:true,sizes:true,care:false}, infoGenerating:false, infoGenerated:false,
     importOpen:false, importFileName:'Файл ещё не выбран', importRows:[], importedCards:[],
     toasts:[], searchQ:'', liveAdded:false,
@@ -2636,7 +2889,7 @@ class Component extends DCLogic {
       openChat: ()=>this.setState({chatOpen:true}),
       searchQ: st.searchQ,
       searchInput: (e)=>this.setState({searchQ:e.target.value}),
-      searchKey: (e)=>{ if(e.key==='Enter'){ this.setState({screen:'fin', finQ:st.searchQ, finSavedView:'custom', finViewsOpen:false}); } },
+      searchKey: (e)=>{ if(e.key==='Enter'){ if(st.screen==='cards'){this.setState({cardsTab:'catalog',cardsQuery:st.searchQ,cardsFilter:'all'});}else{this.setState({screen:'fin',finQ:st.searchQ,finSavedView:'custom',finViewsOpen:false});} } },
       stopProp: (e)=>e.stopPropagation(),
       toasts: st.toasts,
       isHome: st.screen==='home', isFin: st.screen==='fin', isPrices: st.screen==='prices', isAds: st.screen==='ads',
@@ -3954,34 +4207,57 @@ class Component extends DCLogic {
   // ---------- карточки ----------
   vCards() {
     const M = this.M, st = this.state;
-    if (!M) return { cdRows:[], ncAttrs:[], ncSeo:[], ncOpen:false, mergeRows:[], importRows:[], cardsTabs:[], infoProducts:[], infoSlides:[], infoTemplates:[], infoPalettes:[], infoFormats:[], infoClaims:[], infoCanvasPoints:[] };
-    const modSt = (m) => `justify-self:start;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;${m==='Опубликована'?'background:#DFEEE5;color:#13693F;':m==='Черновик'?'background:#E7ECE7;color:#5A665D;':'background:#DEEAF1;color:#3E5C70;'}`;
-    const issue = (text) => {
-      const crit = /^(2 фото|Мало фото|Нет таблицы размеров)/.test(text);
-      const warn = /Дубль|Нет rich|Нет инфографики|SEO|Слабое|Заголовок/.test(text);
-      return { t:text, st:`font-size:10px;line-height:1.25;border-radius:6px;padding:3px 6px;${crit?'background:#F6E2DD;color:#B0432F;font-weight:700;':warn?'background:#F4E8D2;color:#9A6414;font-weight:650;':'background:#DEEAF1;color:#3E5C70;'}` };
-    };
+    if (!M) return { cdRows:[], cardsOverviewKpis:[], cardsTasks:[], cardsCoverage:[], cdFilters:[], cdSortOptions:[], ciMetrics:[], ciIssues:[], ncAttrs:[], ncSeo:[], ncOpen:false, mergeRows:[], importRows:[], cardsTabs:[], infoProducts:[], infoSlides:[], infoTemplates:[], infoPalettes:[], infoFormats:[], infoClaims:[], infoCanvasPoints:[] };
     const cardProduct = (c) => c.created ? c : M.byId(c.pid);
     const cards = [...M.CARDS, ...st.importedCards];
-    const allRows = cards.map(c => {
-      const p = cardProduct(c), id = c.pid || c.id;
-      const selected = !!st.cardsSel[id];
-      return {
-        mono:p.mono, tileSt:this.tileSt(p, 32), name:p.name, nm:p.nm,
-        toggle:()=>this.setState(s=>({cardsSel:{...s.cardsSel,[id]:!s.cardsSel[id]}})), selectIcon:selected?'check_box':'check_box_outline_blank', selectSt:`width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:${selected?'#1B8A57':'#AAB5AD'};cursor:pointer;flex:none;`,
-        mod:c.mod, modSt:modSt(c.mod),
-        q:c.q+'/100', qSt:`font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:${c.q>=80?'#13693F':c.q>=65?'#9A6414':'#B0432F'};`,
-        qBarSt:`height:100%;width:${c.q}%;background:${c.q>=80?'#1B8A57':c.q>=65?'#D9A441':'#B0432F'};border-radius:3px;`,
-        pos:c.pos,
-        photos:c.photos+' фото', photosSt:`font-family:'JetBrains Mono',monospace;font-size:11px;color:${c.photos<5?'#B0432F':'#5A665D'};font-weight:${c.photos<5?'700':'400'};`,
-        rich:c.rich?'есть':'нет', richSt:`font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:${c.rich?'#13693F':'#9A6414'};`,
-        hasIssues:c.issues.length>0, issues:c.issues.length?c.issues.map(issue):[{t:'✓ без замечаний',st:'font-size:10px;color:#13693F;background:#DFEEE5;border-radius:6px;padding:3px 6px;font-weight:650;'}],
-        actLabel:'Улучшить (ИИ)',
-        actSt:'text-align:center;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;background:#E7ECE7;color:#38443B;',
-        act:()=>this.toast('Марк подготовил правки «'+p.name+'»: заголовок, фото-чеклист, rich — смотрите в черновике'),
+    const stopEvent=(event)=>{if(event&&event.stopPropagation)event.stopPropagation();};
+    const openInspector=(id)=>this.setState({cardsInspect:id});
+    const trendMap={p1:'+3 за 14 дн.',p2:'+1 за 14 дн.',p5:'+4 за 14 дн.',p4:'−2 за 14 дн.',p10:'−4 за 14 дн.',p7:'+2 за 14 дн.',p8:'−12 за 14 дн.',p11:'−8 за 14 дн.'};
+    const issueNote=(text)=>{
+      if(/фото/i.test(text))return 'Добавьте недостающие ракурсы и проверьте первый экран на мобильном.';
+      if(/дубл/i.test(text))return 'Объедините варианты в одну карточку, чтобы не делить отзывы и поисочный вес.';
+      if(/rich/i.test(text))return 'Соберите Rich-блок из преимуществ, состава и рекомендаций по уходу.';
+      if(/инфограф/i.test(text))return 'Добавьте 3–4 слайда: УТП, материал, посадка и размеры.';
+      if(/размер/i.test(text))return 'Обновите таблицу и сверьте российские размеры с баркодами.';
+      if(/seo|заголов/i.test(text))return 'Добавьте частотные слова без переспама и сохраните читаемость заголовка.';
+      return 'Откройте карточку и проверьте замечание перед публикацией.';
+    };
+    const allRows=cards.map(c=>{
+      const p=cardProduct(c),id=c.pid||c.id,issues=Array.isArray(c.issues)?c.issues:[],selected=!!st.cardsSel[id];
+      const critical=c.q<65||c.photos<3,status=c.mod==='Черновик'?'draft':critical?'critical':issues.length?'attention':'ready';
+      const tone=status==='critical'?{label:'Критично',color:'#B0432F',soft:'#F6E2DD'}:status==='attention'?{label:'Внимание',color:'#9A6414',soft:'#F4E8D2'}:status==='draft'?{label:'Черновик',color:'#5A665D',soft:'#E7ECE7'}:{label:'Готова',color:'#13693F',soft:'#DFEEE5'};
+      const hasInfo=!issues.some(text=>/инфограф/i.test(text)),hasSize=!issues.some(text=>/размер/i.test(text)),hasSeo=!issues.some(text=>/seo|заголов/i.test(text));
+      const mainIssue=issues[0]||'Замечаний нет — наблюдаем динамику';
+      const priority=(100-c.q)+issues.length*8+(c.dup?24:0)+(c.photos<3?16:0)+(c.mod==='Черновик'?10:0);
+      const nextAction=c.dup?'Объединить':c.photos<5||!hasInfo?'Собрать контент':!c.rich?'Добавить Rich':issues.length?'Исправить':'Открыть';
+      const actionIcon=c.dup?'merge':c.photos<5||!hasInfo?'photo_library':!c.rich?'article':'arrow_forward';
+      const impact=c.dup?'+9,8 тыс ₽/мес':c.q<60?'+12–18% к CTR':c.photos<5?'+5–9% к CTR':!c.rich?'+4–7% к конверсии':'стабильность позиции';
+      const trend=trendMap[id]||(c.mod==='Черновик'?'ещё не опубликована':'без изменений'),trendNegative=/^−/.test(trend);
+      const content=[
+        {icon:'photo_library',value:`${c.photos}/8`,title:'Фотографии',ok:c.photos>=5},
+        {icon:'article',value:'Rich',title:'Rich-контент',ok:!!c.rich},
+        {icon:'straighten',value:'Размеры',title:'Таблица размеров',ok:hasSize},
+        {icon:'search',value:'SEO',title:'Поисковая оптимизация',ok:hasSeo},
+      ].map(item=>({...item,st:`background:${item.ok?'#E8F3EC':'#FFF3E9'};color:${item.ok?'#13693F':'#9A6414'};`}));
+      const row={
+        id,c,p,mono:p.mono,tileSt:this.tileSt(p,34),name:p.name,nm:p.nm||c.nm||p.code||'—',q:c.q,status,priority,hasIssues:issues.length>0,duplicate:!!c.dup,
+        statusLabel:tone.label,statusSt:`border-radius:5px;background:${tone.soft};color:${tone.color};padding:2px 5px;font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;`,
+        qualityLabel:c.q>=80?'сильная':c.q>=65?'средняя':'слабая',qualitySt:`--quality:${c.q};--quality-color:${tone.color};`,
+        content,pos:c.pos,trend,trendColor:trendNegative?'#B0432F':trend.startsWith('+')?'#13693F':'#8C968E',
+        mainIssue,issueCountLabel:issues.length?`${issues.length} ${issues.length===1?'замечание':'замечания'}`:'проверено',issueColor:tone.color,issueIcon:issues.length?'error':'check_circle',
+        selectIcon:selected?'check_box':'check_box_outline_blank',selectSt:selected?'color:#1B8A57;background:#E7F2EB;':'',
+        toggle:(event)=>{stopEvent(event);this.setState(s=>({cardsSel:{...s.cardsSel,[id]:!s.cardsSel[id]}}));},
+        open:()=>openInspector(id),actLabel:nextAction,actionIcon,
+        act:(event)=>{stopEvent(event);openInspector(id);},impact,owner:critical?'Игорь + Марк':'Игорь',due:critical?'сегодня':c.dup?'до пятницы':'на этой неделе',
+        rankSt:`background:${tone.soft};color:${tone.color};`,reason:mainIssue,impactColor:tone.color,
       };
+      row.taskAct=(event)=>{stopEvent(event);if(c.dup){const pair={[id]:true,[c.dup]:true};this.setState({cardsSel:pair,mergeOpen:true,mergePrimary:id,mergeStep:0,mergeSubmitted:false,mergePackageId:''});return;}if(c.photos<5||!hasInfo){this.setState({cardsTab:'info',infoSku:id,infoSlide:'cover',infoGenerated:false});return;}openInspector(id);};
+      return row;
     });
-    const rows = st.cardsProblemsOnly ? allRows.filter(r=>r.hasIssues) : allRows;
+    const query=(st.cardsQuery||'').trim().toLowerCase();
+    const filters={all:()=>true,critical:r=>r.status==='critical',attention:r=>r.hasIssues,doubles:r=>r.duplicate,draft:r=>r.status==='draft'};
+    let rows=allRows.filter(filters[st.cardsFilter]||filters.all).filter(r=>!query||`${r.name} ${r.nm}`.toLowerCase().includes(query));
+    rows=[...rows].sort((a,b)=>st.cardsSort==='quality'?a.q-b.q:st.cardsSort==='name'?a.name.localeCompare(b.name,'ru'):b.priority-a.priority);
     const selectedCards = cards.filter(c=>st.cardsSel[c.pid||c.id]).map(c=>({c,p:cardProduct(c)}));
     const problemCount = cards.reduce((n,c)=>n+c.issues.length,0);
     const imported = st.importRows || [];
@@ -4017,24 +4293,171 @@ class Component extends DCLogic {
       this.setState({infoGenerating:true,infoGenerated:false});
       setTimeout(()=>{this.setState({infoGenerating:false,infoGenerated:true});this.toast('Комплект из 4 слайдов готов');},900);
     };
+    const averageQuality=allRows.length?Math.round(allRows.reduce((sum,row)=>sum+row.q,0)/allRows.length):0;
+    const urgentCount=allRows.filter(row=>row.status==='critical').length;
+    const attentionCount=allRows.filter(row=>row.hasIssues).length;
+    const duplicateCount=Math.round(allRows.filter(row=>row.duplicate).length/2);
+    const publishedRows=allRows.filter(row=>row.c.mod!=='Черновик');
+    const coverageSource=publishedRows.length?publishedRows:allRows;
+    const coverageItems=[
+      {label:'Фото 5+',ready:coverageSource.filter(row=>row.c.photos>=5).length},
+      {label:'Rich-контент',ready:coverageSource.filter(row=>row.c.rich).length},
+      {label:'Инфографика',ready:coverageSource.filter(row=>!row.c.issues.some(issue=>/инфограф/i.test(issue))).length},
+      {label:'Размеры',ready:coverageSource.filter(row=>!row.c.issues.some(issue=>/размер/i.test(issue))).length},
+    ].map(item=>{const pct=coverageSource.length?Math.round(item.ready/coverageSource.length*100):0;const color=pct>=75?'#13693F':pct>=50?'#9A6414':'#B0432F';return {...item,pct,color,value:`${pct}%`,barSt:`width:${pct}%;background:${color};`};});
+    const coverageTotal=coverageItems.length?Math.round(coverageItems.reduce((sum,item)=>sum+item.pct,0)/coverageItems.length):0;
+    const tasks=[...allRows].filter(row=>row.hasIssues||row.status==='draft').sort((a,b)=>b.priority-a.priority).slice(0,4).map((row,index)=>({
+      rank:String(index+1).padStart(2,'0'),rankSt:row.rankSt,tileSt:row.tileSt,mono:row.mono,title:row.name,reason:row.reason,
+      impact:row.impact,impactColor:row.impactColor,owner:row.owner,due:row.due,action:row.actLabel,actionIcon:row.actionIcon,act:row.taskAct,open:row.open,
+    }));
+    const filterMeta=[
+      ['all','Все','view_list',allRows.length],
+      ['critical','Критично','error',urgentCount],
+      ['attention','С замечаниями','rule',attentionCount],
+      ['doubles','Дубли','difference',duplicateCount],
+      ['draft','Черновики','edit_document',allRows.filter(row=>row.status==='draft').length],
+    ];
+    const visibleIds=rows.map(row=>row.id),allVisibleSelected=visibleIds.length>0&&visibleIds.every(id=>st.cardsSel[id]);
+    const inspected=allRows.find(row=>row.id===st.cardsInspect);
+    const inspectedIssues=inspected?(inspected.c.issues||[]):[];
+    const inspectedHasInfo=inspected?!inspectedIssues.some(issue=>/инфограф/i.test(issue)):false;
+    const inspectedTone=inspected&&inspected.status==='critical'?{color:'#B0432F',verdict:'Требует действия',note:'Карточка теряет показы или конверсию из-за неполного контента.'}:inspected&&inspected.hasIssues?{color:'#9A6414',verdict:'Есть точки роста',note:'Критичных ошибок нет, но карточку можно усилить за один рабочий подход.'}:{color:'#13693F',verdict:'Карточка в порядке',note:'Обязательные проверки пройдены — достаточно наблюдать динамику.'};
+    const inspectorRecommendation=!inspected?'':inspected.duplicate?'Объединить цвета в одну карточку: отзывы и поисковый вес не будут делиться между дублями.':inspected.c.photos<5||!inspectedHasInfo?'Добавить недостающие ракурсы и собрать 4 слайда с УТП. Начните с обложки — она даст быстрый эффект на CTR.':!inspected.c.rich?'Подготовить Rich-блок: посадка, материал, уход и таблица размеров. Это закроет основные возражения до покупки.':'Оставить карточку без изменений и повторно проверить позицию через 7 дней.';
+    const inspectorPrimary=()=>{
+      if(!inspected)return;
+      if(inspected.duplicate){this.setState({cardsInspect:null,cardsSel:{[inspected.id]:true,[inspected.c.dup]:true},mergeOpen:true,mergePrimary:inspected.id,mergeStep:0,mergeSubmitted:false,mergePackageId:''});return;}
+      if(inspected.c.photos<5||!inspectedHasInfo){this.setState({cardsInspect:null,cardsTab:'info',infoSku:inspected.id,infoSlide:'cover',infoGenerated:false});return;}
+      this.setState({cardsInspect:null});this.toast(inspected.c.rich?'Карточка добавлена в недельный контроль':'Черновик Rich-блока подготовлен и назначен Игорю');
+    };
+    const ncStepMeta=[
+      {title:'Источник',sub:'фото и категория',icon:'input'},
+      {title:'Распознавание',sub:'товар и атрибуты',icon:'document_scanner'},
+      {title:'Контент',sub:'текст и SEO',icon:'edit_note'},
+      {title:'Медиа',sub:'галерея и Rich',icon:'photo_library'},
+      {title:'Проверка',sub:'пакет для WB',icon:'fact_check'},
+    ];
+    const ncStepCopy=[
+      ['Добавьте исходники','Выберите способ старта и проверьте базовые данные. Марк использует их для распознавания товара и создания структуры карточки.'],
+      ['Проверьте, что распознано','Марк сопоставил фото с категорией и лидерами выдачи. Подтвердите результат, прежде чем переходить к текстам.'],
+      ['Доведите контент до публикации','Название и описание уже оптимизированы под поиск. Все поля остаются редактируемыми — итоговое решение за вами.'],
+      ['Соберите первый экран','Минимум пять фотографий, понятная инфографика и Rich-блок закрывают главные вопросы покупателя до заказа.'],
+      ['Проверьте пакет изменений','Марк собрал всё в один пакет. После отправки он появится в Центре подтверждений, а WB пока не изменится.'],
+    ];
+    const ncStepValid=[
+      st.ncPhotos>0&&!!st.ncForm.vendor.trim()&&!!st.ncForm.brand.trim()&&!!st.ncForm.category,
+      !!st.ncRecognitionApproved,
+      st.ncForm.title.trim().length>=20&&st.ncForm.description.trim().length>=120,
+      st.ncPhotos>=5,
+      true,
+    ];
+    const ncValidationCopy=[
+      ncStepValid[0]?'Фото и обязательные поля готовы':'Добавьте фото и заполните обязательные поля',
+      ncStepValid[1]?'Распознавание подтверждено':'Подтвердите результат распознавания',
+      ncStepValid[2]?'Текст прошёл базовые проверки':'Название — от 20, описание — от 120 символов',
+      ncStepValid[3]?'Минимум галереи выполнен':'Для публикации нужно минимум 5 фото',
+      'Пакет пройдёт ещё одну проверку перед WB',
+    ];
+    const updateNcForm=(field,value)=>this.setState(s=>({ncForm:{...s.ncForm,[field]:value}}));
+    const submitNewCard=()=>{
+      if(st.ncSubmitted)return;
+      const stamp=Date.now(),packageId='CARD-'+String(stamp).slice(-6),approvalId='card-'+stamp;
+      const created={created:true,id:'created-'+stamp,mono:'ЖЛ',tile:'#E9DFD2',name:st.ncForm.title,nm:st.ncForm.vendor,code:st.ncForm.vendor,cat:st.ncForm.category,sizes:'42–52',q:86,mod:'Черновик',photos:st.ncPhotos,rich:st.ncRich,pos:'—',issues:['Ожидает подтверждения публикации']};
+      const approval={id:approvalId,type:'Карточка',icon:'add_box',title:'Публикация новой карточки «Жакет Лея»',by:'Марк → Елена',when:'только что',status:'pending',statusNote:'ждёт подтверждения',before:'Новая карточка · ещё не опубликована',after:`${st.ncPhotos} фото · 14/14 атрибутов · SEO 92/100`,limit:'Передача в WB только после подтверждения',factDate:'',fact:''};
+      this.setState(s=>({ncSubmitted:true,ncPackageId:packageId,approvals:[approval,...s.approvals],importedCards:[...s.importedCards,created]}));
+    };
+    const ncNext=()=>{if(!ncStepValid[st.ncStep])return this.toast(ncValidationCopy[st.ncStep]);if(st.ncStep<4)this.setState({ncStep:st.ncStep+1});else submitNewCard();};
+    const mergeStepMeta=[
+      {title:'Состав',sub:'карточки операции',icon:'inventory_2'},
+      {title:'Основная',sub:'что останется',icon:'stars'},
+      {title:'Перенос',sub:'контент и отзывы',icon:'account_tree'},
+      {title:'Конфликты',sub:'итоговые значения',icon:'difference'},
+      {title:'Проверка',sub:'план для WB',icon:'fact_check'},
+    ];
+    const mergeStepCopy=[
+      ['Проверьте состав операции','Объединять можно совместимые карточки одного бренда и категории. Марк заранее проверил размеры, баркоды и активные заказы.'],
+      ['Выберите основную карточку','Её название, рейтинг и история станут основой объединённой карточки. Остальные товары сохранятся как варианты.'],
+      ['Настройте правила переноса','Для каждой группы данных выберите безопасную стратегию. Результат можно проверить до отправки пакета.'],
+      ['Разрешите несовпадения','WB оставит одно значение для общих полей. Выберите итоговые значения, а цвета и баркоды останутся вариантами.'],
+      ['Проверьте план объединения','Марк собрал карту операции, сохранил отзывы и подготовил контрольные проверки после выполнения WB.'],
+    ];
+    const mergePrimaryCard=selectedCards.find(({c})=>(c.pid||c.id)===st.mergePrimary);
+    const mergeStats={p7:{rating:'4,8',reviews:'312 отзывов'},p8:{rating:'4,7',reviews:'184 отзыва'}};
+    const mergeCardRows=selectedCards.map(({c,p},index)=>{const id=c.pid||c.id,stats=mergeStats[id]||{rating:index?'4,7':'4,8',reviews:(184+index*41)+' отзыва'};return {id,mono:p.mono,tileSt:this.tileSt(p,34),name:p.name,nm:p.nm||c.nm,position:c.pos||'позиция —',rating:stats.rating,reviews:stats.reviews};});
+    const strategyMeta=[
+      {id:'content',title:'Название и описание',sub:'Текст общей карточки',options:[['primary','Основная'],['best','Лучшее'],['combine','Объединить']]},
+      {id:'media',title:'Фото и инфографика',sub:'Галерея вариантов',options:[['primary','Основная'],['combine','Собрать всё'],['review','Ручной отбор']]},
+      {id:'reviews',title:'Отзывы и рейтинг',sub:'Сохранение социального веса',options:[['primary','Только основная'],['combine','Объединить']]},
+      {id:'variants',title:'Цвета и баркоды',sub:'Варианты внутри товара',options:[['combine','В одну карточку'],['separate','Оставить отдельно']]},
+    ];
+    const conflictMeta=[
+      {id:'title',title:'Название товара',field:'subjectName',primary:'Футболка базовая «Бейс»',secondary:'Футболка женская базовая',shortPrimary:'Основная',shortSecondary:'Более полное'},
+      {id:'category',title:'Категория WB',field:'subjectID',primary:'Футболки',secondary:'Футболки и топы',shortPrimary:'Футболки',shortSecondary:'Футболки и топы'},
+      {id:'brand',title:'Бренд в карточке',field:'brand',primary:'LOOMA',secondary:'Looma Basic',shortPrimary:'LOOMA',shortSecondary:'Looma Basic'},
+    ];
+    const mergeNext=()=>{if(st.mergeStep===0&&selectedCards.length<2)return this.toast('Для объединения нужно минимум две карточки');if(st.mergeStep===1&&!mergePrimaryCard)return this.toast('Выберите основную карточку');if(st.mergeStep<4){this.setState({mergeStep:st.mergeStep+1});return;}if(st.mergeSubmitted)return;const stamp=Date.now(),packageId='MERGE-'+String(stamp).slice(-6),primary=mergePrimaryCard&&mergePrimaryCard.p,approval={id:'merge-'+stamp,type:'Карточка',icon:'merge',title:`Merge: ${selectedCards.length} карточки → «${primary?primary.name:'основная'}»`,by:'Марк → Елена',when:'только что',status:'pending',statusNote:'ждёт подтверждения',before:`${selectedCards.length} карточки · позиции #14 и #31`,after:`1 карточка · ${selectedCards.length} цвета · прогноз #9–11`,limit:'Отзывы, рейтинг и баркоды сохраняются',factDate:'',fact:''};this.setState(s=>({mergeSubmitted:true,mergePackageId:packageId,approvals:[approval,...s.approvals]}));};
     return {
       cardsTabs:[
-        {label:'Карточки',icon:'view_list',go:()=>this.setState({cardsTab:'catalog'}),st:st.cardsTab!=='info'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':''},
+        {label:'Обзор',icon:'space_dashboard',go:()=>this.setState({cardsTab:'overview'}),st:st.cardsTab==='overview'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':''},
+        {label:'Каталог',icon:'view_list',go:()=>this.setState({cardsTab:'catalog'}),st:st.cardsTab==='catalog'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.13);':''},
         {label:'Инфографика',icon:'auto_fix_high',go:()=>this.setState({cardsTab:'info'}),st:st.cardsTab==='info'?'background:#0E2C1F;color:#fff;box-shadow:0 1px 4px rgba(23,35,28,.18);':''},
       ],
-      cardsCatalog:st.cardsTab!=='info',cardsInfographic:st.cardsTab==='info',
-      cdRows: rows,
-      cdNew:()=>this.setState({newCardOpen:true}),
-      cdClone:()=>this.toast('Выберите карточку-донор — скопирую структуру, фото-слоты и атрибуты'),
-      cdMass:()=>this.toast('Массовые правки: выбор SKU → атрибут → preview → подтверждение'),
-      cdProblems:()=>this.setState(s=>({cardsProblemsOnly:!s.cardsProblemsOnly})),
-      cdProblemsLabel:(st.cardsProblemsOnly?'Все карточки':'Проблемы')+' · '+problemCount,
+      cardsOverview:st.cardsTab==='overview',cardsCatalog:st.cardsTab==='catalog',cardsInfographic:st.cardsTab==='info',
+      cardsHealthScore:String(averageQuality),cardsUrgentCount:String(urgentCount),
+      cardsQueueOpen:()=>this.setState({cardsTab:'catalog',cardsFilter:'attention',cardsQuery:'',cardsSort:'priority'}),
+      cardsOverviewKpis:[
+        {label:'Критично',value:String(urgentCount),unit:'карточки',note:'мешают росту сейчас',icon:'error',color:'#B0432F',valueColor:'#B0432F',go:()=>this.setState({cardsTab:'catalog',cardsFilter:'critical',cardsQuery:''})},
+        {label:'С замечаниями',value:String(attentionCount),unit:'из '+allRows.length,note:'есть конкретный следующий шаг',icon:'rule',color:'#9A6414',valueColor:'#17231C',go:()=>this.setState({cardsTab:'catalog',cardsFilter:'attention',cardsQuery:''})},
+        {label:'Дубли',value:String(duplicateCount),unit:'пара',note:'делит отзывы и позицию',icon:'difference',color:'#9A6414',valueColor:'#17231C',go:()=>this.setState({cardsTab:'catalog',cardsFilter:'doubles',cardsQuery:''})},
+        {label:'Среднее качество',value:String(averageQuality),unit:'из 100',note:`покрытие контентом ${coverageTotal}%`,icon:'monitoring',color:'#1B8A57',valueColor:'#13693F',go:()=>this.setState({cardsTab:'catalog',cardsFilter:'all',cardsSort:'quality',cardsQuery:''})},
+      ],
+      cardsTasks:tasks,cardsCoverage:coverageItems,cardsCoverageTotal:`${coverageTotal}%`,cardsDraftContinue:()=>this.setState({cardsTab:'info',infoSku:'new',infoSlide:'cover',infoGenerated:false}),
+      cdRows:rows,cdCatalogSummary:`${rows.length} из ${allRows.length} · среднее качество ${averageQuality}/100 · ${duplicateCount} дубль`,
+      cdQuery:st.cardsQuery,cdSearchChange:e=>this.setState({cardsQuery:e.target.value}),cdSort:st.cardsSort,cdSortChange:e=>this.setState({cardsSort:e.target.value}),
+      cdSortOptions:[{id:'priority',label:'Сначала важные'},{id:'quality',label:'По качеству'},{id:'name',label:'По названию'}],
+      cdFilters:filterMeta.map(([id,label,icon,count])=>({id,label,icon,count:String(count),pressed:st.cardsFilter===id?'true':'false',st:st.cardsFilter===id?'border-color:#98C7AA;background:#E8F3EC;color:#13492F;':'',go:()=>this.setState({cardsFilter:id})})),
+      cdHasSelection:selectedCards.length>0,cdSelectedCount:String(selectedCards.length),cdClearSelection:()=>this.setState({cardsSel:{}}),
+      cdSelectVisibleIcon:allVisibleSelected?'check_box':'check_box_outline_blank',cdSelectVisible:()=>this.setState(s=>{const next={...s.cardsSel};visibleIds.forEach(id=>{next[id]=!allVisibleSelected;});return {cardsSel:next};}),
+      cdNoRows:rows.length===0,cdReset:()=>this.setState({cardsFilter:'all',cardsQuery:'',cardsSort:'priority'}),
+      cdNew:()=>this.setState({newCardOpen:true,ncStep:0,ncSubmitted:false,ncPackageId:''}),
+      cdClone:()=>{if(selectedCards.length!==1)return this.toast('Для клонирования выберите одну карточку');const {c,p}=selectedCards[0],stamp=Date.now(),clone={...p,...c,created:true,id:'clone-'+stamp,name:p.name+' · копия',nm:'Черновик',mod:'Черновик',q:45,issues:['Проверьте артикул, цвет и фото перед публикацией']};delete clone.pid;delete clone.dup;this.setState(s=>({importedCards:[...s.importedCards,clone],cardsSel:{},cardsFilter:'draft'}));this.toast('Копия создана как черновик');},
+      cdMass:()=>selectedCards.length?this.toast(`Пакет правок для ${selectedCards.length} SKU создан — изменения уйдут на проверку перед WB`):this.toast('Выберите карточки для массовых правок'),
       cdMergeLabel:selectedCards.length>=2?'Объединить · '+selectedCards.length:'Объединить',
-      cdMergeSt:`display:flex;align-items:center;gap:7px;border-radius:11px;padding:10px 14px;font-size:12.5px;font-weight:700;cursor:pointer;${selectedCards.length>=2?'border:1px solid #BCDCCB;background:#DFEEE5;color:#13693F;':'border:1px solid rgba(23,35,28,.12);background:#F7FAF7;color:#8C968E;'}`,
-      cdMerge:()=>{ if(selectedCards.length<2) return this.toast('Выберите минимум две карточки галочками слева'); this.setState({mergeOpen:true,mergePrimary:selectedCards[0].c.pid}); },
-      mergeOpen:st.mergeOpen, mergeClose:()=>this.setState({mergeOpen:false}),
-      mergeRows:selectedCards.map(({c,p})=>{const primary=st.mergePrimary===c.pid;return {mono:p.mono,tileSt:this.tileSt(p,30),name:p.name,nm:p.nm,icon:primary?'radio_button_checked':'radio_button_unchecked',st:`display:flex;align-items:center;gap:10px;border:1px solid ${primary?'#1B8A57':'rgba(23,35,28,.1)'};background:${primary?'#F5FBF6':'#fff'};border-radius:10px;padding:9px 11px;cursor:pointer;`,pick:()=>this.setState({mergePrimary:c.pid})};}),
-      mergeConfirm:()=>{const primary=M.byId(st.mergePrimary), count=selectedCards.length;this.setState({mergeOpen:false,cardsSel:{}});this.toast('План объединения: «'+primary.name+'» + '+(count-1)+' карточк(и) отправлен на подтверждение');},
+      cdMerge:()=>{if(selectedCards.length<2)return this.toast('Выберите минимум две карточки галочками слева');this.setState({mergeOpen:true,mergePrimary:selectedCards[0].c.pid||selectedCards[0].c.id,mergeStep:0,mergeSubmitted:false,mergePackageId:''});},
+      mergeOpen:st.mergeOpen,mergeWorking:st.mergeOpen&&!st.mergeSubmitted,mergeDone:st.mergeOpen&&st.mergeSubmitted,mergeClose:()=>this.setState({mergeOpen:false}),mergeDraftId:'DRAFT-MERGE-071',
+      mergeSteps:mergeStepMeta.map((step,index)=>{const current=index===st.mergeStep,done=index<st.mergeStep||st.mergeSubmitted;return {...step,n:String(index+1).padStart(2,'0'),current:current?'step':'false',icon:done?'check_circle':step.icon,iconColor:done?'#7FC59E':current?'#EAF2EC':'#5F8871',st:current?'background:rgba(127,197,158,.13);color:#fff;box-shadow:inset 3px 0 0 #7FC59E;':done?'color:#BFD7C8;':'',numSt:current?'background:#7FC59E;color:#0E2C1F;':done?'background:rgba(127,197,158,.15);color:#7FC59E;':'',go:()=>{if(index<=st.mergeStep&&!st.mergeSubmitted)this.setState({mergeStep:index});}};}),
+      mergeProgressSt:`width:${st.mergeSubmitted?100:(st.mergeStep+1)*20}%;`,mergeStepNumber:String(st.mergeStep+1).padStart(2,'0'),mergeStepTitle:mergeStepCopy[st.mergeStep][0],mergeStepLead:mergeStepCopy[st.mergeStep][1],
+      mergeIsComposition:st.mergeStep===0,mergeIsPrimary:st.mergeStep===1,mergeIsTransfer:st.mergeStep===2,mergeIsConflicts:st.mergeStep===3,mergeIsReview:st.mergeStep===4,
+      mergeCountLabel:`${selectedCards.length} карточки`,mergeComposition:mergeCardRows,mergeCompatibility:[
+        {label:'Один бренд: LOOMA',icon:'check_circle',color:'#13693F'},{label:'Совместимая категория',icon:'check_circle',color:'#13693F'},{label:'6 общих размеров',icon:'check_circle',color:'#13693F'},
+      ],
+      mergePrimaryRows:mergeCardRows.map((row,index)=>{const primary=st.mergePrimary===row.id;return {...row,icon:primary?'radio_button_checked':'radio_button_unchecked',st:primary?'border-color:#1B8A57;background:#F2F8F4;box-shadow:inset 0 0 0 1px #1B8A57;':'',pick:()=>this.setState({mergePrimary:row.id})};}),
+      mergeStrategyRows:strategyMeta.map(strategy=>({...strategy,options:strategy.options.map(([id,label])=>({label,st:st.mergeStrategies[strategy.id]===id?'background:#fff;color:#13492F;box-shadow:0 1px 3px rgba(23,35,28,.16);':'',pick:()=>this.setState(s=>({mergeStrategies:{...s.mergeStrategies,[strategy.id]:id}}))}))})),
+      mergeConflicts:conflictMeta.map(conflict=>{const value=st.mergeConflicts[conflict.id]||'primary',result=value==='primary'?conflict.primary:conflict.secondary;return {...conflict,result,options:[['primary',conflict.shortPrimary],['secondary',conflict.shortSecondary]].map(([id,label])=>({label,st:value===id?'background:#fff;color:#13492F;box-shadow:0 1px 3px rgba(23,35,28,.16);':'',pick:()=>this.setState(s=>({mergeConflicts:{...s.mergeConflicts,[conflict.id]:id}}))}))};}),
+      mergeReviewChecks:[
+        {title:'Основная карточка выбрана',note:mergePrimaryCard?mergePrimaryCard.p.name:'Не выбрана',icon:'check_circle',color:'#13693F'},
+        {title:'Отзывы и рейтинг сохранятся',note:'496 отзывов будут доступны в общей карточке',icon:'reviews',color:'#13693F'},
+        {title:'Баркоды не изменятся',note:'Цвета останутся отдельными вариантами товара',icon:'barcode_scanner',color:'#13693F'},
+        {title:'Активные заказы не затронуты',note:'Операция выполняется на уровне контента WB',icon:'local_shipping',color:'#13693F'},
+        {title:'Проверка после выполнения',note:'Марк сверит карточку через WB API и сохранит журнал',icon:'monitor_heart',color:'#13693F'},
+      ],
+      mergeBack:()=>{if(st.mergeStep>0)this.setState({mergeStep:st.mergeStep-1});},mergeBackSt:st.mergeStep===0?'opacity:.45;cursor:not-allowed;':'',mergeSave:()=>this.toast('План объединения сохранён в черновиках'),mergeValidation:st.mergeStep===4?'Пакет не меняет данные WB без подтверждения':'Изменения сохраняются автоматически',mergeNext,mergeNextLabel:st.mergeStep===4?'Отправить на подтверждение':'Продолжить',mergeNextIcon:st.mergeStep===4?'send':'arrow_forward',
+      mergePackageId:st.mergePackageId,mergeGoApprovals:()=>this.setState({mergeOpen:false,cardsSel:{},screen:'apps',apTab:'actions',apFilter:'pending'}),mergeDoneClose:()=>this.setState({mergeOpen:false,cardsSel:{}}),
+      ciOpen:!!inspected,ciClose:()=>this.setState({cardsInspect:null}),
+      ciTileSt:inspected?this.tileSt(inspected.p,38):'',ciMono:inspected?inspected.mono:'',ciName:inspected?inspected.name:'',ciSub:inspected?`${inspected.nm} · ${inspected.c.mod}`:'',
+      ciScore:inspected?String(inspected.q):'0',ciScoreSt:inspected?`--quality:${inspected.q};--quality-color:${inspectedTone.color};`:'--quality:0;--quality-color:#AAB5AD;',ciToneColor:inspectedTone.color,
+      ciVerdict:inspectedTone.verdict,ciVerdictNote:inspectedTone.note,
+      ciMetrics:inspected?[
+        {label:'Фото',icon:'photo_library',value:`${inspected.c.photos}/8`,note:inspected.c.photos>=5?'минимум выполнен':'нужно минимум 5',color:inspected.c.photos>=5?'#13693F':'#B0432F'},
+        {label:'Rich',icon:'article',value:inspected.c.rich?'Есть':'Нет',note:inspected.c.rich?'опубликован':'не закрывает возражения',color:inspected.c.rich?'#13693F':'#9A6414'},
+        {label:'Поиск',icon:'search',value:inspected.c.pos.split(' ')[0],note:inspected.trend,color:inspected.trendColor},
+        {label:'Модерация',icon:'verified',value:inspected.c.mod==='Опубликована'?'ОК':'Черновик',note:inspected.c.mod,color:inspected.c.mod==='Опубликована'?'#13693F':'#9A6414'},
+      ]:[],
+      ciRecommendation:inspectorRecommendation,ciImpact:inspected?inspected.impact:'',ciDue:inspected?`Ответственный: ${inspected.owner} · ${inspected.due}`:'',
+      ciIssueCount:inspected?(inspectedIssues.length?`Замечаний: ${inspectedIssues.length}`:'Всё пройдено'):'',
+      ciIssues:inspected?(inspectedIssues.length?inspectedIssues.map(issue=>({title:issue,note:issueNote(issue),icon:'error',color:inspectedTone.color})):[{title:'Обязательные проверки пройдены',note:'Фото, контент, SEO и модерация не требуют срочных изменений.',icon:'check_circle',color:'#13693F'}]):[],
+      ciSecondary:()=>{if(inspected)this.setState({cardsInspect:null,cardsTab:'info',infoSku:inspected.id,infoSlide:'cover',infoGenerated:false});},ciPrimary:inspectorPrimary,
+      ciPrimaryIcon:inspected?(inspected.duplicate?'merge':inspected.c.photos<5||!inspectedHasInfo?'photo_library':inspected.c.rich?'visibility':'article'):'arrow_forward',
+      ciPrimaryLabel:inspected?(inspected.duplicate?'Объединить':inspected.c.photos<5||!inspectedHasInfo?'Собрать контент':inspected.c.rich?'Взять на контроль':'Подготовить Rich'):'Продолжить',
       importOpen:st.importOpen, importClose:()=>this.setState({importOpen:false}), importFileLabel:st.importFileName,
       importHasRows:imported.length>0, importRowsCount:imported.length, importRows:imported.slice(0,5),
       cdImport:()=>this.setState({importOpen:true}),
@@ -4042,14 +4465,53 @@ class Component extends DCLogic {
       importCreate:()=>{if(!imported.length)return;const stamp=Date.now(),created=imported.map((r,i)=>({created:true,id:'import-'+stamp+'-'+i,mono:'NEW',tile:'#D9EADF',name:r.name,nm:r.sku,q:35,mod:'Черновик',photos:0,rich:false,pos:'—',issues:['Проверьте обязательные атрибуты','Не опубликована']}));this.setState(s=>({importOpen:false,importRows:[],importFileName:'Файл ещё не выбран',importedCards:[...s.importedCards,...created]}));this.toast('Создано '+imported.length+' черновиков карточек — проверьте их перед публикацией');},
       importCreateLabel:imported.length?'Создать '+imported.length+' черновиков':'Загрузите файл для продолжения',
       importCreateSt:`flex:1;text-align:center;border-radius:11px;padding:12px;font-size:13px;font-weight:700;${imported.length?'background:#1B8A57;color:#fff;cursor:pointer;':'background:#E7ECE7;color:#8C968E;cursor:not-allowed;'}`,
-      ncOpen: st.newCardOpen,
-      ncClose:()=>this.setState({newCardOpen:false}),
-      ncRecognized:NC.recognized, ncTitle:NC.title, ncDesc:NC.desc,
-      ncAttrs:NC.attrs, ncSeo:NC.seo.map(t=>({t})), ncSizes:NC.sizes,
-      ncDraft:()=>{ this.setState({newCardOpen:false}); this.toast('Черновик «Жакет Лея» сохранён — проверка обязательных полей: 14/14'); },
-      ncInfographic:()=>this.setState({newCardOpen:false,cardsTab:'info',infoSku:'new',infoSlide:'cover',infoGenerated:false}),
-      ncEdit:()=>this.toast('Редактор полей откроется в полной версии — все AI-поля можно править вручную'),
-      infoProducts:[draftProduct,...M.PRODUCTS.slice(0,4)].map(product=>({
+      ncOpen:st.newCardOpen,ncWorking:st.newCardOpen&&!st.ncSubmitted,ncDone:st.newCardOpen&&st.ncSubmitted,ncClose:()=>this.setState({newCardOpen:false}),ncDraftId:'DRAFT-CARD-071',
+      ncSteps:ncStepMeta.map((step,index)=>{const current=index===st.ncStep,done=index<st.ncStep||st.ncSubmitted;return {...step,n:String(index+1).padStart(2,'0'),current:current?'step':'false',icon:done?'check_circle':step.icon,iconColor:done?'#7FC59E':current?'#EAF2EC':'#5F8871',st:current?'background:rgba(127,197,158,.13);color:#fff;box-shadow:inset 3px 0 0 #7FC59E;':done?'color:#BFD7C8;':'',numSt:current?'background:#7FC59E;color:#0E2C1F;':done?'background:rgba(127,197,158,.15);color:#7FC59E;':'',go:()=>{if(index<=st.ncStep&&!st.ncSubmitted)this.setState({ncStep:index});}};}),
+      ncProgressSt:`width:${st.ncSubmitted?100:(st.ncStep+1)*20}%;`,ncStepNumber:String(st.ncStep+1).padStart(2,'0'),ncStepTitle:ncStepCopy[st.ncStep][0],ncStepLead:ncStepCopy[st.ncStep][1],
+      ncIsSource:st.ncStep===0,ncIsRecognition:st.ncStep===1,ncIsContent:st.ncStep===2,ncIsMedia:st.ncStep===3,ncIsReview:st.ncStep===4,
+      ncSources:[
+        {id:'photos',title:'Фото товара',sub:'Марк распознает товар и соберёт черновик',icon:'photo_camera'},
+        {id:'excel',title:'Строка из Excel',sub:'Возьмём артикул, категорию и характеристики',icon:'table_view'},
+        {id:'clone',title:'По образцу',sub:'Скопируем структуру существующей карточки',icon:'content_copy'},
+      ].map(source=>({...source,st:st.ncSource===source.id?'border-color:#1B8A57;background:#F2F8F4;box-shadow:inset 0 0 0 1px #1B8A57;':'',pick:()=>this.setState({ncSource:source.id})})),
+      ncUploadTitle:st.ncSource==='excel'?'products_new.xlsx · строка 18':st.ncSource==='clone'?'Платье «Верона» · структура-донор':`IMG_4482.jpg и ещё ${Math.max(0,st.ncPhotos-1)}`,
+      ncPhotosLabel:`${st.ncPhotos} из 8 фото`,ncAddPhoto:()=>{if(st.ncPhotos>=8)return this.toast('Все 8 фото-слотов уже заполнены');this.setState({ncPhotos:st.ncPhotos+1});},
+      ncSourceChecks:[
+        {label:st.ncPhotos?`${st.ncPhotos} фото загружено`:'Нужно хотя бы одно фото',icon:st.ncPhotos?'check_circle':'error',color:st.ncPhotos?'#13693F':'#B0432F'},
+        {label:st.ncForm.vendor?'Артикул указан':'Нет артикула',icon:st.ncForm.vendor?'check_circle':'error',color:st.ncForm.vendor?'#13693F':'#B0432F'},
+        {label:st.ncForm.category?'Категория выбрана':'Нет категории',icon:st.ncForm.category?'check_circle':'error',color:st.ncForm.category?'#13693F':'#B0432F'},
+      ],
+      ncVendor:st.ncForm.vendor,ncBrand:st.ncForm.brand,ncCategory:st.ncForm.category,ncVendorChange:e=>updateNcForm('vendor',e.target.value),ncBrandChange:e=>updateNcForm('brand',e.target.value),ncCategoryChange:e=>updateNcForm('category',e.target.value),
+      ncCategories:['Жакеты','Пиджаки','Костюмы','Верхняя одежда'].map(label=>({id:label,label})),
+      ncRecognizedFields:[
+        {label:'Категория',value:st.ncForm.category},{label:'Предмет',value:'Жакет женский'},{label:'Состав',value:'55% лён, 45% вискоза'},
+        {label:'Цвет',value:'бежевый'},{label:'Посадка',value:'оверсайз · прямой крой'},{label:'Сезон',value:'лето · демисезон'},
+      ],
+      ncApproveRecognition:()=>this.setState({ncRecognitionApproved:!st.ncRecognitionApproved}),ncApproveRecognitionSt:st.ncRecognitionApproved?'border-color:#80C29C;background:#F2F8F4;':'',ncApproveIcon:st.ncRecognitionApproved?'check_box':'check_box_outline_blank',ncApproveColor:st.ncRecognitionApproved?'#13693F':'#AAB5AD',
+      ncTitle:st.ncForm.title,ncDesc:st.ncForm.description,ncTitleChange:e=>updateNcForm('title',e.target.value),ncDescriptionChange:e=>updateNcForm('description',e.target.value),
+      ncTitleCount:`${st.ncForm.title.length} символов · минимум 20`,ncDescCount:`${st.ncForm.description.length} символов · минимум 120`,ncTitleCountColor:st.ncForm.title.trim().length>=20?'#13693F':'#B0432F',ncDescCountColor:st.ncForm.description.trim().length>=120?'#13693F':'#B0432F',
+      ncAttrs:NC.attrs,ncSeo:NC.seo.map(t=>({t})),ncSizes:NC.sizes,
+      ncPhotoSlots:Array.from({length:8},(_,index)=>{const filled=index<st.ncPhotos;return {label:filled?(index===0?'Обложка':`Фото ${index+1}`):'Добавить',icon:filled?(index===0?'checkroom':'photo'):'add_photo_alternate',className:filled?'pipeline-photo--filled':'',pick:()=>this.setState({ncPhotos:filled?Math.max(1,st.ncPhotos-1):Math.min(8,st.ncPhotos+1)})};}),
+      ncMediaOptions:[
+        {title:'Rich-контент',sub:'Материал, посадка, уход и преимущества',selected:st.ncRich,toggle:()=>this.setState({ncRich:!st.ncRich})},
+        {title:'Инфографика · 4 слайда',sub:'Обложка, преимущества, материал и размеры',selected:st.ncInfo,toggle:()=>this.setState({ncInfo:!st.ncInfo})},
+      ].map(option=>({...option,icon:option.selected?'check_box':'check_box_outline_blank',color:option.selected?'#13693F':'#AAB5AD',st:option.selected?'border-color:#80C29C;background:#F2F8F4;':''})),
+      ncReadyScore:`${4+(st.ncPhotos>=5?1:0)+(st.ncRich&&st.ncInfo?1:0)}/6`,ncReviewChecks:[
+        {title:'Основные данные заполнены',note:`${st.ncForm.vendor} · ${st.ncForm.brand} · ${st.ncForm.category}`,icon:'check_circle',color:'#13693F'},
+        {title:'Название и описание готовы',note:`${st.ncForm.title.length} и ${st.ncForm.description.length} символов`,icon:'check_circle',color:'#13693F'},
+        {title:'Обязательные атрибуты WB',note:'14 из 14 · ошибок формата нет',icon:'check_circle',color:'#13693F'},
+        {title:'SEO-покрытие',note:'3 ключевые группы · оценка 92/100',icon:'check_circle',color:'#13693F'},
+        {title:'Галерея товара',note:`${st.ncPhotos} фото · ${st.ncPhotos>=5?'минимум выполнен':'нужно минимум 5'}`,icon:st.ncPhotos>=5?'check_circle':'error',color:st.ncPhotos>=5?'#13693F':'#B0432F'},
+        {title:'Расширенный контент',note:`Rich ${st.ncRich?'готов':'не выбран'} · инфографика ${st.ncInfo?'готова':'не выбрана'}`,icon:st.ncRich&&st.ncInfo?'check_circle':'warning',color:st.ncRich&&st.ncInfo?'#13693F':'#9A6414'},
+      ],
+      ncPublishModes:[
+        {id:'approval',title:'После подтверждения — опубликовать',sub:'Елена проверит пакет, затем Марк отправит его в WB',icon:'fact_check'},
+        {id:'scheduled',title:'Подтвердить и запланировать',sub:'После подтверждения публикация завтра в 08:00',icon:'schedule'},
+      ].map(mode=>({...mode,color:st.ncPublishMode===mode.id?'#13693F':'#AAB5AD',icon:st.ncPublishMode===mode.id?'radio_button_checked':'radio_button_unchecked',st:st.ncPublishMode===mode.id?'border-color:#80C29C;background:#F2F8F4;':'',pick:()=>this.setState({ncPublishMode:mode.id})})),
+      ncPreviewTitle:st.ncForm.title,ncBack:()=>{if(st.ncStep>0)this.setState({ncStep:st.ncStep-1});},ncBackSt:st.ncStep===0?'opacity:.45;cursor:not-allowed;':'',ncDraft:()=>this.toast('Черновик карточки сохранён · можно продолжить позже'),
+      ncInfographic:()=>this.setState({newCardOpen:false,cardsTab:'info',infoSku:'new',infoSlide:'cover',infoGenerated:false}),ncValidation:ncValidationCopy[st.ncStep],ncNext,ncNextLabel:st.ncStep===4?'Отправить на подтверждение':'Продолжить',ncNextIcon:st.ncStep===4?'send':'arrow_forward',ncNextSt:ncStepValid[st.ncStep]?'':'background:#DDE4DE;color:#7A857C;',
+      ncPackageId:st.ncPackageId,ncGoApprovals:()=>this.setState({newCardOpen:false,screen:'apps',apTab:'actions',apFilter:'pending'}),ncDoneClose:()=>this.setState({newCardOpen:false,cardsTab:'catalog',cardsFilter:'draft'}),
+      infoProducts:[draftProduct,...M.PRODUCTS].map(product=>({
         mono:product.mono,name:product.name,meta:product.id==='new'?'черновик · без фото':product.code,
         tileSt:`width:30px;height:30px;border-radius:8px;background:${product.tile};display:flex;align-items:center;justify-content:center;flex:none;font:700 9px 'JetBrains Mono',monospace;color:#38443B;`,
         st:st.infoSku===product.id?'border-color:#1B8A57;background:#F2F8F4;box-shadow:inset 0 0 0 1px #1B8A57;':'',
