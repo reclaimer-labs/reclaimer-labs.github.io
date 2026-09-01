@@ -68,6 +68,51 @@
     .fin-table-head{appearance:none;border:0;background:transparent;text-align:left;font-family:'JetBrains Mono',monospace;min-width:0;}
     .fin-table-row{appearance:none;border:0;width:100%;background:#fff;color:#17231C;text-align:left;font-family:'Onest',sans-serif;}
     .fin-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:210px;padding:34px;color:#7A857C;text-align:center;}
+    .sidebar-subnav{display:flex;flex-direction:column;gap:2px;margin:3px 0 5px 32px;padding-left:10px;border-left:1px solid rgba(127,197,158,.22);animation:fadein .16s ease-out;}
+    .sidebar-subnav__item{appearance:none;border:0;width:100%;border-radius:8px;background:transparent;color:#88A394;padding:7px 9px;font:650 12px 'Onest',sans-serif;text-align:left;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .12s,color .12s;}
+    .sidebar-subnav__item:hover{background:rgba(234,242,236,.08);color:#EAF2EC;}
+    .sidebar-subnav__item:focus-visible,.fin-context-tab:focus-visible,.fin-summary-view:focus-visible,.fin-summary-table-wrap:focus-visible{outline:3px solid rgba(127,197,158,.30);outline-offset:2px;}
+    .fin-context-tabs{display:none;align-items:center;gap:3px;width:100%;margin-bottom:12px;padding:3px;border-radius:11px;background:#E4EAE5;}
+    .fin-context-tab{appearance:none;flex:1;border:0;border-radius:8px;background:transparent;color:#5A665D;padding:8px 10px;font:750 11.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .fin-summary-hero{position:relative;overflow:hidden;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:17px 18px;border:1px solid rgba(127,197,158,.25);border-radius:15px;background:#0E2C1F;color:#EAF2EC;box-shadow:0 22px 42px -38px rgba(14,44,31,.92);}
+    .fin-summary-hero:after{content:"";position:absolute;right:-72px;top:-112px;width:270px;height:270px;border:48px solid rgba(127,197,158,.07);border-radius:50%;pointer-events:none;}
+    .fin-summary-actions{position:relative;z-index:1;display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end;}
+    .fin-summary-hero .fin-btn{border-color:rgba(234,242,236,.17);background:rgba(234,242,236,.08);color:#DCE9E0;}
+    .fin-summary-hero .fin-btn:hover{background:rgba(234,242,236,.14);border-color:rgba(127,197,158,.58);color:#fff;}
+    .fin-summary-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px;}
+    .fin-summary-kpi{position:relative;overflow:hidden;min-width:0;border:1px solid rgba(23,35,28,.09);border-radius:12px;background:#fff;padding:12px 13px;box-shadow:0 15px 30px -31px rgba(14,44,31,.78);}
+    .fin-summary-kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--kpi-accent,#1B8A57);}
+    .fin-report-card{margin-top:12px;border:1px solid rgba(23,35,28,.10);border-radius:14px;background:#fff;box-shadow:0 18px 40px -38px rgba(14,44,31,.72);overflow:hidden;}
+    .fin-report-card__head{display:flex;align-items:flex-start;gap:14px;justify-content:space-between;padding:13px 15px;border-bottom:1px solid rgba(23,35,28,.08);background:#FBFCFB;}
+    .fin-summary-views{display:flex;align-items:center;gap:3px;padding:3px;border-radius:9px;background:#E8EDE9;overflow-x:auto;scrollbar-width:none;}
+    .fin-summary-views::-webkit-scrollbar{display:none;}
+    .fin-summary-view{appearance:none;border:0;border-radius:7px;background:transparent;color:#5A665D;padding:6px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;white-space:nowrap;}
+    .fin-summary-view:hover{background:rgba(255,255,255,.68);color:#17231C;}
+    .fin-summary-table-wrap{max-height:min(560px,calc(100vh - 300px));overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;}
+    .fin-summary-table{width:100%;min-width:1160px;border-collapse:separate;border-spacing:0;color:#17231C;font-family:'Onest',sans-serif;font-variant-numeric:tabular-nums;}
+    .fin-summary-table th,.fin-summary-table td{height:var(--summary-row-height,38px);padding:7px 10px;border-right:1px solid rgba(23,35,28,.055);border-bottom:1px solid rgba(23,35,28,.07);white-space:nowrap;text-align:right;font-size:11.5px;}
+    .fin-summary-table thead th{position:sticky;z-index:6;background:#F3F6F3;color:#69766D;font:700 9.5px 'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase;}
+    .fin-summary-table thead tr:first-child th{top:0;height:30px;padding-top:6px;padding-bottom:5px;text-align:center;color:#819087;background:#E9EEE9;}
+    .fin-summary-table thead tr:nth-child(2) th{top:30px;}
+    .fin-summary-table thead th[rowspan]{top:0!important;text-align:left!important;z-index:9;}
+    .fin-summary-table th:first-child,.fin-summary-table td:first-child{position:sticky;left:0;z-index:4;text-align:left;background:#fff;box-shadow:8px 0 14px -14px rgba(14,44,31,.9);}
+    .fin-summary-table tbody tr:hover td{background:#F6FAF7;}
+    .fin-summary-table tbody tr:hover td:first-child{background:#F0F6F2;}
+    .fin-summary-table tbody tr[data-weekend="true"] td{background:#FAFBFA;}
+    .fin-summary-table tbody tr[data-weekend="true"] td:first-child{background:#F5F7F5;}
+    .fin-summary-table .fin-summary-month th{position:static!important;height:32px;padding:7px 10px;background:#E6F0E9!important;color:#28543A;text-align:left!important;font:800 10.5px 'Onest',sans-serif;letter-spacing:0;text-transform:none;box-shadow:none;}
+    .fin-summary-table tfoot th,.fin-summary-table tfoot td{position:sticky;bottom:0;z-index:7;height:40px;background:#0E2C1F;color:#EAF2EC;border-color:rgba(234,242,236,.09);font-weight:800;}
+    .fin-summary-table tfoot th:first-child{z-index:9;background:#0E2C1F;}
+    .fin-summary-value{display:block;font:600 11.5px 'JetBrains Mono',monospace;}
+    .fin-summary-delta{display:block;margin-top:2px;font:600 8.5px 'JetBrains Mono',monospace;color:#819087;}
+    .fin-summary-anomaly{display:inline-flex;align-items:center;gap:4px;border-radius:5px;background:#F6E2DD;color:#A23F2F;padding:3px 5px;font-weight:750;}
+    .fin-plan-table-wrap{overflow:auto;overscroll-behavior:contain;}
+    .fin-plan-table{min-width:980px;}
+    .fin-plan-table tbody th{font-weight:800;color:#344139;}
+    .fin-plan-table tbody tr[data-tone="fact"] th,.fin-plan-table tbody tr[data-tone="fact"] td{background:#F1F7F3;}
+    .fin-plan-table tbody tr[data-tone="forecast"] th,.fin-plan-table tbody tr[data-tone="forecast"] td{background:#FFF9E9;}
+    .fin-plan-table tbody tr[data-tone="delta"] td{font-weight:750;}
+    .fin-summary-note{display:flex;align-items:flex-start;gap:8px;padding:10px 14px;border-top:1px solid rgba(23,35,28,.07);background:#F8FAF8;color:#69766D;font-size:10.5px;line-height:1.45;}
     .ads360-command{position:relative;overflow:clip;display:flex;align-items:center;gap:14px;padding:13px 15px;background:#0E2C1F;color:#EAF2EC;border:1px solid rgba(127,197,158,.24);border-radius:15px;box-shadow:0 18px 40px -32px rgba(14,44,31,.82);}
     .ads360-command:after{content:"";position:absolute;right:-54px;top:-78px;width:220px;height:220px;border-radius:50%;border:42px solid rgba(127,197,158,.08);pointer-events:none;}
     .ads360-tabs{position:relative;z-index:1;display:flex;align-items:center;gap:3px;padding:3px;background:rgba(234,242,236,.10);border:1px solid rgba(234,242,236,.10);border-radius:11px;}
@@ -194,10 +239,11 @@
     .new-card-modal{width:min(760px,calc(100vw - 24px))!important;}
     .mobile-nav{display:none;}
     .mobile-nav-item{appearance:none;border:0;background:transparent;color:#8EA597;min-width:0;padding:7px 3px 6px;font-family:'Onest',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;}
-    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.info-workspace{grid-template-columns:205px minmax(390px,1fr)}.info-settings{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.info-settings .info-panel__section:last-child{grid-column:1/-1}.info-settings .info-panel__section+.info-panel__section{border-top:0;border-left:1px solid rgba(23,35,28,.08)}}
+    @media(max-width:1180px){.fin-view-menu{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-builder{grid-template-columns:1fr 1fr}.fin-builder__value{grid-column:1/-1}.fin-builder__action{grid-column:1/-1;justify-self:start;}.fin-columns__catalog,.fin-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.fin-summary-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.info-workspace{grid-template-columns:205px minmax(390px,1fr)}.info-settings{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.info-settings .info-panel__section:last-child{grid-column:1/-1}.info-settings .info-panel__section+.info-panel__section{border-top:0;border-left:1px solid rgba(23,35,28,.08)}}
     @media(max-width:1100px){.ads360-external{grid-template-columns:1fr}.ads360-campaigns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-campaign{border-left:1px solid rgba(23,35,28,.07)}.ads360-form-grid{grid-template-columns:1fr 1fr}.ads360-skus{grid-template-columns:repeat(2,minmax(0,1fr));}.ads360-ai{grid-template-columns:1fr}}
     @media(max-width:720px){.app-sidebar{display:none!important}.app-topbar{padding:0 12px!important}.app-topbar-tools>div:nth-child(2),.app-topbar-tools>div:nth-child(3){display:none!important}.app-main{padding-bottom:72px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));left:10px;right:10px;bottom:8px;z-index:75;border:1px solid rgba(234,242,236,.16);border-radius:15px;background:rgba(14,44,31,.96);box-shadow:0 18px 42px -18px rgba(7,24,16,.85);backdrop-filter:blur(12px);overflow:hidden}.ads360-section{padding:12px!important}.ads360-command{align-items:flex-start;flex-wrap:wrap}.ads360-command-copy{width:100%}.ads360-tabs{order:3;flex:1}.ads360-tab{flex:1}.ads360-new span:last-child{display:none}.ads360-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ads360-evidence{grid-template-columns:1fr}.ads360-evidence-arrow{transform:rotate(90deg);height:18px}.ads360-metrics{grid-template-columns:1fr 1fr}.ads360-form-grid,.ads360-skus{grid-template-columns:1fr}.ads360-campaigns{grid-template-columns:1fr}.ads360-modal{width:calc(100vw - 18px);max-height:94vh}.ads360-modal-body{padding:14px!important}.ads360-modal-footer{padding:10px 14px!important;flex-wrap:wrap}.ads360-track-grid{grid-template-columns:1fr!important}}
     @media(max-width:720px){.period-presets{display:none}.period-range-button{border-left:0;border-radius:8px;max-width:142px}.period-range__desktop{display:none}.period-range__mobile{display:block;overflow:hidden;text-overflow:ellipsis}.period-popover{position:fixed;top:68px;left:10px;right:10px;width:auto}.period-popover__quick .period-chip{display:block}}
+    @media(max-width:720px){.fin-section{padding:12px 10px 88px!important}.fin-context-tabs{display:flex}.fin-summary-hero{padding:14px;flex-direction:column;gap:12px}.fin-summary-actions{width:100%;justify-content:flex-start}.fin-summary-actions .fin-btn{flex:1;justify-content:center}.fin-summary-kpis{grid-template-columns:1fr 1fr;gap:7px}.fin-summary-kpi{padding:10px 11px}.fin-report-card__head{align-items:stretch;flex-direction:column}.fin-summary-views{width:100%}.fin-summary-view{flex:1}.fin-summary-table-wrap{max-height:520px}.fin-summary-delta{display:none}.fin-summary-note{padding:9px 11px}}
     @media(max-width:720px){.home-brief{align-items:flex-start;flex-wrap:wrap;padding:15px 16px!important}.home-brief__copy{flex:1 1 calc(100% - 56px)}.home-brief__action{width:100%!important;justify-content:center}.cards-toolbar{align-items:stretch}.cards-toolbar>div{flex:1 1 auto;justify-content:center}.cards-toolbar__spacer{display:none}.cards-toolbar__draft{width:100%;text-align:center}.cards-subnav{width:100%}.cards-subnav__button{flex:1;justify-content:center}.info-command{align-items:flex-start;flex-wrap:wrap}.info-command__copy{flex:1 1 calc(100% - 54px)!important}.info-command__action{width:100%;justify-content:center!important;margin-left:0!important}.info-workspace{grid-template-columns:1fr}.info-product-list,.info-slide-list{flex-direction:row;overflow-x:auto;padding-bottom:2px}.info-product{min-width:205px}.info-slide{min-width:145px}.info-stage__canvas{min-height:430px;padding:14px}.info-canvas{padding:20px;max-width:330px}.info-canvas__title{font-size:23px}.info-settings{grid-column:auto;display:block}.info-settings .info-panel__section+.info-panel__section{border-left:0;border-top:1px solid rgba(23,35,28,.08)}.info-settings .info-panel__section:last-child{grid-column:auto}.new-card-modal{max-height:94vh!important}.new-card-head{padding:13px 14px!important}.new-card-pipeline{display:none}.new-card-body{padding:14px!important}.new-card-grid{grid-template-columns:1fr!important}.new-card-footer{padding:11px 14px!important}.new-card-footer>*{flex:1 1 100%!important;justify-content:center}.sku-drill-head{display:grid!important;grid-template-columns:44px minmax(0,1fr) 32px;align-items:center!important;padding:12px!important;gap:9px!important}.sku-drill-identity{min-width:0}.sku-drill-identity>div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku-drill-actions{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sku-drill-action{justify-content:center!important}.sku-drill-close{grid-column:3;grid-row:1}.sku-drill-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sku-drill-kpi{border-bottom:1px solid rgba(23,35,28,.06);padding:10px 12px!important}.sku-drill-tabs{padding-left:12px!important;padding-right:12px!important}.sku-drill-body{padding:16px 12px 24px!important}.sku-chart-head{flex-direction:column}.sku-chart-periods{width:100%}.sku-chart-summary{grid-template-columns:repeat(2,minmax(0,1fr));padding:10px 12px}.sku-chart-layout{grid-template-columns:1fr}.sku-chart-sidebar{border-right:0;border-bottom:1px solid rgba(23,35,28,.08)}.sku-chart-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.sku-chart-legend{grid-template-columns:1fr}.sku-chart-custom{grid-template-columns:1fr 1fr}.sku-chart-apply{grid-column:1/-1}.sku-chart-foot{align-items:flex-start;flex-direction:column}}
   </style>
 </helmet>
@@ -233,6 +279,16 @@
           <span style="flex:1;">{{ item.label }}</span>
           <span style="{{ item.badgeSt }}">{{ item.badge }}</span>
         </div>
+        <sc-if value="{{ item.hasChildren }}" hint-placeholder-val="{{ false }}">
+          <div class="sidebar-subnav" aria-label="Подразделы финансов">
+            <sc-for list="{{ item.children }}" as="child" hint-placeholder-count="2">
+              <button type="button" onClick="{{ child.go }}" class="sidebar-subnav__item" aria-current="{{ child.current }}" style="{{ child.st }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;">{{ child.icon }}</span>
+                <span>{{ child.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
       </sc-for>
     </nav>
     <div style="{{ navCtrlSectionSt }}">
@@ -520,7 +576,15 @@
 
       <!-- ============ ФИНАНСОВЫЙ ЦЕНТР ============ -->
       <sc-if value="{{ isFin }}" hint-placeholder-val="{{ false }}">
-        <section data-screen-label="Финансовый центр" style="padding:18px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+        <section class="fin-section" data-screen-label="Финансовый центр" style="padding:18px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
+          <div class="fin-context-tabs" aria-label="Разделы финансов">
+            <sc-for list="{{ finSectionTabs }}" as="tab" hint-placeholder-count="2">
+              <button type="button" onClick="{{ tab.go }}" class="fin-context-tab" style="{{ tab.st }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:15px;">{{ tab.icon }}</span>{{ tab.label }}
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ finIsSku }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;align-items:flex-start;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-bottom:11px;">
             <div>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
@@ -794,6 +858,156 @@
             </div>
           </div>
           <div style="font-size:11px;color:#8C968E;margin-top:8px;">{{ finFooterSource }}</div>
+          </sc-if>
+
+          <sc-if value="{{ finIsSummary }}" hint-placeholder-val="{{ false }}">
+            <div class="fin-summary-hero">
+              <div style="position:relative;z-index:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span style="font-size:16px;font-weight:850;letter-spacing:-.01em;">Сводная по всему магазину</span>
+                  <span style="font:700 9.5px 'JetBrains Mono',monospace;color:#0E2C1F;background:#7FC59E;border-radius:6px;padding:3px 7px;">{{ finSummaryPeriod }}</span>
+                </div>
+                <div style="max-width:670px;margin-top:5px;color:#AFC6B7;font-size:11.5px;line-height:1.45;">Продажи, все удержания и итоговая прибыль по дням — в одной сверяемой картине.</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:9px;color:#89A997;font:600 9.5px 'JetBrains Mono',monospace;">
+                  <span style="width:6px;height:6px;border-radius:50%;background:#7FC59E;"></span>{{ finSummaryFresh }}
+                </div>
+              </div>
+              <div class="fin-summary-actions">
+                <button type="button" onClick="{{ finSummaryCompareToggle }}" class="fin-btn" aria-pressed="{{ finSummaryCompare }}" style="{{ finSummaryCompareSt }}" title="Показывать изменение к предыдущему сопоставимому периоду">
+                  <span style="font-family:'Material Symbols Rounded';font-size:15px;">compare_arrows</span>{{ finSummaryCompareLabel }}
+                </button>
+                <button type="button" onClick="{{ finSummaryDensityToggle }}" class="fin-btn" aria-pressed="{{ finSummaryDense }}" title="Изменить высоту строк">
+                  <span style="font-family:'Material Symbols Rounded';font-size:15px;">density_small</span>{{ finSummaryDensityLabel }}
+                </button>
+                <button type="button" onClick="{{ finSummaryExport }}" class="fin-btn">
+                  <span style="font-family:'Material Symbols Rounded';font-size:15px;">download</span>Экспорт XLSX
+                </button>
+              </div>
+            </div>
+
+            <div class="fin-summary-kpis">
+              <sc-for list="{{ finSummaryKpis }}" as="kpi" hint-placeholder-count="4">
+                <div class="fin-summary-kpi" style="{{ kpi.st }}">
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ kpi.color }};">{{ kpi.icon }}</span>
+                    <span style="font:700 9px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#819087;">{{ kpi.label }}</span>
+                  </div>
+                  <div style="margin-top:7px;font:750 20px 'JetBrains Mono',monospace;letter-spacing:-.035em;color:{{ kpi.valueColor }};">{{ kpi.value }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;margin-top:5px;font-size:10.5px;color:#718078;">
+                    <span style="{{ kpi.deltaSt }}">{{ kpi.delta }}</span><span>{{ kpi.note }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <article class="fin-report-card">
+              <header class="fin-report-card__head">
+                <div style="min-width:0;">
+                  <div style="font-size:13.5px;font-weight:850;">Динамика по дням</div>
+                  <div style="margin-top:3px;font-size:10.5px;color:#7A857C;">{{ finDailyCount }} · месяцы разделены, итог закреплён снизу</div>
+                </div>
+                <div class="fin-summary-views" aria-label="Набор показателей">
+                  <sc-for list="{{ finSummaryMetricViews }}" as="view" hint-placeholder-count="4">
+                    <button type="button" onClick="{{ view.go }}" class="fin-summary-view" aria-pressed="{{ view.pressed }}" style="{{ view.st }}">{{ view.label }}</button>
+                  </sc-for>
+                </div>
+              </header>
+              <div class="fin-summary-table-wrap" tabindex="0" aria-label="Прокручиваемая таблица сводных данных">
+                <table class="fin-summary-table" aria-label="Сводная по всему магазину" style="{{ finSummaryTableSt }}">
+                  <thead>
+                    <tr>
+                      <th rowspan="2" scope="col">День</th>
+                      <sc-for list="{{ finSummaryGroups }}" as="group" hint-placeholder-count="4">
+                        <th colspan="{{ group.span }}" scope="colgroup" style="{{ group.st }}">{{ group.label }}</th>
+                      </sc-for>
+                    </tr>
+                    <tr>
+                      <sc-for list="{{ finDailyHeads }}" as="head" hint-placeholder-count="12">
+                        <th scope="col" title="{{ head.help }}">{{ head.label }}</th>
+                      </sc-for>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ finDailyRows }}" as="row" hint-placeholder-count="32">
+                      <sc-if value="{{ row.isMonth }}" hint-placeholder-val="{{ false }}">
+                        <tr class="fin-summary-month"><th colspan="{{ finSummaryColspan }}" scope="rowgroup">{{ row.label }} <span style="margin-left:5px;color:#6F8A78;font-weight:600;">{{ row.note }}</span></th></tr>
+                      </sc-if>
+                      <sc-if value="{{ row.isDay }}" hint-placeholder-val="{{ true }}">
+                        <tr data-weekend="{{ row.weekend }}" style="{{ row.st }}">
+                          <th scope="row">
+                            <span style="display:flex;align-items:center;gap:7px;">
+                              <span style="font:700 11px 'JetBrains Mono',monospace;">{{ row.date }}</span>
+                              <span style="font-size:9.5px;color:#8C968E;">{{ row.weekday }}</span>
+                              <span style="{{ row.badgeSt }}">{{ row.badge }}</span>
+                            </span>
+                          </th>
+                          <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="12">
+                            <td title="{{ cell.title }}" style="{{ cell.st }}">
+                              <span style="{{ cell.valueSt }}">{{ cell.value }}</span>
+                              <span class="fin-summary-delta" style="{{ cell.deltaSt }}">{{ cell.delta }}</span>
+                            </td>
+                          </sc-for>
+                        </tr>
+                      </sc-if>
+                    </sc-for>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th scope="row">Итого</th>
+                      <sc-for list="{{ finDailyTotalCells }}" as="cell" hint-placeholder-count="12">
+                        <td title="{{ cell.title }}"><span class="fin-summary-value">{{ cell.value }}</span><span class="fin-summary-delta" style="{{ cell.deltaSt }}">{{ cell.delta }}</span></td>
+                      </sc-for>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="fin-summary-note">
+                <span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">info</span>
+                <span>Маржа = продажи − расходы маркетплейса − реклама − себестоимость. Чистая прибыль дополнительно учитывает операционные и разовые расходы. Наведите на заголовок или ячейку для пояснения.</span>
+              </div>
+            </article>
+
+            <article class="fin-report-card">
+              <header class="fin-report-card__head">
+                <div>
+                  <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+                    <span style="font-size:13.5px;font-weight:850;">План, факт и прогноз</span>
+                    <span style="border-radius:6px;background:#F4E8D2;color:#8A5B16;padding:3px 6px;font:700 9px 'JetBrains Mono',monospace;">УПРАВЛЕНЧЕСКИЙ СЛОЙ</span>
+                  </div>
+                  <div style="margin-top:3px;font-size:10.5px;color:#7A857C;">Показывает не только отклонение, но и требуемый темп до цели</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;color:#718078;font:600 9.5px 'JetBrains Mono',monospace;">
+                  <span style="font-family:'Material Symbols Rounded';font-size:15px;color:#1B8A57;">calculate</span>{{ finPlanUpdated }}
+                </div>
+              </header>
+              <div class="fin-plan-table-wrap" tabindex="0">
+                <table class="fin-summary-table fin-plan-table" aria-label="План, факт и прогноз" style="{{ finSummaryTableSt }}">
+                  <thead>
+                    <tr>
+                      <th scope="col">Сценарий</th>
+                      <sc-for list="{{ finDailyHeads }}" as="head" hint-placeholder-count="12">
+                        <th scope="col" title="{{ head.help }}">{{ head.label }}</th>
+                      </sc-for>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <sc-for list="{{ finPlanRows }}" as="row" hint-placeholder-count="7">
+                      <tr data-tone="{{ row.tone }}">
+                        <th scope="row"><span style="display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ row.color }};">{{ row.icon }}</span>{{ row.label }}</span></th>
+                        <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="12">
+                          <td title="{{ cell.title }}" style="{{ cell.st }}"><span class="fin-summary-value">{{ cell.value }}</span><span class="fin-summary-delta" style="{{ cell.deltaSt }}">{{ cell.delta }}</span></td>
+                        </sc-for>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fin-summary-note">
+                <span style="font-family:'Material Symbols Rounded';font-size:16px;color:#9A6414;">lightbulb</span>
+                <span>{{ finPlanInsight }}</span>
+              </div>
+            </article>
+          </sc-if>
         </section>
       </sc-if>
 
@@ -2191,6 +2405,7 @@ class Component extends DCLogic {
     qFilter:'все', eventOpen:null, eventDone:{},
     chatOpen:false, chatMsgs:[], chatTyping:false, chatInput:'',
     drill:null, drillTab:'eco', drillCharts:{}, drillChartHover:null,
+    finSection:'sku', finSummaryView:'all', finSummaryCompare:true, finSummaryDense:true,
     finPreset:'all', finGroup:'sku', finSort:{key:'profit',dir:-1}, finQ:'', finView:'profit', finFiltersOpen:false,
     finSavedView:'unit', finViewsOpen:false, finSaveOpen:false, finViewName:'', finCustomViews:[], finDataMode:'closed',
     finConditions:[], finDraftField:'margin', finDraftOp:'lt', finDraftValues:[], finDraftNumber:'15',
@@ -2352,8 +2567,8 @@ class Component extends DCLogic {
   vCore() {
     const st = this.state;
     const pending = st.approvals.filter(a=>a.status==='pending').length;
-    const navItem = (icon,label,s,badge) => ({
-      icon, label, screen:s, badge: badge||'',
+    const navItem = (icon,label,s,badge,children=[]) => ({
+      icon, label, screen:s, badge: badge||'', children, hasChildren:children.length>0,
       go: ()=>this.go(s),
       st: `display:flex;align-items:center;gap:10px;padding:8.5px 10px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .12s;${st.screen===s?'background:rgba(234,242,236,.12);color:#EAF2EC;box-shadow:inset 2.5px 0 0 #7FC59E;':'color:#9FB6A8;'}`,
       badgeSt: badge ? `flex:none;min-width:19px;height:19px;border-radius:7px;background:#1B8A57;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;` : 'display:none;',
@@ -2361,12 +2576,17 @@ class Component extends DCLogic {
     const mobileItem = (icon,label,s,badge) => ({icon,label,screen:s,badge:badge||'',go:()=>this.go(s),st:st.screen===s?'color:#fff;background:rgba(127,197,158,.16);box-shadow:inset 0 2px 0 #7FC59E;':'',badgeSt:badge?'position:absolute;top:4px;right:10px;min-width:15px;height:15px;border-radius:6px;background:#7FC59E;color:#0E2C1F;font-family:\'JetBrains Mono\',monospace;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 3px;':'display:none;'});
     const visibleNavScreens = new Set(['home','fin','cards','ads']);
     const isVisibleNav = item => visibleNavScreens.has(item.screen);
-    const navMain = [ navItem('space_dashboard','Главная','home'), navItem('table_chart','Финансы','fin'), navItem('style','Карточки','cards'), navItem('campaign','Реклама','ads'), navItem('price_change','Цены','prices', this.M?'2':''), navItem('local_shipping','Логистика','logi') ].filter(isVisibleNav);
+    const openFinSection=(section)=>this.setState({screen:'fin',finSection:section,eventOpen:null,drill:null,chatOpen:false,periodCustomOpen:false});
+    const finChildren=st.screen==='fin' ? [
+      {id:'sku',label:'По товарам',icon:'inventory_2'},
+      {id:'summary',label:'Сводные данные',icon:'monitoring'},
+    ].map(item=>({ ...item,current:st.finSection===item.id,go:()=>openFinSection(item.id),st:st.finSection===item.id?'background:rgba(127,197,158,.15);color:#EAF2EC;box-shadow:inset 2px 0 0 #7FC59E;':'' })) : [];
+    const navMain = [ navItem('space_dashboard','Главная','home'), navItem('table_chart','Финансы','fin','',finChildren), navItem('style','Карточки','cards'), navItem('campaign','Реклама','ads'), navItem('price_change','Цены','prices', this.M?'2':''), navItem('local_shipping','Логистика','logi') ].filter(isVisibleNav);
     const navCtrl = [ navItem('fact_check','Подтверждения','apps', pending?String(pending):''), navItem('settings','Настройки','set') ].filter(isVisibleNav);
     const mobileNav = [ mobileItem('space_dashboard','Главная','home'), mobileItem('table_chart','Финансы','fin'), mobileItem('style','Карточки','cards'), mobileItem('campaign','Реклама','ads'), mobileItem('local_shipping','Склад','logi'), mobileItem('fact_check','Решения','apps',pending?String(pending):'') ].filter(isVisibleNav);
     const titles = {
       home:['Главная','Центр управления · очередь решений от Марка'],
-      fin:['Финансовый центр','Экономика каждого SKU · прибыль прежде всего'],
+      fin:st.finSection==='summary'?['Финансы · Сводные данные','Пульс всего магазина · факт, расходы, план и прогноз']:['Финансовый центр','Экономика каждого SKU · прибыль прежде всего'],
       prices:['Цены · Price Enforcer','Защита маржи: безопасные цены, правила, нарушения'],
       ads:['Реклама','WB + внешние кампании · прибыль после всех расходов'],
       cards:['Карточки','Контент, качество, дубли и массовые правки'],
@@ -2387,6 +2607,11 @@ class Component extends DCLogic {
       navCtrl,
       navCtrlSectionSt: navCtrl.length ? '' : 'display:none;',
       mobileNav,
+      finSectionTabs:[
+        {label:'По товарам',icon:'inventory_2',go:()=>openFinSection('sku'),st:st.finSection==='sku'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':''},
+        {label:'Сводные данные',icon:'monitoring',go:()=>openFinSection('summary'),st:st.finSection==='summary'?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':''},
+      ],
+      finIsSku:st.finSection==='sku',finIsSummary:st.finSection==='summary',
       screenTitle: t[0], screenSub: t[1],
       periodChips: periods.map(p => ({ label:p.label, selected:st.period===p.id, go:()=>selectPreset(p.id),
         st:st.period===p.id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':'',
@@ -3011,6 +3236,194 @@ class Component extends DCLogic {
         {k:'Требуют внимания',v:attentionN+' SKU',vSt:'font-family:\'JetBrains Mono\',monospace;font-size:19px;font-weight:700;margin-top:4px;color:#B0432F;',st:'background:#fff;border:1px solid rgba(23,35,28,.10);border-radius:12px;padding:11px 14px;cursor:pointer;',go:()=>applyView(defaultViews[1])},
       ],
       finHeads:activeHeads.map(([label,key])=>({label,help:metricHelp[key],pressed:st.finSort.key===key,ariaLabel:label+(st.finSort.key===key?(st.finSort.dir<0?', сортировка по убыванию':', сортировка по возрастанию'):', сортировать'),arrow:st.finSort.key===key?(st.finSort.dir<0?'arrow_downward':'arrow_upward'):'',go:()=>this.setState(s=>({finSort:{key,dir:s.finSort.key===key?-s.finSort.dir:-1}})),st:`font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:${st.finSort.key===key?'#13693F':'#8C968E'};padding:11px 0;cursor:pointer;` })),finTableRows:tableRows,finTableMin:widths,finTableHeadSt:`display:grid;grid-template-columns:242px 58px ${activeHeads.map(([, ,w])=>w+'px').join(' ')} 28px;align-items:center;position:sticky;top:0;background:#F7FAF7;border-bottom:1px solid rgba(23,35,28,.10);z-index:5;padding:0 8px 0 16px;`,
+    };
+  }
+
+  // ---------- сводные данные магазина ----------
+  vFinSummary() {
+    const M=this.M,st=this.state;
+    if(!M) return {finSummaryKpis:[],finSummaryMetricViews:[],finSummaryGroups:[],finDailyHeads:[],finDailyRows:[],finDailyTotalCells:[],finPlanRows:[],finSummaryColspan:1};
+    const period=this.periodMeta(st),T=M.TOTALS;
+    const metricDefs=[
+      {key:'orders',label:'Заказы, ₽',group:'sales',help:'Стоимость всех оформленных заказов до выкупа'},
+      {key:'sales',label:'Продажи, ₽',group:'sales',help:'Выкупленные продажи после возвратов'},
+      {key:'mp',label:'Расходы МП',group:'expense',help:'Комиссия, логистика и хранение Wildberries'},
+      {key:'ad',label:'Реклама',group:'expense',help:'Расход кампаний WB за день'},
+      {key:'cogs',label:'Себестоимость',group:'expense',help:'Себестоимость выкупленного товара'},
+      {key:'manual',label:'Разовые',group:'expense',help:'Разовые и внесистемные расходы с ручным подтверждением'},
+      {key:'margin',label:'Маржа, ₽',group:'result',help:'Продажи минус расходы МП, реклама и себестоимость'},
+      {key:'marginPct',label:'Маржа, %',group:'result',help:'Маржа в рублях относительно продаж'},
+      {key:'net',label:'Чистая прибыль',group:'result',help:'Маржа после операционных и разовых расходов'},
+      {key:'netPct',label:'Чистая, %',group:'result',help:'Чистая прибыль относительно продаж'},
+      {key:'mpPct',label:'МП, %',group:'shares',help:'Доля расходов маркетплейса в продажах'},
+      {key:'drr',label:'ДРР, %',group:'shares',help:'Доля рекламных расходов в продажах'},
+      {key:'deductionsPct',label:'Все вычеты, %',group:'shares',help:'Расходы МП, реклама, себестоимость, операционные и разовые расходы'},
+    ];
+    const views={
+      all:{label:'Все показатели',keys:metricDefs.map(d=>d.key)},
+      sales:{label:'Продажи',keys:['orders','sales','margin','marginPct','net','netPct']},
+      expense:{label:'Расходы',keys:['sales','mp','ad','cogs','manual','mpPct','drr','deductionsPct']},
+      profit:{label:'Прибыль',keys:['sales','margin','marginPct','net','netPct']},
+    };
+    const currentView=views[st.finSummaryView]||views.all;
+    const activeDefs=currentView.keys.map(key=>metricDefs.find(d=>d.key===key)).filter(Boolean);
+    const activeKeys=activeDefs.map(d=>d.key);
+    const groupMeta={
+      sales:{label:'Поток продаж',color:'#3E6578'},expense:{label:'Расходы',color:'#8C641F'},
+      result:{label:'Результат',color:'#226440'},shares:{label:'Доли',color:'#6B6483'},
+    };
+    const summaryGroups=[];
+    activeDefs.forEach(def=>{
+      const last=summaryGroups[summaryGroups.length-1];
+      if(last&&last.id===def.group)last.span+=1;
+      else summaryGroups.push({id:def.group,label:groupMeta[def.group].label,span:1,st:`color:${groupMeta[def.group].color};`});
+    });
+
+    const endIso=st.period==='custom'&&st.periodEnd?st.periodEnd:'2026-07-20';
+    const requestedDays=Math.max(1,Number(period.days)||7),dayCount=Math.min(366,requestedDays);
+    const startIso=this.shiftIso(endIso,-(dayCount-1));
+    const weekdayNames=['вс','пн','вт','ср','чт','пт','сб'];
+    const monthNames=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+    const mp30=T.comm30+T.logi30+T.stor30,opexDaily=T.opexM/30;
+    const daily=[];
+    for(let i=0;i<dayCount;i+=1){
+      const iso=this.shiftIso(startIso,i),date=new Date(iso+'T00:00:00Z'),dow=date.getUTCDay();
+      const weekdayFactor=dow===0?.76:dow===6?.88:dow===1?1.08:1;
+      const wave=1+Math.sin((i+3)*1.47)*.075+Math.cos((i+1)*.61)*.035;
+      const trend=1+(i-Math.max(1,dayCount-1)/2)*.0024;
+      const factor=Math.max(.62,weekdayFactor*wave*trend);
+      const orders=Math.round(T.ordersRub30/30*factor);
+      const sales=Math.round(T.rev30/30*factor*(.985+Math.sin(i*.83)*.018));
+      const mp=Math.round(mp30/30*factor*(.995+Math.cos(i*.74)*.012));
+      const ad=Math.round(T.ad30/30*factor*(.96+Math.sin((i+2)*1.13)*.12));
+      const cogs=Math.round(T.cost30/30*factor*(.99+Math.cos(i*.52)*.018));
+      const manual=iso==='2026-07-16'?180000:iso==='2026-07-04'?12300:0;
+      const margin=sales-mp-ad-cogs,net=margin-opexDaily-manual;
+      const safeSales=Math.max(1,sales),comparison=((i*7+3)%13-6)*.72+(dow===1?1.1:0);
+      daily.push({
+        iso,date,dow,orders,sales,mp,ad,cogs,manual,margin,net,comparison,
+        marginPct:margin/safeSales*100,netPct:net/safeSales*100,mpPct:mp/safeSales*100,drr:ad/safeSales*100,
+        deductionsPct:(mp+ad+cogs+opexDaily+manual)/safeSales*100,
+      });
+    }
+    const sum=daily.reduce((a,row)=>{['orders','sales','mp','ad','cogs','manual','margin','net'].forEach(key=>a[key]+=row[key]);return a;},{orders:0,sales:0,mp:0,ad:0,cogs:0,manual:0,margin:0,net:0});
+    sum.marginPct=sum.margin/Math.max(1,sum.sales)*100;sum.netPct=sum.net/Math.max(1,sum.sales)*100;
+    sum.mpPct=sum.mp/Math.max(1,sum.sales)*100;sum.drr=sum.ad/Math.max(1,sum.sales)*100;
+    sum.deductionsPct=(sum.mp+sum.ad+sum.cogs+opexDaily*dayCount+sum.manual)/Math.max(1,sum.sales)*100;
+    const percentKeys=new Set(['marginPct','netPct','mpPct','drr','deductionsPct']);
+    const expenseKeys=new Set(['mp','ad','cogs','manual','mpPct','drr','deductionsPct']);
+    const formatMetric=(key,value,signed=false)=>{
+      if(value===null||value===undefined||!Number.isFinite(Number(value)))return '—';
+      if(percentKeys.has(key))return (signed&&value>0?'+':'')+M.pct(Number(value),1);
+      const rounded=Math.round(Number(value)),sign=signed?(rounded>0?'+':rounded<0?'−':''):rounded<0?'−':'';
+      return sign+M.fmtN(Math.abs(rounded));
+    };
+    const cellFor=(row,key,total=false)=>{
+      const def=metricDefs.find(d=>d.key===key),value=row[key],negative=(key==='net'||key==='margin'||key==='netPct'||key==='marginPct')&&value<0;
+      const anomaly=key==='manual'&&value>0;
+      const compareKeys=new Set(['sales','ad','margin','net','marginPct','netPct']);
+      let delta='';
+      if(st.finSummaryCompare&&compareKeys.has(key)){
+        const raw=(row.comparison||3.4)*(key==='ad'?-0.58:key==='net'?1.35:key==='margin'?1.18:(key==='netPct'||key==='marginPct')?0.12:1);
+        delta=percentKeys.has(key)?(raw>0?'+':'')+raw.toFixed(1).replace('.',',')+' п.п.':M.spct(raw,1);
+      }
+      const positiveDelta=delta&& !delta.startsWith('−')&&!delta.startsWith('-');
+      return {
+        value:key==='manual'&&value===0?'—':formatMetric(key,value),delta,
+        title:anomaly?(row.iso==='2026-07-16'?'Разовая выплата поставщику · подтверждено Еленой':'Штраф за маркировку ЧЗ · отчёт WB №4412'):def.help,
+        st:`${anomaly?'background:#FFF4F1;':''}${negative?'background:#FFF5F3;color:#9E3B2B;':''}`,
+        valueSt:`display:block;font:600 11.5px 'JetBrains Mono',monospace;${anomaly?'display:inline-flex;align-items:center;border-radius:5px;background:#F6E2DD;color:#A23F2F;padding:3px 5px;font-weight:750;':''}${total?'font-weight:800;':''}`,
+        deltaSt:delta?`color:${positiveDelta?'#257148':'#A24A39'};`:'display:none;',
+      };
+    };
+    const monthCounts=daily.reduce((acc,row)=>{const key=row.iso.slice(0,7);acc[key]=(acc[key]||0)+1;return acc;},{});
+    const dailyRows=[];let lastMonth='';
+    daily.forEach(row=>{
+      const monthKey=row.iso.slice(0,7);
+      if(monthKey!==lastMonth){dailyRows.push({isMonth:true,isDay:false,label:`${monthNames[row.date.getUTCMonth()]} ${row.date.getUTCFullYear()}`,note:`· ${monthCounts[monthKey]} дн.`});lastMonth=monthKey;}
+      const anomaly=row.manual>0;
+      dailyRows.push({
+        isMonth:false,isDay:true,date:this.compactDate(row.iso),weekday:weekdayNames[row.dow],weekend:row.dow===0||row.dow===6,
+        badge:anomaly?'разовый расход':'',badgeSt:anomaly?'display:inline-flex;border-radius:5px;background:#F6E2DD;color:#A23F2F;padding:2px 5px;font-size:8.5px;font-weight:750;':'display:none;',
+        st:anomaly?'box-shadow:inset 3px 0 0 #C4533C;':'',cells:activeKeys.map(key=>cellFor(row,key)),
+      });
+    });
+    const totalComparison=dayCount===1?2.6:dayCount<=7?4.1:dayCount<=30?7.3:12.6;
+    sum.comparison=totalComparison;
+    const totalCells=activeKeys.map(key=>cellFor(sum,key,true));
+
+    const plan={
+      orders:sum.orders/0.97,sales:sum.sales/0.94,mp:sum.mp/0.98,ad:sum.ad/1.04,cogs:sum.cogs/0.95,manual:0,
+    };
+    plan.margin=plan.sales-plan.mp-plan.ad-plan.cogs;plan.net=plan.margin-opexDaily*dayCount;
+    plan.marginPct=plan.margin/Math.max(1,plan.sales)*100;plan.netPct=plan.net/Math.max(1,plan.sales)*100;
+    plan.mpPct=plan.mp/Math.max(1,plan.sales)*100;plan.drr=plan.ad/Math.max(1,plan.sales)*100;
+    plan.deductionsPct=(plan.mp+plan.ad+plan.cogs+opexDaily*dayCount)/Math.max(1,plan.sales)*100;
+    const forecast={orders:sum.orders*1.045,sales:sum.sales*1.055,mp:sum.mp*1.035,ad:sum.ad*1.02,cogs:sum.cogs*1.045,manual:sum.manual};
+    forecast.margin=forecast.sales-forecast.mp-forecast.ad-forecast.cogs;forecast.net=forecast.margin-opexDaily*dayCount-forecast.manual;
+    forecast.marginPct=forecast.margin/Math.max(1,forecast.sales)*100;forecast.netPct=forecast.net/Math.max(1,forecast.sales)*100;
+    forecast.mpPct=forecast.mp/Math.max(1,forecast.sales)*100;forecast.drr=forecast.ad/Math.max(1,forecast.sales)*100;
+    forecast.deductionsPct=(forecast.mp+forecast.ad+forecast.cogs+opexDaily*dayCount+forecast.manual)/Math.max(1,forecast.sales)*100;
+    const remainingDays=Math.max(1,Math.round(dayCount*.24));
+    const planCell=(kind,key)=>{
+      const actual=sum[key],target=plan[key],future=forecast[key],isPct=percentKeys.has(key);
+      let value='—',delta='',stCell='';
+      if(kind==='plan')value=formatMetric(key,target);
+      if(kind==='fact'){value=formatMetric(key,actual);delta='на текущую дату';}
+      if(kind==='delta'){
+        const diff=actual-target;value=formatMetric(key,diff,true);
+        const good=expenseKeys.has(key)?diff<=0:diff>=0;stCell=`color:${good?'#13693F':'#A23F2F'};background:${good?'#F2F8F4':'#FFF5F3'};`;
+        delta=isPct?'п.п. к плану':'к плану';
+      }
+      if(kind==='need'){
+        const gap=target-actual;
+        value=isPct||expenseKeys.has(key)?'—':formatMetric(key,Math.max(0,gap)/remainingDays);
+        delta=value==='—'?'':'на оставшийся день';
+      }
+      if(kind==='done'){
+        if(Math.abs(target)<.01){value=Math.abs(actual)>.01?'вне плана':'—';delta=Math.abs(actual)>.01?'разовый расход':'';stCell=Math.abs(actual)>.01?'color:#A23F2F;background:#FFF5F3;':'';}
+        else{const rate=actual/target*100;value=M.pct(rate,0);delta='выполнено';const good=expenseKeys.has(key)?rate<=100:rate>=100;stCell=`color:${good?'#13693F':'#A23F2F'};`;}
+      }
+      if(kind==='forecast')value=formatMetric(key,future);
+      if(kind==='forecastPct'){
+        if(Math.abs(target)<.01){value=Math.abs(future)>.01?'вне плана':'—';delta=Math.abs(future)>.01?'разовый расход':'';stCell=Math.abs(future)>.01?'color:#A23F2F;':'';}
+        else{const rate=future/target*100;value=M.pct(rate,0);delta='к плану';const good=expenseKeys.has(key)?rate<=100:rate>=100;stCell=`color:${good?'#13693F':'#A23F2F'};`;}
+      }
+      return {value,delta,st:stCell,title:metricDefs.find(d=>d.key===key).help,deltaSt:delta?'':'display:none;'};
+    };
+    const planRows=[
+      {kind:'plan',label:'План',icon:'flag',color:'#6B7B70',tone:'plan'},
+      {kind:'fact',label:'Факт',icon:'done_all',color:'#1B8A57',tone:'fact'},
+      {kind:'delta',label:'Отклонение',icon:'difference',color:'#A16B1F',tone:'delta'},
+      {kind:'need',label:'До цели / день',icon:'speed',color:'#3E6578',tone:'need'},
+      {kind:'done',label:'Выполнено',icon:'percent',color:'#5F7969',tone:'done'},
+      {kind:'forecast',label:'Прогноз',icon:'moving',color:'#A16B1F',tone:'forecast'},
+      {kind:'forecastPct',label:'Прогноз, %',icon:'track_changes',color:'#A16B1F',tone:'forecast'},
+    ].map(row=>({...row,cells:activeKeys.map(key=>planCell(row.kind,key))}));
+    const deltaNet=forecast.net-plan.net,planDeltaPct=deltaNet/Math.max(1,Math.abs(plan.net))*100;
+    const kpiDelta=(text,good)=>`display:inline-flex;border-radius:5px;padding:2px 5px;background:${good?'#DFEEE5':'#F6E2DD'};color:${good?'#13693F':'#A23F2F'};font:700 9.5px 'JetBrains Mono',monospace;`;
+    const kpis=[
+      {label:'Продажи',value:M.fmtM(sum.sales)+' ₽',delta:M.spct(totalComparison,1),note:'к прошлому периоду',icon:'payments',color:'#3E6578',valueColor:'#17231C',accent:'#3E6578',good:true},
+      {label:'Маржа',value:M.fmtM(sum.margin)+' ₽',delta:M.pct(sum.marginPct,1),note:'от продаж',icon:'donut_large',color:'#1B8A57',valueColor:sum.margin<0?'#A23F2F':'#17231C',accent:'#1B8A57',good:sum.margin>=0},
+      {label:'Чистая прибыль',value:M.fmtM(sum.net)+' ₽',delta:M.spct(totalComparison*1.18,1),note:'к прошлому периоду',icon:'savings',color:sum.net<0?'#B0432F':'#13693F',valueColor:sum.net<0?'#A23F2F':'#13693F',accent:sum.net<0?'#B0432F':'#13693F',good:sum.net>=0},
+      {label:'Все вычеты',value:M.pct(sum.deductionsPct,1),delta:M.spct(-1.8,1),note:'доля в продажах',icon:'receipt_long',color:'#9A6414',valueColor:'#17231C',accent:'#C18A32',good:true},
+    ].map(k=>({...k,st:`--kpi-accent:${k.accent};`,deltaSt:kpiDelta(k.delta,k.good)}));
+    const dayLabel=dayCount%10===1&&dayCount%100!==11?'день':dayCount%10>=2&&dayCount%10<=4&&(dayCount%100<10||dayCount%100>=20)?'дня':'дней';
+    return {
+      finSummaryPeriod:period.label,finSummaryFresh:'закрытый отчёт WB по 20 июл · реклама 07:42 · себестоимость CSV 05.07',
+      finSummaryCompare:st.finSummaryCompare,finSummaryCompareLabel:st.finSummaryCompare?'Сравнение включено':'Без сравнения',
+      finSummaryCompareSt:st.finSummaryCompare?'background:rgba(127,197,158,.19);border-color:rgba(127,197,158,.48);color:#fff;':'',
+      finSummaryCompareToggle:()=>this.setState(s=>({finSummaryCompare:!s.finSummaryCompare})),
+      finSummaryDense:st.finSummaryDense,finSummaryDensityLabel:st.finSummaryDense?'Компактно':'Свободно',
+      finSummaryDensityToggle:()=>this.setState(s=>({finSummaryDense:!s.finSummaryDense})),
+      finSummaryExport:()=>this.toast('Сводный XLSX сформирован: ежедневный факт + план/факт'),
+      finSummaryKpis:kpis,
+      finSummaryMetricViews:Object.entries(views).map(([id,view])=>({label:view.label,pressed:st.finSummaryView===id,go:()=>this.setState({finSummaryView:id}),st:st.finSummaryView===id?'background:#fff;color:#17231C;box-shadow:0 1px 4px rgba(23,35,28,.12);':''})),
+      finSummaryGroups:summaryGroups,finDailyHeads:activeDefs,finDailyRows:dailyRows,finDailyTotalCells:totalCells,
+      finSummaryColspan:activeKeys.length+1,finSummaryTableSt:`min-width:${Math.max(760,150+activeKeys.length*108)}px;--summary-row-height:${st.finSummaryDense?'34':'44'}px;`,
+      finDailyCount:`${dayCount} ${dayLabel}`,
+      finPlanRows:planRows,finPlanUpdated:`план обновлён 05.07 · ${remainingDays} дн. до контрольной точки`,
+      finPlanInsight:`При сохранении текущего темпа прогноз чистой прибыли ${deltaNet>=0?'выше':'ниже'} плана на ${M.fmtSR(deltaNet)} (${M.spct(planDeltaPct,1)}). Разовый расход учтён и не размазан по обычным дням.`,
     };
   }
 
@@ -3852,7 +4265,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    return { ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vRegionalLogi(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
+    return { ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vFinSummary(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vRegionalLogi(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
   }
 }
 </script>
