@@ -709,6 +709,40 @@
   border: 4px solid #fff;
   border-radius: 3px;
 }
+.ct-studio-prompt {
+  width: 100%;
+  min-width: 0;
+  background: #fff;
+  padding: 18px;
+  border: 1px solid #d9e3d1;
+  border-radius: 8px;
+}
+.ct-studio-prompt h3 {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+.ct-studio-prompt > p {
+  font-size: 11px;
+  color: #718168;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.ct-studio-prompt textarea {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.ct-studio-prompt > small {
+  display: block;
+  margin-top: 12px;
+  font-size: 10px;
+  color: #7d8c73;
+  line-height: 1.7;
+}
+.ct-prompt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 .ct-canvas-bottom {
   flex-wrap: wrap;
   justify-content: center;

@@ -83,6 +83,68 @@ export function infographicSVG(
 }
 export const svgURL = (svg) =>
   "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+
+export function infographicProductDescription(card) {
+  return (
+    card.description?.trim() ||
+    [
+      card.title,
+      card.category && "Категория: " + card.category,
+      card.composition && "Состав: " + card.composition,
+      ...(card.attributes || [])
+        .filter((a) => a.value.trim())
+        .map((a) => a.name + ": " + a.value),
+    ]
+      .filter(Boolean)
+      .join("\n")
+  );
+}
+
+export function buildInfographicPrompt(card, options = {}) {
+  const palette = {
+    sage: "светлый шалфейный фон, тёмно-зелёный текст",
+    sand: "песочный фон, тёмно-коричневый текст",
+    ink: "графитовый зелёный фон, светлый текст",
+  };
+  return [
+    "Создай товарную инфографику: вертикальное изображение 900 × 1200 px, формат 3:4.",
+    "ТОВАР: " + card.title,
+    "ОПИСАНИЕ ТОВАРА:\n" +
+      (options.productDescription ?? infographicProductDescription(card)),
+    "ХАРАКТЕРИСТИКИ:\n" +
+      [
+        card.category && "Категория: " + card.category,
+        card.brand && "Бренд: " + card.brand,
+        card.composition && "Состав: " + card.composition,
+        card.measurements && "Замеры: " + card.measurements,
+        ...(card.attributes || [])
+          .filter((a) => a.value.trim())
+          .map((a) => a.name + ": " + a.value),
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    "КОМПОЗИЦИЯ: " +
+      (options.layout === "details"
+        ? "акцент на деталях изделия; подписи рядом с соответствующими элементами"
+        : "товар крупно в центре, заголовок сверху, подпись снизу") +
+      ".",
+    "ПАЛИТРА: " + (palette[options.palette] || palette.sage) + ".",
+    "ТЕКСТ НА ИЗОБРАЖЕНИИ:\nЗаголовок: " +
+      (options.headline || card.title) +
+      "\nПодпись: " +
+      (options.caption ?? "Детали и посадка"),
+    options.instructions?.trim()
+      ? "ПОЖЕЛАНИЯ К ИЗОБРАЖЕНИЮ:\n" + options.instructions.trim()
+      : "",
+    options.photo
+      ? "ИСТОЧНИК: приложенное фото товара. Сохрани его форму, цвет, фактуру, пропорции и детали."
+      : "ИСТОЧНИК: описание и характеристики. Фото товара не приложено; точное внешнее сходство не подтверждено.",
+    "Не выдумывай состав, размеры, комплектацию, свойства и преимущества. При противоречиях между описанием, характеристиками и фото запроси уточнение. Не добавляй надписи, кроме указанных заголовка и подписи. Текст на русском, контрастный и читаемый, без наложения на важные детали товара.",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
+
 export function makeImage(card, options = {}) {
   return {
     id: uid(),
@@ -90,6 +152,13 @@ export function makeImage(card, options = {}) {
     alt: options.headline || card.title,
     svg: infographicSVG(card, options),
     source: "template",
+    ...(options.prompt
+      ? {
+          prompt: options.prompt,
+          productDescription:
+            options.productDescription ?? infographicProductDescription(card),
+        }
+      : {}),
   };
 }
 const snapshotContent = (c) =>

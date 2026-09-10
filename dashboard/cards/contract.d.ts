@@ -13,6 +13,9 @@ export interface CardImage {
   /** Prototype only. Production should use managed asset URLs/IDs. */
   svg?: string;
   src?: string;
+  /** Exact prompt and product description used by the infographic studio. */
+  prompt?: string;
+  productDescription?: string;
 }
 export interface CardContent {
   category: string;

@@ -9,6 +9,8 @@ import {
   EXCEL_HEADERS,
   exportRows,
   parseExcelRows,
+  infographicProductDescription,
+  buildInfographicPrompt,
 } from "./content-store.js";
 import {
   createContentGenerator,
@@ -888,6 +890,9 @@ export function createCardsWorkspace(
       [caption, setCaption] = React.useState("Детали и посадка"),
       [palette, setPalette] = React.useState("sage"),
       [layout, setLayout] = React.useState("cover"),
+      [descriptions, setDescriptions] = React.useState({}),
+      [instructions, setInstructions] = React.useState(""),
+      [copied, setCopied] = React.useState(false),
       [result, setResult] = React.useState(null),
       [error, setError] = React.useState(""),
       [busy, setBusy] = React.useState(false),
@@ -900,26 +905,57 @@ export function createCardsWorkspace(
       palette,
       layout,
       photo: card.images.find((i) => i.src)?.src || "",
+      productDescription:
+        descriptions[card.id] ?? infographicProductDescription(card),
+      instructions,
     };
-    const preview = result?.images[0] || makeImage(card, options);
+    const resultIndex = result
+      ? Math.max(
+          0,
+          result.cards.findIndex((c) => c.id === card.id),
+        )
+      : 0;
+    const preview = result?.images[resultIndex] || makeImage(card, options);
+    const prompt = result
+      ? preview.prompt
+      : buildInfographicPrompt(card, options);
     const change = (setter) => (value) => {
       setter(value);
       setResult(null);
+      setCopied(false);
+      setError("");
     };
     const generate = () => {
       const targets =
         bulk && selection.length
           ? cards.filter((c) => selection.includes(c.id))
           : [card];
+      if (
+        targets.some(
+          (c) =>
+            !(descriptions[c.id] ?? infographicProductDescription(c)).trim(),
+        )
+      ) {
+        setError("Заполните описание товара для каждой инфографики.");
+        return;
+      }
+      setError("");
+      setCopied(false);
       setResult({
         cards: targets,
-        images: targets.map((c) =>
-          makeImage(c, {
+        images: targets.map((c) => {
+          const settings = {
             ...options,
             headline: targets.length > 1 ? c.title : options.headline,
             photo: c.images.find((i) => i.src)?.src || "",
-          }),
-        ),
+            productDescription:
+              descriptions[c.id] ?? infographicProductDescription(c),
+          };
+          return makeImage(c, {
+            ...settings,
+            prompt: buildInfographicPrompt(c, settings),
+          });
+        }),
       });
     };
     async function save() {
@@ -959,10 +995,50 @@ export function createCardsWorkspace(
                 setId(e.target.value);
                 setHeadline("");
                 setResult(null);
+                setCopied(false);
+                setError("");
               },
             },
             cards.map((c) => h("option", { value: c.id, key: c.id }, c.title)),
           ),
+        ),
+        field(
+          "Описание товара для инфографики",
+          options.productDescription,
+          (value) =>
+            change(setDescriptions)({ ...descriptions, [card.id]: value }),
+          {
+            area: true,
+            rows: 6,
+            maxLength: 3000,
+            placeholder:
+              "Что за товар, как выглядит, материал, цвет, форма, важные детали и комплектация",
+          },
+        ),
+        h(
+          "p",
+          { className: "cw-footnote" },
+          "Описание взято из карточки. Уточните детали для промпта — исходный текст карточки не изменится.",
+        ),
+        btn(
+          "Взять описание из карточки",
+          () =>
+            change(setDescriptions)({
+              ...descriptions,
+              [card.id]: infographicProductDescription(card),
+            }),
+          "cw-text-button",
+        ),
+        field(
+          "Пожелания к изображению",
+          instructions,
+          change(setInstructions),
+          {
+            area: true,
+            rows: 3,
+            maxLength: 1500,
+            placeholder: "Фон, ракурс, детали, на которых нужен акцент",
+          },
         ),
         field("Заголовок", headline, change(setHeadline), {
           placeholder: card.title,
@@ -1012,6 +1088,7 @@ export function createCardsWorkspace(
                 onChange: (e) => {
                   setBulk(e.target.checked);
                   setResult(null);
+                  setCopied(false);
                 },
               }),
               "Применить стиль к выбранным: " + selection.length,
@@ -1058,6 +1135,50 @@ export function createCardsWorkspace(
           btn("Добавить в карточки", save, "cw-primary", {
             disabled: !result || busy,
           }),
+        ),
+        h(
+          "section",
+          { className: "ct-studio-prompt" },
+          h("h3", null, "Промпт для генерации"),
+          h(
+            "p",
+            null,
+            result
+              ? "Промпт сохранится вместе с изображением: " +
+                  result.cards[resultIndex].title
+              : "Собирается из описания товара, характеристик и настроек макета.",
+          ),
+          field("Промпт для инфографики", prompt, () => {}, {
+            area: true,
+            rows: 12,
+            readOnly: true,
+          }),
+          h(
+            "div",
+            { className: "ct-prompt-actions" },
+            btn(copied ? "Скопировано" : "Копировать промпт", async () => {
+              try {
+                await navigator.clipboard.writeText(prompt);
+                setCopied(true);
+              } catch {
+                setError(
+                  "Не удалось скопировать. Выделите текст промпта или скачайте TXT.",
+                );
+              }
+            }),
+            btn("Скачать TXT", () =>
+              saveFile(
+                prompt,
+                "Промпт-инфографики.txt",
+                "text/plain;charset=utf-8",
+              ),
+            ),
+          ),
+          h(
+            "small",
+            null,
+            "В моке формируется промпт и шаблонный макет. Интерпретация описания и пожеланий изображением требует подключения модели.",
+          ),
         ),
       ),
       h(
