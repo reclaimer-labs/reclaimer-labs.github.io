@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<link rel="stylesheet" href="./cards/workspace.css">
+<link rel="stylesheet" href="./cards/content-workspace.css">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -1495,104 +1497,11 @@
       <!-- ============ КАРТОЧКИ ============ -->
       <sc-if value="{{ isCards }}" hint-placeholder-val="{{ false }}">
         <section class="cards-section" data-screen-label="Карточки" style="padding:20px 24px 40px;max-width:1560px;margin:0 auto;animation:rise .3s cubic-bezier(.2,.7,.2,1);">
-          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
-          <div class="cards-subnav">
-            <sc-for list="{{ cardsTabs }}" as="tab" hint-placeholder-count="3">
-              <button type="button" onClick="{{ tab.go }}" class="cards-subnav__button" style="{{ tab.st }}"><span style="font-family:'Material Symbols Rounded';font-size:16px;">{{ tab.icon }}</span>{{ tab.label }}</button>
-            </sc-for>
-          </div>
-            <div style="display:flex;align-items:center;gap:6px;color:#7A857C;font:600 9.5px 'JetBrains Mono',monospace;"><span style="width:6px;height:6px;border-radius:50%;background:#1B8A57;"></span>WB Content API · 07:42</div>
-          </div>
-
-          <sc-if value="{{ cardsOverview }}" hint-placeholder-val="{{ true }}">
-            <div class="cards-command">
-              <div class="cards-command__score"><span style="font:850 23px 'JetBrains Mono',monospace;letter-spacing:-.06em;">{{ cardsHealthScore }}</span><span style="font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;">из 100</span></div>
-              <div class="cards-command__copy" style="min-width:0;">
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:16px;font-weight:850;">Контент-центр</span><span style="border-radius:6px;background:#F4E8D2;color:#7C5215;padding:3px 7px;font:750 9px 'JetBrains Mono',monospace;">{{ cardsUrgentCount }} СРОЧНО</span></div>
-                <div style="max-width:610px;margin-top:4px;color:#AFC6B7;font-size:11.5px;line-height:1.45;">Марк собрал карточки в порядке влияния на продажи. Начните с первых трёх — остальное можно не трогать сегодня.</div>
-              </div>
-              <div class="cards-command__actions">
-                <button type="button" onClick="{{ cardsQueueOpen }}" class="cards-secondary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">checklist</span>Разобрать очередь</button>
-                <button type="button" onClick="{{ cdNew }}" class="cards-primary"><span style="font-family:'Material Symbols Rounded';font-size:16px;">auto_awesome</span>Новая с ИИ</button>
-              </div>
-            </div>
-
-            <div class="cards-kpis">
-              <sc-for list="{{ cardsOverviewKpis }}" as="kpi" hint-placeholder-count="4">
-                <button type="button" onClick="{{ kpi.go }}" class="cards-kpi">
-                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;"><span style="font:700 9px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#819087;">{{ kpi.label }}</span><span style="font-family:'Material Symbols Rounded';font-size:16px;color:{{ kpi.color }};">{{ kpi.icon }}</span></div>
-                  <div style="display:flex;align-items:baseline;gap:7px;margin-top:8px;"><span style="font:800 21px 'JetBrains Mono',monospace;letter-spacing:-.04em;color:{{ kpi.valueColor }};">{{ kpi.value }}</span><span style="font-size:10px;color:#7A857C;">{{ kpi.unit }}</span></div>
-                  <div style="margin-top:5px;font-size:10.5px;color:#65736A;">{{ kpi.note }}</div>
-                </button>
-              </sc-for>
-            </div>
-
-            <div class="cards-overview-grid">
-              <div class="cards-panel">
-                <div class="cards-panel__head">
-                  <div><div style="font-size:13.5px;font-weight:850;">Что сделать сегодня</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">Очередь рассчитана по риску, позиции и полноте контента</div></div>
-                  <button type="button" onClick="{{ cardsQueueOpen }}" style="appearance:none;border:0;background:transparent;color:#13693F;font:750 10.5px 'Onest',sans-serif;cursor:pointer;">Весь каталог →</button>
-                </div>
-                <sc-for list="{{ cardsTasks }}" as="task" hint-placeholder-count="4">
-                  <div onClick="{{ task.open }}" class="cards-task" role="button" tabindex="0">
-                    <span class="cards-task__rank" style="{{ task.rankSt }}">{{ task.rank }}</span>
-                    <div style="display:flex;align-items:center;gap:9px;min-width:0;"><span style="{{ task.tileSt }}">{{ task.mono }}</span><span style="min-width:0;"><span style="display:block;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ task.title }}</span><span style="display:block;font-size:10.5px;color:#7A857C;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ task.reason }}</span></span></div>
-                    <div class="cards-task__impact"><div style="font:700 9px 'JetBrains Mono',monospace;text-transform:uppercase;color:#8C968E;">Эффект</div><div style="font-size:11px;font-weight:750;color:{{ task.impactColor }};margin-top:3px;">{{ task.impact }}</div></div>
-                    <div class="cards-task__meta"><div style="font-size:10.5px;font-weight:700;">{{ task.owner }}</div><div style="font:600 9px 'JetBrains Mono',monospace;color:#8C968E;margin-top:3px;">{{ task.due }}</div></div>
-                    <button type="button" onClick="{{ task.act }}" class="cards-task__action"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ task.actionIcon }}</span>{{ task.action }}</button>
-                  </div>
-                </sc-for>
-              </div>
-
-              <aside class="cards-panel">
-                <div class="cards-panel__head"><div><div style="font-size:13.5px;font-weight:850;">Покрытие контентом</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">По опубликованным карточкам</div></div><span style="font:800 12px 'JetBrains Mono',monospace;color:#13693F;">{{ cardsCoverageTotal }}</span></div>
-                <div class="cards-coverage">
-                  <sc-for list="{{ cardsCoverage }}" as="item" hint-placeholder-count="4">
-                    <div class="cards-coverage__row"><span style="font-size:10.5px;font-weight:700;color:#536158;">{{ item.label }}</span><span class="cards-progress"><span style="{{ item.barSt }}"></span></span><span style="font:700 10px 'JetBrains Mono',monospace;text-align:right;color:{{ item.color }};">{{ item.value }}</span></div>
-                  </sc-for>
-                </div>
-                <div class="cards-draft">
-                  <div style="display:flex;align-items:center;gap:7px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">edit_document</span><span style="font-size:11.5px;font-weight:800;">Черновик «Жакет Лея»</span><span style="margin-left:auto;font:700 9px 'JetBrains Mono',monospace;color:#13693F;">14/14</span></div>
-                  <div style="font-size:10px;color:#6C786F;margin-top:5px;">Атрибуты готовы · осталось собрать фото</div>
-                  <button type="button" onClick="{{ cardsDraftContinue }}" style="appearance:none;width:100%;margin-top:9px;border:1px solid rgba(27,138,87,.28);border-radius:8px;background:#fff;color:#13693F;padding:7px 9px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;">Продолжить в инфографике →</button>
-                </div>
-              </aside>
-            </div>
+          {{ cardsWorkspace }}
+          <sc-if value="{{ cardsInfographic }}">
+            <button type="button" onClick="{{ cardsStudioBack }}" class="cards-primary" style="margin-bottom:10px;">← Вернуться к карточкам</button>
+            <span style="font-size:11px;color:#7A857C;margin-left:12px;">Демо-студия · результат не публикуется в WB</span>
           </sc-if>
-
-          <sc-if value="{{ cardsCatalog }}" hint-placeholder-val="{{ false }}">
-            <div class="cards-catalog-head">
-              <div><div style="font-size:14px;font-weight:850;">Каталог карточек</div><div style="font-size:10.5px;color:#7A857C;margin-top:3px;">{{ cdCatalogSummary }}</div></div>
-              <div class="cards-catalog-tools">
-                <label class="cards-search"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#8C968E;">search</span><input value="{{ cdQuery }}" onChange="{{ cdSearchChange }}" placeholder="Название или артикул"></label>
-                <select class="cards-select" value="{{ cdSort }}" onChange="{{ cdSortChange }}" aria-label="Сортировка карточек"><sc-for list="{{ cdSortOptions }}" as="option" hint-placeholder-count="3"><option value="{{ option.id }}">{{ option.label }}</option></sc-for></select>
-                <button type="button" onClick="{{ cdNew }}" class="cards-primary" style="padding:9px 11px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;">add</span>Создать</button>
-                <button type="button" onClick="{{ cdImport }}" style="appearance:none;height:35px;border:1px solid rgba(23,35,28,.12);border-radius:9px;background:#fff;color:#38443B;padding:0 10px;font:750 10.5px 'Onest',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;">upload_file</span>Импорт</button>
-              </div>
-            </div>
-            <div class="cards-filterbar">
-              <sc-for list="{{ cdFilters }}" as="filter" hint-placeholder-count="5"><button type="button" onClick="{{ filter.go }}" class="cards-filter" aria-pressed="{{ filter.pressed }}" style="{{ filter.st }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ filter.icon }}</span>{{ filter.label }}<span style="font:700 9px 'JetBrains Mono',monospace;color:#8C968E;">{{ filter.count }}</span></button></sc-for>
-            </div>
-            <sc-if value="{{ cdHasSelection }}" hint-placeholder-val="{{ false }}">
-              <div class="cards-bulkbar"><span style="font:800 10.5px 'JetBrains Mono',monospace;white-space:nowrap;">Выбрано: {{ cdSelectedCount }}</span><button type="button" onClick="{{ cdClone }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">content_copy</span>Клонировать</button><button type="button" onClick="{{ cdMass }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">edit_note</span>Массовые правки</button><button type="button" onClick="{{ cdMerge }}"><span style="font-family:'Material Symbols Rounded';font-size:14px;">merge</span>{{ cdMergeLabel }}</button><button type="button" onClick="{{ cdClearSelection }}" style="margin-left:auto;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">close</span>Снять выбор</button></div>
-            </sc-if>
-            <div class="cards-table-scroll">
-              <div class="cards-grid-head"><button type="button" onClick="{{ cdSelectVisible }}" class="cards-check" title="Выбрать видимые карточки">{{ cdSelectVisibleIcon }}</button><span>Карточка</span><span>Качество</span><span>Контент</span><span>Поиск</span><span>Главная проблема</span><span>Следующий шаг</span></div>
-              <sc-if value="{{ cdNoRows }}" hint-placeholder-val="{{ false }}"><div class="cards-empty"><span style="font-family:'Material Symbols Rounded';font-size:32px;color:#AAB5AD;">search_off</span><div style="font-size:14px;font-weight:800;color:#38443B;margin-top:7px;">Карточки не найдены</div><div style="font-size:11px;margin-top:4px;">Очистите поиск или выберите другой фильтр.</div><button type="button" onClick="{{ cdReset }}" class="cards-primary" style="margin-top:12px;">Сбросить фильтры</button></div></sc-if>
-              <sc-for list="{{ cdRows }}" as="r" hint-placeholder-count="8">
-                <div onClick="{{ r.open }}" class="cards-row" role="button" tabindex="0">
-                  <div class="cards-row__select"><button type="button" onClick="{{ r.toggle }}" class="cards-check" title="Выбрать карточку" style="{{ r.selectSt }}">{{ r.selectIcon }}</button></div>
-                  <div class="cards-row__product" style="display:flex;align-items:center;gap:9px;min-width:0;"><span style="{{ r.tileSt }}">{{ r.mono }}</span><span style="min-width:0;"><span style="display:flex;align-items:center;gap:6px;"><span style="font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</span><span style="{{ r.statusSt }}">{{ r.statusLabel }}</span></span><span style="display:block;font:600 9.5px 'JetBrains Mono',monospace;color:#8C968E;margin-top:3px;">{{ r.nm }}</span></span></div>
-                  <div class="cards-row__quality cards-quality"><span class="cards-quality__ring" style="{{ r.qualitySt }}"><span>{{ r.q }}</span></span><span style="font-size:9.5px;color:#7A857C;">{{ r.qualityLabel }}</span></div>
-                  <div class="cards-row__content cards-content-list"><sc-for list="{{ r.content }}" as="item" hint-placeholder-count="4"><span class="cards-content-chip" title="{{ item.title }}" style="{{ item.st }}"><span style="font-family:'Material Symbols Rounded';font-size:12px;">{{ item.icon }}</span>{{ item.value }}</span></sc-for></div>
-                  <div class="cards-row__search"><div style="font:700 10.5px 'JetBrains Mono',monospace;color:#38443B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.pos }}</div><div style="font:650 9px 'JetBrains Mono',monospace;color:{{ r.trendColor }};margin-top:4px;">{{ r.trend }}</div></div>
-                  <div class="cards-row__issues cards-issue-summary"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ r.issueColor }};">{{ r.issueIcon }}</span><span style="min-width:0;"><span style="display:block;font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.mainIssue }}</span><span style="display:block;font-size:9.5px;color:#8C968E;margin-top:3px;">{{ r.issueCountLabel }}</span></span></div>
-                  <div class="cards-row__action"><button type="button" onClick="{{ r.act }}" class="cards-row-action"><span style="font-family:'Material Symbols Rounded';font-size:14px;">{{ r.actionIcon }}</span>{{ r.actLabel }}</button></div>
-                </div>
-              </sc-for>
-            </div>
-          </sc-if>
-
           <sc-if value="{{ cardsInfographic }}" hint-placeholder-val="{{ false }}">
             <div class="info-command">
               <div class="info-command__icon">auto_fix_high</div>
@@ -2102,7 +2011,7 @@
                       <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">input</span><span style="font-size:12px;font-weight:820;">Откуда взять данные</span></div><div class="pipeline-card__body">
                         <div class="pipeline-choice-grid"><sc-for list="{{ ncSources }}" as="source" hint-placeholder-count="3"><button type="button" onClick="{{ source.pick }}" class="pipeline-choice" style="{{ source.st }}"><span class="pipeline-choice__icon">{{ source.icon }}</span><span class="pipeline-choice__title">{{ source.title }}</span><span class="pipeline-choice__sub">{{ source.sub }}</span></button></sc-for></div>
                         <div class="pipeline-upload"><span style="width:40px;height:40px;border-radius:11px;background:#DDEEE3;color:#13693F;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:21px;">photo_library</span><span style="min-width:0;flex:1;"><span style="display:block;font-size:11.5px;font-weight:800;">{{ ncUploadTitle }}</span><span style="display:block;margin-top:3px;color:#708078;font-size:9.5px;">JPG, PNG или HEIC · до 10 МБ · {{ ncPhotosLabel }}</span></span><button type="button" onClick="{{ ncAddPhoto }}" class="pipeline-btn pipeline-btn--ghost" style="min-height:32px;padding:0 10px;">Добавить фото</button></div>
-                        <div class="pipeline-form-grid"><label class="pipeline-field"><span class="pipeline-label">Артикул продавца *</span><input class="pipeline-input" value="{{ ncVendor }}" onChange="{{ ncVendorChange }}"></label><label class="pipeline-field"><span class="pipeline-label">Бренд *</span><input class="pipeline-input" value="{{ ncBrand }}" onChange="{{ ncBrandChange }}"></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Категория WB *</span><select class="pipeline-select" value="{{ ncCategory }}" onChange="{{ ncCategoryChange }}"><sc-for list="{{ ncCategories }}" as="category" hint-placeholder-count="4"><option value="{{ category.id }}">{{ category.label }}</option></sc-for></select></label></div>
+                        <div class="pipeline-form-grid"><label class="pipeline-field"><span class="pipeline-label">Артикул продавца *</span><input class="pipeline-input" value="{{ ncVendor }}" onChange="{{ ncVendorChange }}"></label><label class="pipeline-field"><span class="pipeline-label">Бренд *</span><input class="pipeline-input" value="{{ ncBrand }}" onChange="{{ ncBrandChange }}"></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Категория WB *</span><select class="pipeline-select" value="{{ ncCategory }}" onChange="{{ ncCategoryChange }}"><sc-for list="{{ ncCategories }}" as="category" hint-placeholder-count="4"><option value="{{ category.id }}">{{ category.label }}</option></sc-for></select></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Дополнительная информация для Марка</span><textarea class="pipeline-textarea" value="{{ ncAdditionalInfo }}" onChange="{{ ncAdditionalInfoChange }}" placeholder="Например: состав от поставщика, особенности посадки, сезон, аудитория, важные преимущества…" style="min-height:92px;"></textarea><span style="display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7A857C;font-size:8.5px;"><span>Марк учтёт текст при распознавании, SEO и описании</span><span style="font-family:'JetBrains Mono',monospace;">{{ ncAdditionalInfoCount }}</span></span></label></div>
                       </div></div>
                       <aside><div class="pipeline-aside-note"><div class="pipeline-kicker" style="color:#7FC59E;">Что сделает Марк</div><div style="font-size:12.5px;font-weight:820;margin-top:8px;">Разберёт исходники за 40–60 секунд</div><div style="font-size:10px;line-height:1.5;color:#AFC6B7;margin-top:6px;">Определит товар, материал и цвет, сверит категорию, соберёт SEO-черновик и отметит недостающие ракурсы.</div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Перед продолжением</div><div class="pipeline-checklist" style="margin-top:9px;"><sc-for list="{{ ncSourceChecks }}" as="check" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:7px;font-size:10.5px;"><span style="font-family:'Material Symbols Rounded';font-size:15px;color:{{ check.color }};">{{ check.icon }}</span>{{ check.label }}</div></sc-for></div></div></div></aside>
                     </div>
@@ -2111,8 +2020,8 @@
                   <sc-if value="{{ ncIsRecognition }}" hint-placeholder-val="{{ false }}">
                     <div class="pipeline-workspace">
                       <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">document_scanner</span><span style="font-size:12px;font-weight:820;">Результат распознавания</span><span style="margin-left:auto;border-radius:6px;background:#E8F3EC;color:#13693F;padding:4px 7px;font:750 8.5px 'JetBrains Mono',monospace;">AI · HIGH CONFIDENCE</span></div><div class="pipeline-card__body">
-                        <div class="pipeline-recognition"><div class="pipeline-score"><span style="font:850 23px 'JetBrains Mono',monospace;">98%</span><span style="font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;">уверенность</span></div><div><div style="font-size:14px;font-weight:850;">Жакет женский оверсайз</div><div style="font-size:10px;color:#708078;margin-top:4px;line-height:1.45;">Лён / вискоза · бежевый · прямой крой · летняя коллекция</div><div class="pipeline-seo"><span>жакет</span><span>лён</span><span>оверсайз</span><span>летний</span></div></div></div>
-                        <div style="margin-top:10px;"><sc-for list="{{ ncRecognizedFields }}" as="field" hint-placeholder-count="6"><div class="pipeline-data-row"><span style="color:#7A857C;">{{ field.label }}</span><span style="font-weight:750;text-align:right;">{{ field.value }}</span></div></sc-for></div>
+                        <div class="pipeline-recognition"><div class="pipeline-score"><span style="font:850 23px 'JetBrains Mono',monospace;">98%</span><span style="font:750 8px 'JetBrains Mono',monospace;text-transform:uppercase;">уверенность</span></div><div><div style="font-size:14px;font-weight:850;">{{ ncSubject }}</div><div style="font-size:10px;color:#708078;margin-top:4px;line-height:1.45;">{{ ncRecognitionSummary }}</div><div class="pipeline-seo"><sc-for list="{{ ncRecognitionTags }}" as="tag" hint-placeholder-count="4"><span>{{ tag.label }}</span></sc-for></div></div></div>
+                        <div class="pipeline-form-grid"><sc-for list="{{ ncRecognizedFields }}" as="field" hint-placeholder-count="6"><label class="pipeline-field"><span class="pipeline-label">{{ field.label }}</span><input class="pipeline-input" value="{{ field.value }}" onChange="{{ field.change }}"></label></sc-for></div>
                       </div></div>
                       <aside><button type="button" onClick="{{ ncApproveRecognition }}" class="pipeline-toggle" style="{{ ncApproveRecognitionSt }}"><span class="pipeline-toggle__icon" style="color:{{ ncApproveColor }};">{{ ncApproveIcon }}</span><span><span style="display:block;font-size:11px;font-weight:800;">Подтверждаю распознавание</span><span style="display:block;font-size:9.5px;color:#7A857C;margin-top:3px;">Категория, материал и цвет определены верно</span></span></button><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Источник сравнения</div><div style="font-size:10.5px;line-height:1.5;margin-top:7px;">32 лидера категории «Жакеты» · данные WB Content API · обновлено сегодня 07:42.</div></div></div></aside>
                     </div>
@@ -2121,10 +2030,10 @@
                   <sc-if value="{{ ncIsContent }}" hint-placeholder-val="{{ false }}">
                     <div class="pipeline-workspace">
                       <div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:17px;color:#1B8A57;">edit_note</span><span style="font-size:12px;font-weight:820;">Текст карточки</span><span style="margin-left:auto;color:#7A857C;font:650 8.5px 'JetBrains Mono',monospace;">можно редактировать</span></div><div class="pipeline-card__body">
-                        <div class="pipeline-form-grid" style="margin-top:0;"><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Название *</span><input class="pipeline-input" value="{{ ncTitle }}" onChange="{{ ncTitleChange }}"><span style="text-align:right;color:{{ ncTitleCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncTitleCount }}</span></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Описание *</span><textarea class="pipeline-textarea" onChange="{{ ncDescriptionChange }}">{{ ncDesc }}</textarea><span style="text-align:right;color:{{ ncDescCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncDescCount }}</span></label></div>
-                        <div class="pipeline-kicker" style="margin-top:14px;">Характеристики</div><div style="margin-top:6px;"><sc-for list="{{ ncAttrs }}" as="a" hint-placeholder-count="5"><div class="pipeline-data-row"><span style="color:#7A857C;">{{ a.k }}</span><span style="font-weight:700;">{{ a.v }}</span></div></sc-for></div>
+                        <div class="pipeline-form-grid" style="margin-top:0;"><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Название *</span><input class="pipeline-input" value="{{ ncTitle }}" onChange="{{ ncTitleChange }}"><span style="text-align:right;color:{{ ncTitleCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncTitleCount }}</span></label><label class="pipeline-field pipeline-field--wide"><span class="pipeline-label">Описание *</span><textarea class="pipeline-textarea" value="{{ ncDesc }}" onChange="{{ ncDescriptionChange }}"></textarea><span style="text-align:right;color:{{ ncDescCountColor }};font:650 8.5px 'JetBrains Mono',monospace;">{{ ncDescCount }}</span></label></div>
+                        <div class="pipeline-kicker" style="margin-top:14px;">Характеристики · можно менять</div><div class="pipeline-form-grid" style="margin-top:8px;"><sc-for list="{{ ncAttrs }}" as="a" hint-placeholder-count="5"><label class="pipeline-field"><span class="pipeline-label">{{ a.k }}</span><input class="pipeline-input" value="{{ a.v }}" onChange="{{ a.change }}"></label></sc-for></div>
                       </div></div>
-                      <aside><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">search</span><span style="font-size:11.5px;font-weight:820;">SEO-покрытие</span><span style="margin-left:auto;font:800 11px 'JetBrains Mono',monospace;color:#13693F;">92/100</span></div><div class="pipeline-card__body"><div class="pipeline-seo" style="margin-top:0;"><sc-for list="{{ ncSeo }}" as="s" hint-placeholder-count="3"><span>{{ s.t }}</span></sc-for></div><div style="font-size:9.5px;color:#7A857C;line-height:1.45;margin-top:10px;">Фразы распределены естественно. Переспама и запрещённых формулировок не найдено.</div></div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Размеры и баркоды</div><div style="font-size:10.5px;margin-top:7px;">{{ ncSizes }}</div><div style="display:flex;align-items:center;gap:5px;margin-top:8px;color:#13693F;font-size:9.5px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">check_circle</span>Обязательные атрибуты: 14/14</div></div></div></aside>
+                      <aside><div class="pipeline-card"><div class="pipeline-card__head"><span style="font-family:'Material Symbols Rounded';font-size:16px;color:#1B8A57;">search</span><span style="font-size:11.5px;font-weight:820;">SEO-запросы</span><span style="margin-left:auto;font:800 11px 'JetBrains Mono',monospace;color:#13693F;">92/100</span></div><div class="pipeline-card__body"><div style="display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ ncSeo }}" as="s" hint-placeholder-count="3"><label class="pipeline-field"><span style="display:flex;align-items:center;justify-content:space-between;gap:6px;"><span class="pipeline-label">{{ s.label }}</span><span style="color:#13693F;font:700 8px 'JetBrains Mono',monospace;">{{ s.freq }}</span></span><input class="pipeline-input" value="{{ s.value }}" onChange="{{ s.change }}"></label></sc-for></div><div style="font-size:9.5px;color:#7A857C;line-height:1.45;margin-top:10px;">Можно заменить запросы вручную. Частотность останется подсказкой, а не ограничением.</div></div></div><div class="pipeline-card" style="margin-top:9px;"><div class="pipeline-card__body"><div class="pipeline-kicker">Размеры и баркоды · можно менять</div><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><label class="pipeline-field"><span class="pipeline-label">Размерный ряд</span><input class="pipeline-input" value="{{ ncSizes }}" onChange="{{ ncSizesChange }}"></label><label class="pipeline-field"><span class="pipeline-label">Баркоды</span><input class="pipeline-input" value="{{ ncBarcodes }}" onChange="{{ ncBarcodesChange }}"></label></div><div style="display:flex;align-items:center;gap:5px;margin-top:8px;color:#13693F;font-size:9.5px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;">check_circle</span>Обязательные атрибуты: 14/14</div></div></div></aside>
                     </div>
                   </sc-if>
 
@@ -2668,7 +2577,7 @@ class Component extends DCLogic {
     externalDraft:{name:'Telegram · Новый запуск',channel:'Telegram / блогеры',start:'2026-07-22',end:'2026-08-05',budget:'60000',tracking:'utm',skus:{p1:true,p6:true}},
     cardsSel:{}, cardsProblemsOnly:false, cardsTab:'overview', cardsQuery:'', cardsFilter:'all', cardsSort:'priority', cardsInspect:null,
     newCardOpen:false, ncStep:0, ncSource:'photos', ncRecognitionApproved:true, ncPhotos:5, ncRich:true, ncInfo:true, ncPublishMode:'approval', ncSubmitted:false, ncPackageId:'',
-    ncForm:{vendor:'LM-JK-NEW',brand:'LOOMA',category:'Жакеты',title:'Жакет женский оверсайз льняной летний «Лея»',description:'Лёгкий жакет прямого кроя из смесового льна. Держит форму, не мнётся в носке, подходит для офиса и вечерних выходов. Подкладка из вискозы комфортна в жару.'},
+    ncForm:{vendor:'LM-JK-NEW',brand:'LOOMA',category:'Жакеты',additionalInfo:'Новая летняя коллекция. Свободная посадка, акцент на натуральный состав и комфорт в жару. Для офиса и повседневных образов.',subject:'Жакет женский',composition:'55% лён, 45% вискоза',color:'бежевый',fit:'оверсайз · прямой крой',season:'лето · демисезон',length:'68 см',care:'деликатная стирка 30°',sizes:'42–52',barcodes:'6 баркодов сгенерированы',seo1:'жакет женский летний',seo2:'жакет лён',seo3:'пиджак оверсайз женский',title:'Жакет женский оверсайз льняной летний «Лея»',description:'Лёгкий жакет прямого кроя из смесового льна. Держит форму, не мнётся в носке, подходит для офиса и вечерних выходов. Подкладка из вискозы комфортна в жару.'},
     mergeOpen:false, mergePrimary:null, mergeStep:0, mergeSubmitted:false, mergePackageId:'', mergeStrategies:{content:'primary',media:'combine',reviews:'primary',variants:'combine'}, mergeConflicts:{brand:'primary',category:'primary',title:'primary'}, supplyOpen:false,
     infoSku:'new', infoSlide:'cover', infoTemplate:'clean', infoPalette:'sage', infoFormat:'3x4', infoClaims:{fit:true,fabric:true,sizes:true,care:false}, infoGenerating:false, infoGenerated:false,
     importOpen:false, importFileName:'Файл ещё не выбран', importRows:[], importedCards:[],
@@ -2676,6 +2585,7 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
+    import('./cards/content-workspace.js').then(m => { this.CardsWorkspace = m.createCardsWorkspace(React); this.setState({cardsModuleReady:true}); }).catch(e => { this.setState({cardsModuleError:true}); this.toast('Не удалось загрузить вкладку Карточки. Обновите страницу.'); });
     import('./data.js').then(m => {
       this.M = m;
       let finCustomViews=[];
@@ -2685,6 +2595,7 @@ class Component extends DCLogic {
       const start = this.props.startScreen;
       const map = {'Главная':'home','Финансы':'fin','Цены':'prices','Реклама':'ads','Карточки':'cards','Логистика':'logi','Подтверждения':'apps','Настройки':'set'};
       if (start && map[start]) this.setState({ screen: map[start] });
+      if (location.hash === '#cards') this.setState({screen:'cards'});
       if (this.props.demoLive) setTimeout(()=>this.pushLiveEvent(), 18000);
     });
   }
@@ -2842,7 +2753,7 @@ class Component extends DCLogic {
       fin:st.finSection==='summary'?['Финансы · Сводные данные','Пульс всего магазина · факт, расходы, план и прогноз']:['Финансовый центр','Экономика каждого SKU · прибыль прежде всего'],
       prices:['Цены · Price Enforcer','Защита маржи: безопасные цены, правила, нарушения'],
       ads:['Реклама','WB + внешние кампании · прибыль после всех расходов'],
-      cards:['Карточки','Контент, качество, дубли и массовые правки'],
+      cards:['Карточки','Создание, генерация и массовое редактирование контента'],
       logi:['Логистика и фулфилмент','Остатки, поставки, региональный спрос и задачи на сборку'],
       apps:['Центр подтверждений и автопилот','Действия, автоправила и полный аудит в одном контуре'],
       set:['Настройки','Подключение, себестоимость, налоги, автономия Марка'],
@@ -2885,7 +2796,7 @@ class Component extends DCLogic {
       periodRangeErrorSt:st.periodRangeError?'margin-top:8px;border-radius:8px;background:#F6E2DD;color:#9E3B2B;padding:7px 9px;font-size:10.5px;font-weight:650;':'display:none;',
       periodApply:this.applyCustomPeriod,
       periodApplySt:draftValid?'':'background:#C9D2CB;color:#F7FAF7;cursor:not-allowed;',
-      sourceFresh:st.screen==='ads'&&st.adsView==='external'?'WB + внешние · 07:42':'WB · 07:42',
+      sourceFresh:st.screen==='cards'?'Демо':st.screen==='ads'&&st.adsView==='external'?'WB + внешние · 07:42':'WB · 07:42',
       openChat: ()=>this.setState({chatOpen:true}),
       searchQ: st.searchQ,
       searchInput: (e)=>this.setState({searchQ:e.target.value}),
@@ -4345,15 +4256,15 @@ class Component extends DCLogic {
     ];
     const ncStepValid=[
       st.ncPhotos>0&&!!st.ncForm.vendor.trim()&&!!st.ncForm.brand.trim()&&!!st.ncForm.category,
-      !!st.ncRecognitionApproved,
-      st.ncForm.title.trim().length>=20&&st.ncForm.description.trim().length>=120,
+      !!st.ncRecognitionApproved&&!!st.ncForm.subject.trim()&&!!st.ncForm.composition.trim()&&!!st.ncForm.color.trim(),
+      st.ncForm.title.trim().length>=20&&st.ncForm.description.trim().length>=120&&!!st.ncForm.composition.trim()&&!!st.ncForm.color.trim()&&!!st.ncForm.length.trim()&&!!st.ncForm.season.trim()&&!!st.ncForm.care.trim()&&!!st.ncForm.sizes.trim()&&!!st.ncForm.barcodes.trim()&&!!st.ncForm.seo1.trim()&&!!st.ncForm.seo2.trim()&&!!st.ncForm.seo3.trim(),
       st.ncPhotos>=5,
       true,
     ];
     const ncValidationCopy=[
       ncStepValid[0]?'Фото и обязательные поля готовы':'Добавьте фото и заполните обязательные поля',
-      ncStepValid[1]?'Распознавание подтверждено':'Подтвердите результат распознавания',
-      ncStepValid[2]?'Текст прошёл базовые проверки':'Название — от 20, описание — от 120 символов',
+      ncStepValid[1]?'Распознавание подтверждено':'Заполните распознанные поля и подтвердите результат',
+      ncStepValid[2]?'Все поля контента заполнены':'Проверьте текст, характеристики, SEO, размеры и баркоды',
       ncStepValid[3]?'Минимум галереи выполнен':'Для публикации нужно минимум 5 фото',
       'Пакет пройдёт ещё одну проверку перед WB',
     ];
@@ -4480,17 +4391,27 @@ class Component extends DCLogic {
         {label:st.ncPhotos?`${st.ncPhotos} фото загружено`:'Нужно хотя бы одно фото',icon:st.ncPhotos?'check_circle':'error',color:st.ncPhotos?'#13693F':'#B0432F'},
         {label:st.ncForm.vendor?'Артикул указан':'Нет артикула',icon:st.ncForm.vendor?'check_circle':'error',color:st.ncForm.vendor?'#13693F':'#B0432F'},
         {label:st.ncForm.category?'Категория выбрана':'Нет категории',icon:st.ncForm.category?'check_circle':'error',color:st.ncForm.category?'#13693F':'#B0432F'},
+        {label:st.ncForm.additionalInfo.trim()?'Дополнительные вводные учтены':'Можно добавить комментарий для Марка',icon:st.ncForm.additionalInfo.trim()?'check_circle':'info',color:st.ncForm.additionalInfo.trim()?'#13693F':'#3E7894'},
       ],
-      ncVendor:st.ncForm.vendor,ncBrand:st.ncForm.brand,ncCategory:st.ncForm.category,ncVendorChange:e=>updateNcForm('vendor',e.target.value),ncBrandChange:e=>updateNcForm('brand',e.target.value),ncCategoryChange:e=>updateNcForm('category',e.target.value),
+      ncVendor:st.ncForm.vendor,ncBrand:st.ncForm.brand,ncCategory:st.ncForm.category,ncAdditionalInfo:st.ncForm.additionalInfo,ncAdditionalInfoCount:`${st.ncForm.additionalInfo.length} символов`,ncVendorChange:e=>updateNcForm('vendor',e.target.value),ncBrandChange:e=>updateNcForm('brand',e.target.value),ncCategoryChange:e=>updateNcForm('category',e.target.value),ncAdditionalInfoChange:e=>updateNcForm('additionalInfo',e.target.value),
       ncCategories:['Жакеты','Пиджаки','Костюмы','Верхняя одежда'].map(label=>({id:label,label})),
+      ncSubject:st.ncForm.subject,ncRecognitionSummary:`${st.ncForm.composition} · ${st.ncForm.color} · ${st.ncForm.fit}`,
+      ncRecognitionTags:[st.ncForm.subject,st.ncForm.composition,st.ncForm.fit,st.ncForm.season].map(value=>({label:String(value).split(/[·,%]/)[0].trim().toLowerCase()})),
       ncRecognizedFields:[
-        {label:'Категория',value:st.ncForm.category},{label:'Предмет',value:'Жакет женский'},{label:'Состав',value:'55% лён, 45% вискоза'},
-        {label:'Цвет',value:'бежевый'},{label:'Посадка',value:'оверсайз · прямой крой'},{label:'Сезон',value:'лето · демисезон'},
-      ],
+        {field:'category',label:'Категория',value:st.ncForm.category},{field:'subject',label:'Предмет',value:st.ncForm.subject},{field:'composition',label:'Состав',value:st.ncForm.composition},
+        {field:'color',label:'Цвет',value:st.ncForm.color},{field:'fit',label:'Посадка',value:st.ncForm.fit},{field:'season',label:'Сезон',value:st.ncForm.season},
+      ].map(field=>({...field,change:e=>updateNcForm(field.field,e.target.value)})),
       ncApproveRecognition:()=>this.setState({ncRecognitionApproved:!st.ncRecognitionApproved}),ncApproveRecognitionSt:st.ncRecognitionApproved?'border-color:#80C29C;background:#F2F8F4;':'',ncApproveIcon:st.ncRecognitionApproved?'check_box':'check_box_outline_blank',ncApproveColor:st.ncRecognitionApproved?'#13693F':'#AAB5AD',
       ncTitle:st.ncForm.title,ncDesc:st.ncForm.description,ncTitleChange:e=>updateNcForm('title',e.target.value),ncDescriptionChange:e=>updateNcForm('description',e.target.value),
       ncTitleCount:`${st.ncForm.title.length} символов · минимум 20`,ncDescCount:`${st.ncForm.description.length} символов · минимум 120`,ncTitleCountColor:st.ncForm.title.trim().length>=20?'#13693F':'#B0432F',ncDescCountColor:st.ncForm.description.trim().length>=120?'#13693F':'#B0432F',
-      ncAttrs:NC.attrs,ncSeo:NC.seo.map(t=>({t})),ncSizes:NC.sizes,
+      ncAttrs:[
+        {field:'composition',k:'Состав',v:st.ncForm.composition},{field:'color',k:'Цвет',v:st.ncForm.color},{field:'fit',k:'Посадка',v:st.ncForm.fit},
+        {field:'length',k:'Длина',v:st.ncForm.length},{field:'season',k:'Сезон',v:st.ncForm.season},{field:'care',k:'Уход',v:st.ncForm.care},
+      ].map(attr=>({...attr,change:e=>updateNcForm(attr.field,e.target.value)})),
+      ncSeo:[
+        {field:'seo1',label:'Запрос 1',freq:'48 210 / мес',value:st.ncForm.seo1},{field:'seo2',label:'Запрос 2',freq:'12 400 / мес',value:st.ncForm.seo2},{field:'seo3',label:'Запрос 3',freq:'31 800 / мес',value:st.ncForm.seo3},
+      ].map(item=>({...item,t:`${item.value} (${item.freq.split(' ')[0]})`,change:e=>updateNcForm(item.field,e.target.value)})),
+      ncSizes:st.ncForm.sizes,ncBarcodes:st.ncForm.barcodes,ncSizesChange:e=>updateNcForm('sizes',e.target.value),ncBarcodesChange:e=>updateNcForm('barcodes',e.target.value),
       ncPhotoSlots:Array.from({length:8},(_,index)=>{const filled=index<st.ncPhotos;return {label:filled?(index===0?'Обложка':`Фото ${index+1}`):'Добавить',icon:filled?(index===0?'checkroom':'photo'):'add_photo_alternate',className:filled?'pipeline-photo--filled':'',pick:()=>this.setState({ncPhotos:filled?Math.max(1,st.ncPhotos-1):Math.min(8,st.ncPhotos+1)})};}),
       ncMediaOptions:[
         {title:'Rich-контент',sub:'Материал, посадка, уход и преимущества',selected:st.ncRich,toggle:()=>this.setState({ncRich:!st.ncRich})},
@@ -4499,8 +4420,8 @@ class Component extends DCLogic {
       ncReadyScore:`${4+(st.ncPhotos>=5?1:0)+(st.ncRich&&st.ncInfo?1:0)}/6`,ncReviewChecks:[
         {title:'Основные данные заполнены',note:`${st.ncForm.vendor} · ${st.ncForm.brand} · ${st.ncForm.category}`,icon:'check_circle',color:'#13693F'},
         {title:'Название и описание готовы',note:`${st.ncForm.title.length} и ${st.ncForm.description.length} символов`,icon:'check_circle',color:'#13693F'},
-        {title:'Обязательные атрибуты WB',note:'14 из 14 · ошибок формата нет',icon:'check_circle',color:'#13693F'},
-        {title:'SEO-покрытие',note:'3 ключевые группы · оценка 92/100',icon:'check_circle',color:'#13693F'},
+        {title:'Обязательные атрибуты WB',note:`${st.ncForm.composition} · ${st.ncForm.color} · ${st.ncForm.sizes}`,icon:'check_circle',color:'#13693F'},
+        {title:'SEO-покрытие',note:`${st.ncForm.seo1} · ${st.ncForm.seo2} · ${st.ncForm.seo3}`,icon:'check_circle',color:'#13693F'},
         {title:'Галерея товара',note:`${st.ncPhotos} фото · ${st.ncPhotos>=5?'минимум выполнен':'нужно минимум 5'}`,icon:st.ncPhotos>=5?'check_circle':'error',color:st.ncPhotos>=5?'#13693F':'#B0432F'},
         {title:'Расширенный контент',note:`Rich ${st.ncRich?'готов':'не выбран'} · инфографика ${st.ncInfo?'готова':'не выбрана'}`,icon:st.ncRich&&st.ncInfo?'check_circle':'warning',color:st.ncRich&&st.ncInfo?'#13693F':'#9A6414'},
       ],
@@ -4727,7 +4648,12 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    return { ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vFinSummary(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vRegionalLogi(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
+    const cardsWorkspace = this.state.cardsTab === 'info' ? null : this.CardsWorkspace ? React.createElement(this.CardsWorkspace, {
+      initialQuery: this.state.cardsQuery,
+      openStudio: id => this.setState({cardsTab:'info',infoSku:id,infoSlide:'cover',infoGenerated:false}),
+      openFinance: id => this.setState({screen:'fin',finSection:'sku',finConditions:[],finQ:this.M?.PRODUCTS.find(p=>p.id===id)?.code||'',finSavedView:'custom'})
+    }) : React.createElement('p', {role:'status'}, this.state.cardsModuleError ? 'Не удалось загрузить карточки. Обновите страницу.' : 'Загружаем карточки…');
+    return { cardsWorkspace, cardsStudioBack:()=>this.setState({cardsTab:'overview'}), ...this.vCore(), ...this.vHome(), ...this.vEvent(), ...this.vFinNew(), ...this.vFinSummary(), ...this.vDrill(), ...this.vPe(), ...this.vAds(), ...this.vCards(), ...this.vLogi(), ...this.vRegionalLogi(), ...this.vAp(), ...this.vSet(), ...this.vChat() };
   }
 }
 </script>
