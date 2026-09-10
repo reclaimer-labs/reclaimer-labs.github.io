@@ -3,6 +3,7 @@ import {
   copy,
   uid,
   generateContent,
+  analyzeProduct,
   validateCard,
 } from "./content-store.js";
 
@@ -137,8 +138,9 @@ export function createContentGenerator(
     composition: "",
     measurements: "",
     attributes: [],
-    sourceMode: "text",
+    sourceMode: "both",
     description: "",
+    productDescription: "",
     references: [],
     useCardText: true,
     useCardImages: true,
@@ -166,6 +168,9 @@ export function createContentGenerator(
     const [error, setError] = React.useState("");
     const [busy, setBusy] = React.useState(false);
     const [uploading, setUploading] = React.useState(false);
+    const [step, setStep] = React.useState(1);
+    const [analyzed, setAnalyzed] = React.useState(false);
+    const [analysisNotes, setAnalysisNotes] = React.useState([]);
     const revision = React.useRef(0);
     const targets = selection.length
       ? cards.filter((c) => selection.includes(c.id))
@@ -178,10 +183,19 @@ export function createContentGenerator(
             title,
           }))
         : targets;
-    const usesText = form.sourceMode !== "images",
-      usesImages = form.sourceMode !== "text";
+    const usesText = mode === "new" || form.sourceMode !== "images",
+      usesImages = mode === "new" || form.sourceMode !== "text";
     const change = (key, value) => {
       revision.current++;
+      const changedSources =
+        key === "description" || key === "sourceMode" ||
+        (key === "references" &&
+          JSON.stringify(value.map(({ targetId, ...image }) => image)) !==
+          JSON.stringify(form.references.map(({ targetId, ...image }) => image)));
+      if (changedSources) {
+        setAnalyzed(false);
+        setStep(1);
+      }
       setForm((f) => ({ ...f, [key]: value }));
       setPreview(null);
       setError("");
@@ -215,12 +229,67 @@ export function createContentGenerator(
         ),
       );
     const section = (number, title, children) =>
-      h(
-        "section",
-        { className: "ct-generation-section" },
-        h("h3", null, h("span", null, number), title),
-        children,
-      );
+      mode === "new" && Number(number) !== step
+        ? null
+        : h(
+            "section",
+            { className: "ct-generation-section" },
+            h("h3", null, h("span", null, number), title),
+            children,
+          );
+
+    async function analyze() {
+      setBusy(true);
+      setError("");
+      const currentRevision = revision.current;
+      try {
+        if (!form.description.trim() && !form.references.length)
+          throw new Error("Добавьте описание или хотя бы одно изображение товара.");
+        const sources = {
+          description: form.description.trim(),
+          images: copy(form.references).map(({ targetId, ...image }) => image),
+        };
+        if (!service.analyze && service.generate !== generateContent)
+          throw new Error("Сервис автозаполнения не подключён.");
+        const result = await (service.analyze
+          ? service.analyze(sources)
+          : analyzeProduct(sources));
+        if (revision.current !== currentRevision) return;
+        const product = result?.product;
+        if (
+          !product ||
+          ["title", "description", "category", "brand", "code", "composition", "measurements"]
+            .some((key) => typeof product[key] !== "string") ||
+          !Array.isArray(product.attributes)
+        )
+          throw new Error("Агент вернул неполные данные. Повторите заполнение.");
+        const validation = validateCard({ ...product, rich: [], images: form.references });
+        if (validation) throw new Error(validation);
+        setForm((f) => ({
+          ...f,
+          titles: product.title,
+          codes: product.code,
+          productDescription: product.description,
+          category: product.category,
+          brand: product.brand,
+          composition: product.composition,
+          measurements: product.measurements,
+          attributes: copy(product.attributes),
+          references: f.references.map((image) => ({
+            ...image, targetId: "preview-0",
+          })),
+        }));
+        setAnalysisNotes(Array.isArray(result.notes)
+          ? result.notes.filter((note) => typeof note === "string") : []);
+        setAnalyzed(true);
+        setPreview(null);
+        setStep(2);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setBusy(false);
+      }
+    }
 
     async function upload(event) {
       const files = [...event.target.files];
@@ -251,6 +320,8 @@ export function createContentGenerator(
       setError("");
       const currentRevision = revision.current;
       try {
+        if (mode === "new" && (!analyzed || step !== 3))
+          throw new Error("Сначала заполните поля агентом и проверьте данные товара.");
         if (mode === "existing" && !form.parts.length)
           throw new Error("Выберите, какой контент сгенерировать.");
         if (
@@ -285,13 +356,13 @@ export function createContentGenerator(
           ];
           const sourceText = [
             mode === "existing" && form.useCardText ? product.description : "",
-            form.description.trim(),
+            mode === "new" ? form.productDescription.trim() : form.description.trim(),
           ]
             .filter(Boolean)
             .join("\n");
           if (
             form.parts.length &&
-            form.sourceMode === "images" &&
+            mode === "existing" && form.sourceMode === "images" &&
             !sourceImages.length
           )
             throw new Error(product.title + ": добавьте исходное изображение.");
@@ -321,7 +392,7 @@ export function createContentGenerator(
                   composition: form.composition,
                   measurements: form.measurements,
                   attributes: copy(form.attributes),
-                  description: usesText ? form.description : "",
+                  description: form.productDescription,
                   rich: [],
                   images: [],
                 }
@@ -335,7 +406,7 @@ export function createContentGenerator(
           };
         });
         const changes = form.parts.length
-          ? await service.generate(input, { ...form })
+          ? await service.generate(input, { ...form, sourceMode: mode === "new" ? "both" : form.sourceMode })
           : input.map((c) => ({ id: c.id, version: c.version, patch: {} }));
         if (currentRevision !== revision.current) return;
         if (
@@ -363,7 +434,7 @@ export function createContentGenerator(
           input,
           changes,
           mode,
-          sourceMode: form.sourceMode,
+          sourceMode: mode === "new" ? (form.description.trim() ? form.references.length ? "both" : "text" : "images") : form.sourceMode,
           parts: [...form.parts],
         });
         if (form.parts.length)
@@ -385,14 +456,19 @@ export function createContentGenerator(
       setBusy(true);
       setError("");
       try {
-        if (preview.mode === "new")
+        if (preview.mode === "new") {
           await onCreate(
             preview.input.map(({ generationInput, ...card }, i) => ({
               ...card,
               ...preview.changes[i].patch,
             })),
           );
-        else await onSave(preview.changes, "Генерация");
+          revision.current++;
+          setForm(initial());
+          setStep(1);
+          setAnalyzed(false);
+          setAnalysisNotes([]);
+        } else await onSave(preview.changes, "Генерация");
         setPreview(null);
       } catch (e) {
         setError(e.message);
@@ -419,8 +495,16 @@ export function createContentGenerator(
         h(
           "p",
           null,
-          "Выберите исходные материалы, заполните характеристики и настройте результат.",
+          "Добавьте описание и/или фото. Агент заполнит поля — проверьте их и настройте генерацию перед созданием карточки.",
         ),
+        mode === "new" ? h("nav", { className: "ct-creation-steps", "aria-label": "Шаги создания" },
+          [[1, "Исходные данные"], [2, "Проверка полей"], [3, "Генерация и создание"]].map(([number, label]) =>
+            btn(number + ". " + label, () => { setStep(number); setPreview(null); setError(""); }, step === number ? "active" : "", {
+              key: number, "aria-current": step === number ? "step" : undefined,
+              disabled: busy || uploading || number > step,
+            }),
+          ),
+        ) : null,
         h(
           "div",
           { className: "cw-filters" },
@@ -450,7 +534,7 @@ export function createContentGenerator(
             h(
               React.Fragment,
               null,
-              h(
+              mode === "existing" ? h(
                 "div",
                 {
                   className: "ct-source-modes",
@@ -479,7 +563,7 @@ export function createContentGenerator(
                     h("span", null, label),
                   ),
                 ),
-              ),
+              ) : h("p", { className: "cw-footnote" }, "Достаточно описания, изображения или их сочетания."),
               usesText
                 ? field(
                     "Исходное описание",
@@ -549,7 +633,7 @@ export function createContentGenerator(
                                 "div",
                                 null,
                                 h("strong", null, image.name),
-                                h(
+                                mode === "existing" || products.length > 1 ? h(
                                   "select",
                                   {
                                     "aria-label": "Товар для " + image.name,
@@ -575,7 +659,7 @@ export function createContentGenerator(
                                       p.title,
                                     ),
                                   ),
-                                ),
+                                ) : null,
                               ),
                               btn(
                                 "×",
@@ -612,11 +696,13 @@ export function createContentGenerator(
           ),
           section(
             "02",
-            "Товар и характеристики",
+            mode === "new" ? "Проверьте поля, заполненные агентом" : "Товар и характеристики",
             mode === "new"
               ? h(
                   React.Fragment,
                   null,
+                  h("div", { className: "cw-note", role: "status" }, "Проверьте данные товара. Любое поле можно исправить; неизвестные значения дополните вручную."),
+                  analysisNotes.map((note, i) => h("p", { key: i, className: "cw-footnote" }, note)),
                   field(
                     "Названия товаров — по одному на строку",
                     form.titles,
@@ -625,9 +711,10 @@ export function createContentGenerator(
                       area: true,
                       rows: 2,
                       placeholder:
-                        "Можно оставить пустым и включить генерацию названия",
+                        "Название товара",
                     },
                   ),
+                  field("Описание товара", form.productDescription, (v) => change("productDescription", v), { area: true, rows: 4, maxLength: 2000 }),
                   h(
                     "div",
                     { className: "ct-form-columns" },
@@ -688,7 +775,7 @@ export function createContentGenerator(
           ),
           section(
             "03",
-            "Что подготовить",
+            "Настройте генерацию",
             h(
               React.Fragment,
               null,
@@ -787,7 +874,11 @@ export function createContentGenerator(
           { className: "cw-footnote" },
           "Шаблонный демо-генератор. Проверьте названия, факты и изображения перед сохранением.",
         ),
-        btn(
+        mode === "new" && step < 3 ? btn(
+          busy ? "Агент заполняет поля…" : step === 1 ? analyzed ? "К проверке полей" : "Заполнить поля агентом" : "К настройкам генерации",
+          step === 1 && !analyzed ? analyze : () => { setStep(step + 1); setError(""); },
+          "cw-primary", { disabled: busy || uploading },
+        ) : btn(
           [
             icon("auto_awesome"),
             busy
@@ -929,7 +1020,7 @@ export function createContentGenerator(
                   null,
                   "Характеристики и выбранный контент сохранятся в карточках.",
                 ),
-                btn("Сохранить результат", apply, "cw-primary", {
+                btn(preview.mode === "new" ? "Создать карточки" : "Сохранить результат", apply, "cw-primary", {
                   disabled: busy,
                 }),
               ),
@@ -938,10 +1029,16 @@ export function createContentGenerator(
               React.Fragment,
               null,
               empty(
-                "Ваш результат — на ваших условиях",
-                "Описание или фото, любые характеристики и только те виды контента, которые нужны товару.",
+                mode === "new" && step < 3
+                  ? step === 2 ? "Поля готовы к проверке" : "Сначала — данные о товаре"
+                  : "Предпросмотр перед созданием",
+                mode === "new" && step < 3
+                  ? step === 2
+                    ? "Исправьте и дополните данные товара, затем перейдите к настройкам генерации. Карточка ещё не создана."
+                    : "Добавьте исходные материалы, затем проверьте заполненные агентом поля. Карточка появится в каталоге только после создания."
+                  : "Настройте нужный контент и сгенерируйте предпросмотр. После проверки создайте карточки.",
               ),
-              h(
+              mode === "existing" || step === 3 ? h(
                 "div",
                 { className: "ct-generation-summary" },
                 h("strong", null, "Сейчас выбрано"),
@@ -967,7 +1064,7 @@ export function createContentGenerator(
                     ? form.imageCount + " макетов на товар"
                     : "Без генерации инфографики",
                 ),
-              ),
+              ) : null,
             ),
       ),
     );

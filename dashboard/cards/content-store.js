@@ -402,6 +402,42 @@ export function createContentRepository(storage) {
   };
 }
 
+/** Demo extraction only. Replace with a server agent for free text and visual recognition. */
+export function analyzeProduct({ description = "", images = [] }) {
+  const text = description.trim();
+  if (!text && !images.length)
+    throw new Error("Добавьте описание или хотя бы одно изображение товара.");
+  const values = new Map();
+  const prose = [];
+  for (const line of text.split(/[\n;]+/)) {
+    const match = line.trim().match(/^([^:]+):\s*(.+)$/);
+    if (match) values.set(match[1].trim().toLowerCase(), match[2].trim());
+    else if (line.trim()) prose.push(line.trim());
+  }
+  const take = (...names) => {
+    const key = names.find((name) => values.has(name));
+    const value = values.get(key) || "";
+    values.delete(key);
+    return value;
+  };
+  const product = {
+    title: (take("название", "товар") || prose[0]?.split(/[.!?]/)[0] || "Новый товар").slice(0, 60),
+    description: take("описание") || prose.join("\n"),
+    category: take("категория"),
+    brand: take("бренд"),
+    code: take("артикул продавца", "артикул") || "NEW-" + uid().slice(0, 6),
+    composition: take("состав", "материал", "состав / материал"),
+    measurements: take("замеры", "габариты"),
+    attributes: [...values].map(([name, value]) => ({
+      id: uid(), name: name[0].toUpperCase() + name.slice(1), value,
+    })),
+  };
+  return {
+    product,
+    notes: ["Демо переносит явно указанные данные из текста. Распознавание фото и свободного описания требует подключения AI-агента. Проверьте поля и дополните неизвестные значения."],
+  };
+}
+
 /** Serializable multimodal input for a future server/model adapter. No visual recognition in this mock. */
 export function buildGenerationRequest(card, options = {}) {
   const sourceMode = options.sourceMode || "both";

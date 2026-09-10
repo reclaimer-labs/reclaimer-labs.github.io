@@ -110,9 +110,20 @@ export interface GenerationInput extends CardContent {
   generationInput: { description: string; images: CardImage[] };
 }
 export interface GenerationService {
+  /** Analyze sources before generation. Unknown facts stay empty for user review.
+   * Required for creation with a custom service; optional for existing-card generation. */
+  analyze?(sources: { description: string; images: CardImage[] }):
+    ProductAnalysis | Promise<ProductAnalysis>;
   /** Return one patch per input in the same order, with its ID and base version. */
   generate(
     cards: GenerationInput[],
     options: GenerationOptions,
   ): CardChange[] | Promise<CardChange[]>;
+}
+export interface ProductAnalysis {
+  product: Required<Pick<NewCard,
+    "title" | "description" | "category" | "brand" | "code" |
+    "composition" | "measurements" | "attributes"
+  >>;
+  notes?: string[];
 }

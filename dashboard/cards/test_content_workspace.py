@@ -82,15 +82,19 @@ with sync_playwright() as p:
 
     # Generate two new products, including rich content and image layouts.
     root.get_by_role('button',name='Создать карточки',exact=True).click()
+    root.get_by_label('Исходное описание',exact=True).fill('Льняной жакет')
+    root.get_by_role('button',name='Заполнить поля агентом',exact=True).click()
     root.get_by_label('Названия товаров — по одному на строку').fill('Жакет Лея\nЖакет Мира')
+    root.get_by_label('Артикулы продавца — по одному на строку').fill('')
     root.get_by_label('Состав / материал',exact=True).fill('55% лён, 45% вискоза')
+    root.get_by_role('button',name='К настройкам генерации',exact=True).click()
     root.get_by_label('Дополнительные факты о товаре').fill('Съёмный пояс в комплекте.')
     root.get_by_role('checkbox',name='Инфографика',exact=True).check()
     root.get_by_role('button',name='Сгенерировать контент',exact=True).click()
     expect(root.locator('.ct-generated-list article')).to_have_count(2)
     expect(root.locator('.ct-generated-list').get_by_text('Съёмный пояс в комплекте.',exact=False).first).to_be_visible()
     page.screenshot(path=str(ARTIFACTS/'content-generation.png'),full_page=True)
-    root.get_by_role('button',name='Сохранить результат',exact=True).click()
+    root.locator('.ct-generation-result').get_by_role('button',name='Создать карточки',exact=True).click()
     nav.get_by_role('button',name='Каталог 10',exact=True).click()
     expect(root.locator('.ct-table tbody tr')).to_have_count(10)
 

@@ -363,6 +363,17 @@
   position: sticky;
   top: 20px;
 }
+.ct-creation-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+.ct-creation-steps .active {
+  background: #e9eddf;
+  color: #254834;
+  border-color: #b6c397;
+}
 .ct-generation-controls {
   border: 0;
   padding: 0;
