@@ -27,3 +27,9 @@ python -c "import http.server,mimetypes; mimetypes.add_type('application/javascr
 - [Анализ продукта, рынка и запросов пользователей](dashboard/cards/analysis.md).
 - [Устройство мока и перенос в реальный проект](dashboard/cards/README.md).
 - Модуль: `dashboard/cards/` — React-компонент, стили, демо-адаптер, контракт данных и браузерные проверки.
+
+## Публикация
+
+GitHub Pages использует workflow [.github/workflows/pages.yml](.github/workflows/pages.yml): при push в main проверяется синтаксис JavaScript и публикуются статические HTML, JS и CSS без обработки Jekyll. В Settings → Pages источником должен быть GitHub Actions. Ручной повтор доступен через workflow_dispatch.
+
+Публичный сайт: [reclaimer-labs.github.io](https://reclaimer-labs.github.io/). Документация, тесты и локальные артефакты в пакет публикации не включаются.
