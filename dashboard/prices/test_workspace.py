@@ -34,7 +34,7 @@ with sync_playwright() as p:
         return target.evaluate('(key) => JSON.parse(localStorage.getItem(key))', KEY)
 
     def input_field(scope, name):
-        return scope.get_by_label(name, exact=False)
+        return scope.get_by_label(name, exact=True)
 
     def edit(code, target=page):
         target.get_by_role('button', name='Изменить цену ' + code, exact=True).click()
@@ -59,21 +59,22 @@ with sync_playwright() as p:
     expect(dialog).to_be_focused()
     page.keyboard.press('Shift+Tab')
     expect(dialog.get_by_role('button', name='Проверить изменение')).to_be_focused()
-    input_field(dialog, 'Базовая цена').fill('5000')
+    input_field(dialog, 'Базовая цена').fill('7000')
     input_field(dialog, 'Скидка продавца').fill('20')
     input_field(dialog, 'Скидка WB Клуба').fill('10')
     preview = apply_editor(dialog)
-    expect(preview.get_by_text('3 600 ₽', exact=True)).to_be_visible()
+    expect(preview.get_by_text('5 040 ₽', exact=True)).to_be_visible()
     page.screenshot(path=str(ARTIFACTS / 'preview.png'))
     preview.get_by_role('button', name='Сохранить в демо', exact=True).click()
-    assert saved()['products'][0]['base'] == 5000
+    assert saved()['products'][0]['base'] == 7000
     assert saved()['products'][0]['club'] == 10
     assert saved()['products'][0]['revision'] == 2
     page.reload(wait_until='networkidle')
-    assert saved()['products'][0]['base'] == 5000
+    assert saved()['products'][0]['base'] == 7000
     tab('История')
     expect(page.locator('.pw-history article')).to_have_count(1)
     page.get_by_role('button', name='Откатить', exact=False).click()
+    page.get_by_role('checkbox', name=re.compile('В выборке есть цены')).check()
     page.get_by_role('button', name='Подтвердить откат в демо', exact=True).click()
     assert saved()['products'][0]['base'] == 4130
     assert saved()['products'][0]['revision'] == 3
@@ -113,7 +114,8 @@ with sync_playwright() as p:
     expect(page.get_by_role('button', name='Проверить и сохранить', exact=False)).to_be_disabled()
     input_field(page, 'Скидка WB Клуба').fill('10')
     page.get_by_label('Модель продаж', exact=True).select_option('FBS')
-    expect(page.get_by_role('button', name='Проверить и сохранить', exact=False)).to_be_disabled()
+    expect(input_field(page, 'Комиссия по предмету')).to_have_value('48')
+    expect(page.get_by_role('button', name='Проверить и сохранить', exact=False)).to_be_enabled()
     input_field(page, 'Комиссия по предмету').fill('31.5')
     input_field(page, 'Целевая маржа').fill('99')
     expect(page.get_by_test_id('target-price')).to_have_text('Недостижима')
@@ -130,12 +132,14 @@ with sync_playwright() as p:
     assert saved()['products'][0]['model'] == 'FBS'
     assert saved()['products'][0]['commission'] == 31.5
     page.screenshot(path=str(ARTIFACTS / 'calculator.png'))
-    print('PASS calculator, sequential discounts, unknown tariffs and invalid inputs')
+    print('PASS calculator, sequential discounts, subject/model snapshot and invalid inputs')
 
     tab('Комиссии и СПП')
     page.get_by_label('Модель в справочнике комиссий', exact=True).select_option('FBS')
-    expect(page.locator('.pw-rate-table tbody tr').first).to_contain_text('31,5%')
-    expect(page.locator('.pw-rate-table tbody tr').nth(1)).to_contain_text('Не задана')
+    expect(page.locator('.pw-rate-table tbody tr')).to_have_count(14)
+    expect(page.locator('.pw-rate-table tbody tr').first).to_contain_text('48%')
+    expect(page.locator('.pw-rate-table tbody tr').filter(has_text='Кардиганы')).to_contain_text('46%')
+    assert '31,5%' not in page.locator('.pw-rate-table').inner_text()
     input_field(page, 'Цена продавца после скидок').fill('2000')
     input_field(page, 'Цена покупателя').fill('1500')
     expect(page.get_by_test_id('observed-spp')).to_have_text('25%')
@@ -150,7 +154,7 @@ with sync_playwright() as p:
     expect(page.get_by_test_id('observed-spp')).to_have_text('—')
     expect(page.get_by_role('button', name='Использовать оценку в калькуляторе')).to_be_disabled()
     page.screenshot(path=str(ARTIFACTS / 'tariffs.png'))
-    print('PASS category tariffs, missing rates and contextual SPP estimate')
+    print('PASS official directory stays independent of manual overrides; contextual SPP estimate')
 
     tab('Управление ценами')
     before = saved()
@@ -187,6 +191,7 @@ with sync_playwright() as p:
     data = Path(download.path()).read_text(encoding='utf-8-sig')
     assert len(data.splitlines()) == 2 and 'LM-DR-001' in data
     assert 'сценарий' in data
+    assert 'Источник комиссии' in data and 'База налога' in data
     tab('История')
     expect(page.get_by_text('Откат недоступен: после этой операции товар изменяли снова.', exact=True).first).to_be_visible()
     page.screenshot(path=str(ARTIFACTS / 'history.png'))
@@ -225,4 +230,81 @@ with sync_playwright() as p:
     assert not errors, errors
     print('PASS direct link, hash navigation, Cards/Finance regression and responsive layouts')
     print(json.dumps({'result': 'PASS', 'browser_errors': errors, 'artifacts': str(ARTIFACTS)}, ensure_ascii=False))
+
+    advanced_context = browser.new_context(viewport={'width': 1536, 'height': 1100}, reduced_motion='reduce')
+    advanced = advanced_context.new_page()
+    advanced.on('pageerror', lambda error: errors.append(str(error)))
+    open_prices(advanced)
+    tab('Калькулятор', advanced)
+    advanced.get_by_label('Модель продаж', exact=True).select_option('DBS')
+    expect(input_field(advanced, 'Комиссия по предмету')).to_have_value('45')
+    advanced.get_by_label('Модель продаж', exact=True).select_option('FBW')
+    advanced.get_by_label('Предмет WB', exact=True).select_option('Кардиганы')
+    expect(input_field(advanced, 'Комиссия по предмету')).to_have_value('41.5')
+    input_field(advanced, 'Комиссия по предмету').fill('30')
+    expect(advanced.locator('.pw-tariff-stamp')).to_contain_text('Ручная ставка')
+    advanced.get_by_role('button', name='Применить снимок', exact=False).click()
+    expect(input_field(advanced, 'Комиссия по предмету')).to_have_value('41.5')
+    advanced.get_by_label('База: платёжные услуги', exact=True).select_option('buyer')
+    before_spp = advanced.locator('.pw-result-profit').inner_text()
+    input_field(advanced, 'Скидка WB · СПП').fill('40')
+    assert advanced.locator('.pw-result-profit').inner_text() != before_spp
+    advanced.get_by_label('База: платёжные услуги', exact=True).select_option('seller')
+    before_units = advanced.locator('.pw-result-profit').inner_text()
+    advanced.get_by_label('Единица: упаковка', exact=True).select_option('retained')
+    assert advanced.locator('.pw-result-profit').inner_text() != before_units
+    input_field(advanced, 'Возвраты после выкупа').fill('20')
+    input_field(advanced, 'Отмены до отправки').fill('10')
+    advanced.get_by_label('Источник логистики', exact=True).select_option('newFbw')
+    expect(advanced.locator('.pw-logistics-method')).to_contain_text('97,24 ₽')
+    expect(advanced.locator('.pw-logistics-method')).to_contain_text('57,2 ₽')
+    advanced.get_by_label('Дата новой поставки', exact=True).fill('2026-08-14')
+    expect(advanced.get_by_role('button', name='Проверить и сохранить')).to_be_disabled()
+    advanced.get_by_label('Дата новой поставки', exact=True).fill('2026-10-19')
+    advanced.get_by_label('Модель продаж', exact=True).select_option('FBS')
+    expect(advanced.get_by_label('Источник логистики', exact=True)).to_have_value('manual')
+    advanced.get_by_label('НДС внутри цены', exact=True).select_option('22')
+    advanced.get_by_role('checkbox', name='Есть право на вычет входного НДС', exact=False).check()
+    input_field(advanced, 'Входной НДС к вычету').fill('20')
+    expect(advanced.locator('.pw-result')).to_contain_text('выручка без НДС')
+    advanced.get_by_label('НДС внутри цены', exact=True).select_option('5')
+    expect(input_field(advanced, 'Входной НДС к вычету')).to_have_count(0)
+    advanced.get_by_label('Модель налога', exact=True).select_option('profit')
+    input_field(advanced, 'Признанные расходы для налога').fill('500')
+    advanced.get_by_label('Модель налога', exact=True).select_option('manual')
+    input_field(advanced, 'Налог на сохранённую продажу').fill('100')
+    print('PASS fee bases, units, distinct return events, dated logistics and VAT controls')
+
+    advanced.locator('.pw-fact-panel > summary').click()
+    expect(advanced.get_by_test_id('actual-profit')).to_have_count(0)
+    advanced.get_by_role('button', name='Добавить данные отчёта').click()
+    advanced.get_by_label('Начало периода отчёта', exact=True).fill('2026-09-01')
+    advanced.get_by_label('Конец периода отчёта', exact=True).fill('2026-09-30')
+    advanced.get_by_label('Источник сумм отчёта', exact=True).fill('Контрольный отчёт 123')
+    input_field(advanced, 'Сохранённых продаж в отчёте').fill('10')
+    for label, value in [('Выручка с НДС и компенсациями', 20000), ('Комиссия и опции', 5000), ('Платёжные услуги', 400), ('Вся логистика', 0), ('Хранение', 0), ('Реклама', 0), ('Налог без НДС', 1200), ('НДС за вычетом входного', 0), ('Себестоимость, упаковка, прочее', 7000)]:
+        advanced.get_by_label(label + ' · отчёт', exact=True).fill(str(value))
+    expect(advanced.get_by_test_id('actual-profit')).to_have_count(0)
+    advanced.get_by_role('checkbox', name='Проверены все суммы и завершена когорта', exact=False).check()
+    expect(advanced.get_by_test_id('actual-profit')).to_have_text('640 ₽')
+    advanced.locator('.pw-fact-panel').screenshot(path=str(ARTIFACTS / 'reconciliation.png'))
+    advanced.get_by_role('button', name='Установить цену для цели', exact=False).click()
+    advanced.get_by_role('button', name='Проверить и сохранить').click()
+    advanced.get_by_role('button', name='Сохранить в демо', exact=True).click()
+    assert saved(advanced)['products'][0]['actual']['source'] == 'Контрольный отчёт 123'
+    advanced.reload(wait_until='networkidle')
+    tab('Калькулятор', advanced)
+    advanced.locator('.pw-fact-panel > summary').click()
+    expect(advanced.get_by_test_id('actual-profit')).to_have_text('640 ₽')
+    print('PASS manual report requires cohort confirmation and survives scenario save/reload')
+    for width in [360, 390, 768]:
+        advanced.set_viewport_size({'width': width, 'height': 844})
+        for name in ['Калькулятор', 'Комиссии и СПП']:
+            tab(name, advanced)
+            assert advanced.evaluate('document.documentElement.scrollWidth <= innerWidth'), (width, name)
+        if width == 390:
+            advanced.screenshot(path=str(ARTIFACTS / 'mobile-tariffs-v2.png'))
+    assert not errors, errors
+    advanced_context.close()
+    print('PASS new pricing panels at 360, 390 and 768 pixels')
     browser.close()

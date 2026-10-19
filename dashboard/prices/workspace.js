@@ -1,8 +1,10 @@
 import {
   CHECKED_ON, SOURCES, STORAGE_KEY, money, calculate, createSeed, loadStore,
   saveStore, baseForSeller, estimatePlatformDiscount, previewChanges,
-  commitChanges, canRollback, rollbackChanges,
+  commitChanges, canRollback, rollbackChanges, BASE_LABELS, UNIT_LABELS,
 } from './model.js';
+import { COMMISSION_SNAPSHOT, withTariff } from './tariffs.js';
+import { createPricingPanels } from './calculator.js';
 
 const number = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2 });
 const rub = value => value == null || !Number.isFinite(value) ? '—' : number.format(money(value)) + ' ₽';
@@ -23,11 +25,22 @@ export function createPricesWorkspace(React) {
     return h('label', { className: 'pw-field', htmlFor: id },
       h('span', { className: 'pw-label' }, label),
       h('span', { className: 'pw-input-wrap' }, h('input', {
-        id, type: 'number', inputMode: 'decimal', min, max, step, disabled,
+        id, type: 'number', inputMode: 'decimal', min, max, step, disabled, 'aria-label': label, 'aria-describedby': hint ? id + '-hint' : undefined,
         value: typeof value === 'number' ? Number(value.toFixed(4)) : value,
         onChange: event => onChange(event.target.value === '' ? '' : Number(event.target.value)),
       }), suffix && h('span', { className: 'pw-suffix' }, suffix)),
-      hint && h('small', null, hint));
+      hint && h('small', { id: id + '-hint' }, hint));
+  }
+
+  function Select({ label, value, onChange, choices, hint, disabled = false }) {
+    const id = React.useId();
+    return h('label', { className: 'pw-field', htmlFor: id }, h('span', { className: 'pw-label' }, label),
+      h('select', { id, value, disabled, 'aria-label': label, 'aria-describedby': hint ? id + '-hint' : undefined, onChange: e => onChange(e.target.value) }, choices.map(([key, text]) => h('option', { key, value: key }, text))), hint && h('small', { id: id + '-hint' }, hint));
+  }
+  function TextField({ label, value, onChange, type = 'text', hint }) {
+    const id = React.useId();
+    return h('label', { className: 'pw-field', htmlFor: id }, h('span', { className: 'pw-label' }, label),
+      h('input', { id, type, value: value || '', 'aria-label': label, 'aria-describedby': hint ? id + '-hint' : undefined, onChange: e => onChange(e.target.value) }), hint && h('small', { id: id + '-hint' }, hint));
   }
 
   function Dialog({ title, subtitle, onClose, children, wide = false }) {
@@ -71,26 +84,30 @@ export function createPricesWorkspace(React) {
     const r = calculate(product);
     if (!r.valid) return h('aside', { className: 'pw-result pw-result-invalid', 'aria-live': 'polite' }, icon('calculate'), h('h2', null, 'Уточните параметры'), r.errors.map(error => h('p', { key: error }, error)));
     const rows = [
-      ['Себестоимость и упаковка', product.cost + product.packaging, 'cost'],
+      ['Себестоимость и упаковка', product.cost + r.packagingCost, 'cost'],
       ['Комиссия и опции WB', r.commissionCost, 'commission'],
       ['Платёжные услуги', r.acquiringCost, 'payment'],
       ['Логистика с учётом выкупа', r.expectedLogistics, 'logistics'],
-      ['Хранение', product.storage, 'storage'],
-      ['Реклама на один выкуп', product.ads, 'ads'],
+      ['Хранение', r.storageCost, 'storage'],
+      ['Реклама', r.adsCost, 'ads'],
       ['Налог · сценарий', r.taxCost, 'tax'],
-      ['Другие расходы', product.other, 'other'],
+      ['НДС за вычетом входного', r.vatCost, 'vat'],
+      ['Другие расходы и потери', r.otherCost + r.returnLossCost, 'other'],
     ];
     return h('aside', { className: 'pw-result', 'aria-label': 'Результат расчёта', 'aria-live': 'polite' },
-      h('div', { className: 'pw-result-top' }, h('span', { className: 'pw-eyebrow' }, 'ПРИБЫЛЬ С ОДНОГО ВЫКУПА'), badge(statusText[r.status], r.status)),
+      h('div', { className: 'pw-result-top' }, h('span', { className: 'pw-eyebrow' }, 'ПЛАН · СОХРАНЁННАЯ ПРОДАЖА'), badge(statusText[r.status], r.status)),
       h('div', { className: 'pw-result-profit' + (r.profit < 0 ? ' pw-negative' : '') }, rub(r.profit)),
       h('p', { className: 'pw-result-margin' }, 'Маржа ', h('strong', null, pct(r.margin)), h('span', null, ' / цель ' + pct(product.target))),
       h(PriceFlow, { product, result: r }),
+      product.vatRate > 0 && h('p', { className: 'pw-result-note' }, 'В цене НДС: ' + rub(r.outputVat) + ' · выручка без НДС: ' + rub(r.netRevenue)),
       h('div', { className: 'pw-cost-stack', 'aria-hidden': true }, rows.filter(row => row[1] > 0).map(row => h('span', { key: row[2], className: 'pw-segment-' + row[2], style: { flex: row[1] }, title: row[0] + ': ' + rub(row[1]) })), r.profit > 0 && h('span', { className: 'pw-segment-profit', style: { flex: r.profit }, title: 'Прибыль: ' + rub(r.profit) })),
       h('dl', { className: 'pw-breakdown' }, rows.map(([label, value, key]) => h('div', { key }, h('dt', null, h('i', { className: 'pw-dot pw-segment-' + key }), label), h('dd', null, rub(value))))),
       h('div', { className: 'pw-thresholds' }, h('div', null, h('small', null, 'Безубыточность'), h('strong', { 'data-testid': 'break-even' }, rub(r.breakEven))), h('div', null, h('small', null, 'Цена для цели ' + pct(product.target)), h('strong', { 'data-testid': 'target-price' }, r.safe == null ? 'Недостижима' : rub(r.safe)))),
-      r.safe == null ? h('p', { className: 'pw-warning-text' }, 'Комиссии, налог и целевая маржа дают 100% или больше. Измените ставки или цель.') : button([icon('price_check'), 'Установить цену для цели'], () => onRecommend(r.threshold), 'pw-btn-mint'),
-      h('p', { className: 'pw-result-note' }, 'СПП меняет цену покупателя. Прибыль рассчитана от цены продавца, без повторного вычета скидки WB.'));
+      r.threshold == null ? h('p', { className: 'pw-warning-text' }, r.safe == null ? 'Цель недостижима в пределах 1 млрд ₽ цены продавца. Уточните ставки и расходы.' : 'Заданный минимум несовместим с целью. Уточните ограничения.') : button([icon('price_check'), 'Установить цену для цели'], () => onRecommend(r.threshold), 'pw-btn-mint'),
+      h('p', { className: 'pw-result-note' }, 'СПП не списывается как расход. При базе «цена покупателя» она меняет соответствующее удержание. Маржа — от цены продавца с НДС.'));
   }
+
+  const { CalculatorInputs, Scenarios, FactPanel, TariffDirectory } = createPricingPanels(React, { Field, Select, TextField, button, badge, icon, sourceLink, rub, pct });
 
   return function PricesWorkspace({ products = [] }) {
     const seed = useMemo(() => createSeed(products), [products]);
@@ -169,8 +186,8 @@ export function createPricesWorkspace(React) {
     }
     function startCalculator(p) { setCalc({ ...p }); setEditor(null); changeTab('calculator'); }
     function exportCsv() {
-      const rows = [['Артикул', 'Название', 'Модель', 'Базовая цена', 'Скидка продавца %', 'WB Клуб %', 'Цена продавца', 'СПП сценарий %', 'Покупателю оценка', 'Комиссия сценарий %', 'Прибыль на выкуп', 'Маржа %', 'Цена для цели', 'Мин. цена автоакции', 'Блокировка автоакций']];
-      for (const { p, r } of filtered) rows.push([p.code, p.name, p.model, p.base, p.discount, p.club, r.seller, p.spp, r.buyer, p.commission, money(r.profit), money(r.margin), r.safe ?? '', p.floor, p.blockAuto ? 'Да' : 'Нет']);
+      const rows = [['Артикул', 'Название', 'Модель', 'Предмет WB', 'Источник комиссии', 'База комиссии', 'Комиссия и опции ₽/продажа', 'Налоговая модель', 'База налога', 'НДС %', 'Возвраты после выкупа %', 'Базовая цена', 'Скидка продавца %', 'WB Клуб %', 'Цена продавца', 'СПП сценарий %', 'Покупателю оценка', 'Комиссия %', 'Прибыль на сохранённую продажу', 'Маржа %', 'Цена для цели', 'Мин. цена автоакции', 'Блокировка автоакций']];
+      for (const { p, r } of filtered) rows.push([p.code, p.name, p.model, p.subject, p.commissionSource, BASE_LABELS[p.commissionBasis], money(r.commissionCost), p.taxProfile, BASE_LABELS[p.taxBasis], p.vatRate, p.returnRate, p.base, p.discount, p.club, r.seller, p.spp, r.buyer, p.commission, money(r.profit), money(r.margin), r.safe ?? '', p.floor, p.blockAuto ? 'Да' : 'Нет']);
       const csv = '\ufeff' + rows.map(row => row.map(cell => '"' + String(cell).replaceAll('"', '""') + '"').join(';')).join('\r\n');
       const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
       const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'MarginPilot-prices-demo.csv'; anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -186,14 +203,14 @@ export function createPricesWorkspace(React) {
     }
     function ruleFields(p, setter) {
       return h('div', { className: 'pw-rule-fields' }, h('div', { className: 'pw-form-grid pw-form-grid-two' },
-        field(p, setter, 'target', 'Целевая маржа', '%', 'От цены продавца', { max: 99.99 }),
+        field(p, setter, 'target', 'Целевая маржа', '%', 'От цены продавца с НДС', { max: 99.99 }),
         field(p, setter, 'floor', 'Минимум для автоакций', '₽', '0 — не задан', { step: 1 })),
         h('label', { className: 'pw-checkbox-label' }, h('input', { type: 'checkbox', checked: p.blockAuto, onChange: event => setter(current => ({ ...current, blockAuto: event.target.checked })) }), h('span', null, h('strong', null, 'Блокировать снижение в автоакциях'), h('small', null, 'Настройка демо. Ограничивает автоматическую скидку, а не само участие в акции.'))));
     }
 
     function manage() {
       return h('section', { className: 'pw-panel', 'aria-label': 'Управление ценами' },
-        h('div', { className: 'pw-panel-heading' }, h('div', null, h('h2', null, 'Цены товаров'), h('p', null, 'Цена продавца — основа экономики. Цена покупателя показана отдельно.')), button([icon('download'), 'Экспорт CSV'], exportCsv)),
+        h('div', { className: 'pw-panel-heading' }, h('div', null, h('h2', null, 'Цены товаров'), h('p', null, 'План на сохранённую продажу: после невыкупов, возвратов, расходов и налогов.')), button([icon('download'), 'Экспорт CSV'], exportCsv)),
         h('div', { className: 'pw-toolbar' }, h('label', { className: 'pw-search' }, icon('search'), h('input', { type: 'search', value: query, onChange: e => setQuery(e.target.value), placeholder: 'Название, артикул или WB ID', 'aria-label': 'Поиск товара' })),
           h('select', { value: category, onChange: e => setCategory(e.target.value), 'aria-label': 'Категория товара' }, h('option', { value: 'all' }, 'Все категории'), categories.map(cat => h('option', { key: cat, value: cat }, cat))),
           h('div', { className: 'pw-filters', 'aria-label': 'Фильтр состояния цены' }, [['all', 'Все', store.products.length], ['risk', 'Ниже порога', risky.length], ['loss', 'В убыток', losses.length]].map(([id, label, count]) => button([label, h('span', { key: 'n' }, count)], () => setFilter(id), filter === id ? 'pw-btn-active' : '', { key: id, 'aria-pressed': filter === id })))),
@@ -205,64 +222,40 @@ export function createPricesWorkspace(React) {
               ['Товар / модель', 'До скидки', 'Цена продавца', 'Покупателю¹', 'Прибыль / маржа', 'Целевой порог²', 'Контроль', ''].map((title, i) => h('th', { key: i, scope: 'col' }, title)))),
             h('tbody', null, filtered.map(({ p, r }) => h('tr', { key: p.id, className: selected.has(p.id) ? 'pw-row-selected' : '', 'data-product-id': p.id },
               h('td', null, h('input', { type: 'checkbox', 'aria-label': 'Выбрать ' + p.code, checked: selected.has(p.id), onChange: () => setSelected(current => { const next = new Set(current); next.has(p.id) ? next.delete(p.id) : next.add(p.id); return next; }) })),
-              h('td', null, h(Product, { product: p }), h('div', { className: 'pw-product-meta' }, p.model + ' · ' + p.category, p.blockAuto && h('span', { title: 'Автоматическое снижение в автоакциях заблокировано в демо' }, icon('lock')))),
+              h('td', null, h(Product, { product: p }), h('div', { className: 'pw-product-meta' }, p.model + ' · ' + (p.subject || 'предмет не выбран'), p.blockAuto && h('span', { title: 'Автоматическое снижение в автоакциях заблокировано в демо' }, icon('lock')))),
               h('td', { className: 'pw-money' }, rub(p.base), h('small', null, 'скидка ' + pct(p.discount), p.club > 0 ? ' + клуб ' + pct(p.club) : '')),
-              h('td', { className: 'pw-money pw-seller' }, rub(r.seller), h('small', null, 'после скидок продавца')),
+              h('td', { className: 'pw-money pw-seller' }, rub(r.seller), h('small', null, p.commissionBasis === 'fixed' ? 'комиссия ' + rub(p.commissionFixed) + ' · вручную' : 'комиссия ' + pct(p.commission) + (p.commissionSource === COMMISSION_SNAPSHOT.id ? ' · снимок WB' : ' · вручную'))),
               h('td', { className: 'pw-money' }, rub(r.buyer), h('small', { className: 'pw-spp-caption' }, 'СПП ' + pct(p.spp) + ' · сценарий')),
               h('td', { className: 'pw-money ' + (r.profit < 0 ? 'pw-text-loss' : '') }, rub(r.profit), h('small', { className: r.status === 'ok' ? 'pw-text-green' : 'pw-text-loss' }, pct(r.margin) + ' / цель ' + pct(p.target))),
               h('td', { className: 'pw-money' }, rub(r.threshold), h('small', null, r.safe == null ? 'цель недостижима' : 'безубыточность ' + rub(r.breakEven))),
               h('td', null, badge(statusText[r.status], r.status)),
               h('td', null, button(icon('edit'), () => { setEditor({ ...p }); setMessage(''); }, 'pw-btn-icon', { 'aria-label': 'Изменить цену ' + p.code, title: 'Изменить цену' }))))))),
         !filtered.length && h('div', { className: 'pw-empty' }, icon('search_off'), h('h3', null, 'Товары не найдены'), h('p', null, 'Измените запрос или сбросьте фильтры.'), button('Сбросить фильтры', () => { setQuery(''); setCategory('all'); setFilter('all'); })),
-        h('footer', { className: 'pw-table-footer' }, h('span', null, 'Показано ' + filtered.length + ' из ' + store.products.length + ' товаров'), h('span', null, '¹ Оценка без кошелька и персональных скидок. ² Максимум целевой цены и заданного минимума.')));
+        h('footer', { className: 'pw-table-footer' }, h('span', null, 'Показано ' + filtered.length + ' из ' + store.products.length + ' товаров'), h('span', null, '¹ Оценка без кошелька и персональных скидок. ² Цена для цели с учётом заданного минимума.')));
     }
 
     function calculator() {
       const result = calculate(calc);
-      const setter = setCalc;
       return h('section', { className: 'pw-calculator', 'aria-label': 'Калькулятор цены' },
         h('div', { className: 'pw-calc-inputs' },
-          h('div', { className: 'pw-panel pw-calc-product' }, h('div', null, h('span', { className: 'pw-eyebrow' }, 'РАСЧЁТ ДЛЯ ТОВАРА'), h('select', { value: calc.id, onChange: e => setCalc({ ...store.products.find(p => p.id === e.target.value) }), 'aria-label': 'Товар для расчёта' }, store.products.map(p => h('option', { value: p.id, key: p.id }, p.name)))), badge('Демо-ставки', 'neutral')),
-          h('div', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '01'), h('h2', null, 'Цена и скидки')), priceFields(calc, setter), h('p', { className: 'pw-help' }, 'Скидка продавца и WB Клуб уменьшают вашу цену последовательно. СПП влияет только на оценку цены покупателя.')),
-          h('div', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '02'), h('h2', null, 'Комиссии и налоги')),
-            h('div', { className: 'pw-form-grid' }, h('label', { className: 'pw-field' }, h('span', { className: 'pw-label' }, 'Модель продаж'), h('select', { value: calc.model, 'aria-label': 'Модель продаж', onChange: e => setCalc(current => ({ ...current, model: e.target.value, commission: e.target.value === store.products.find(p => p.id === calc.id).model ? store.products.find(p => p.id === calc.id).commission : '' })) }, ['FBW', 'FBS', 'DBS'].map(model => h('option', { key: model }, model))), h('small', null, 'При смене укажите тариф')),
-              field(calc, setter, 'commission', 'Комиссия по предмету', '%', 'Сценарная, уточните в WB', { max: 99.99 }),
-              field(calc, setter, 'options', 'Опции тарифа', '%', 'Доплата к комиссии', { max: 99.99 }),
-              field(calc, setter, 'acquiring', 'Платёжные услуги', '%', 'План от цены продавца', { max: 99.99 }),
-              field(calc, setter, 'tax', 'Налог · сценарий', '%', 'План от цены продавца', { max: 99.99 })),
-            h('p', { className: 'pw-help' }, 'Плановая модель без отдельного расчёта НДС. Фактические удержания, базу налога и платёжные услуги сверяют по отчётам. ', sourceLink(SOURCES[2], 'Проверить тариф'))),
-          h('div', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '03'), h('h2', null, 'Расходы на один выкуп')),
-            h('div', { className: 'pw-form-grid' },
-              field(calc, setter, 'cost', 'Себестоимость', '₽'), field(calc, setter, 'packaging', 'Упаковка', '₽'),
-              field(calc, setter, 'logistics', 'Доставка заказа', '₽', 'На одну отправку'), field(calc, setter, 'reverseLogistics', 'Обратная логистика', '₽', 'На один невыкуп'),
-              field(calc, setter, 'buyout', 'Процент выкупа', '%', 'Для расчёта логистики', { min: 0.01, max: 100 }),
-              field(calc, setter, 'storage', 'Хранение', '₽', 'На выкуп'), field(calc, setter, 'ads', 'Реклама', '₽', 'На выкуп'), field(calc, setter, 'other', 'Другие расходы', '₽', 'На выкуп')),
-            h('details', { className: 'pw-method' }, h('summary', null, 'Как учитываются невыкупы'), h('p', null, 'Логистика на один выкуп = [доставка заказа + (1 − доля выкупа) × обратная доставка] / доля выкупа. При выкупе 50% учитываются две доставки и один возврат. Возвраты после выкупа, повреждения и разовые удержания добавьте в другие расходы.'))),
-          h('div', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '04'), h('h2', null, 'Цель и защита цены')), ruleFields(calc, setter)),
-          result.valid && h('div', { className: 'pw-panel pw-sensitivity' }, h('h2', null, 'Если изменить цену'), h('div', null, [-0.1, 0, 0.1].map(delta => {
-            const price = money(result.seller * (1 + delta));
-            const profit = price * (1 - result.rate) - result.costs;
-            return button([h('small', { key: 'l' }, delta === 0 ? 'Текущая' : (delta > 0 ? '+' : '−') + '10%'), h('strong', { key: 'p' }, rub(price)), h('span', { key: 'm', className: profit < 0 ? 'pw-text-loss' : '' }, 'маржа ' + pct(profit / price * 100))], () => setCalc(current => recommend(current, price)), delta === 0 ? 'pw-scenario-active' : '', { key: delta });
-          })))),
+          h('div', { className: 'pw-panel pw-calc-product' }, h('div', null, h('span', { className: 'pw-eyebrow' }, 'СЦЕНАРИЙ ДЛЯ ТОВАРА'), h('select', { value: calc.id, onChange: e => setCalc({ ...store.products.find(p => p.id === e.target.value) }), 'aria-label': 'Товар для расчёта' }, store.products.map(p => h('option', { value: p.id, key: p.id }, p.name)))), badge('План', 'neutral')),
+          h('section', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '01'), h('h2', null, 'Цена и скидки')), priceFields(calc, setCalc), h('p', { className: 'pw-help' }, 'Скидки продавца применяются последовательно. СПП оплачивает WB; база каждого удержания задаётся отдельно.')),
+          h(CalculatorInputs, { product: calc, setProduct: setCalc }),
+          h('section', { className: 'pw-panel pw-form-panel' }, h('div', { className: 'pw-step-title' }, h('span', null, '05'), h('h2', null, 'Цель и защита цены')), ruleFields(calc, setCalc)),
+          h(Scenarios, { product: calc, setProduct: setCalc }),
+          h(FactPanel, { product: calc, setProduct: setCalc })),
         h('div', { className: 'pw-calc-output' }, h(Result, { product: calc, onRecommend: target => setCalc(current => recommend(current, target)) }),
           button([icon('fact_check'), 'Проверить и сохранить'], () => openPreview([{ id: calc.id, revision: calc.revision, patch: calc }], 'Расчёт и настройка цены'), 'pw-btn-primary pw-save-calc', { disabled: !result.valid }),
-          h('p', { className: 'pw-help' }, 'Параметры применяются к выбранному товару только после проверки.')));
+          h('p', { className: 'pw-help' }, 'Сохраняется после проверки, только в этом браузере. Налог и комиссии — план по выбранным базам.')));
     }
 
     function tariffs() {
       return h('section', { className: 'pw-tariffs', 'aria-label': 'Комиссии и СПП' },
-        h('div', { className: 'pw-panel pw-rate-directory' },
-          h('div', { className: 'pw-panel-heading' }, h('div', null, h('h2', null, 'Комиссии по категориям'), h('p', null, 'Ставки текущего демо-сценария. Не являются актуальной таблицей WB.')),
-            h('select', { value: ratesModel, onChange: e => setRatesModel(e.target.value), 'aria-label': 'Модель в справочнике комиссий' }, ['FBW', 'FBS', 'DBS'].map(model => h('option', { key: model }, model)))),
-          h('div', { className: 'pw-info-note' }, icon('info'), h('p', null, 'Точный тариф зависит от предмета WB, модели и действующих условий. Родительской категории недостаточно. ', sourceLink(SOURCES[2], 'Открыть официальные тарифы'))),
-          h('div', { className: 'pw-table-scroll' }, h('table', { className: 'pw-table pw-rate-table' }, h('thead', null, h('tr', null, ['Категория демо-каталога', 'Товаров', 'Комиссия · сценарий', ''].map(title => h('th', { key: title, scope: 'col' }, title)))), h('tbody', null, categories.map(cat => {
-            const all = store.products.filter(p => p.category === cat);
-            const matching = all.filter(p => p.model === ratesModel);
-            const rates = matching.map(p => p.commission);
-            const text = !rates.length ? 'Не задана' : Math.min(...rates) === Math.max(...rates) ? pct(rates[0]) : pct(Math.min(...rates)) + '–' + pct(Math.max(...rates));
-            return h('tr', { key: cat }, h('td', null, h('strong', null, cat), cat === 'Аксессуары' && h('small', null, 'В WB нужен точный предмет')), h('td', null, all.length), h('td', { className: 'pw-money' }, text, h('small', null, matching.length ? ratesModel + ' · демо' : 'Введите ставку вручную')), h('td', null, button('Настроить', () => { const p = matching[0] || all[0]; setCalc({ ...p, model: ratesModel, commission: matching.length ? p.commission : '' }); changeTab('calculator'); }, 'pw-btn-quiet', { 'aria-label': 'Настроить комиссию ' + cat })));
-          })))),
-          h('p', { className: 'pw-directory-note' }, 'Нет одной комиссии на все категории. В рабочем продукте ставки нужно загружать из кабинета/API и хранить с датой действия. В этом моке автоматического обновления нет.')),
+        h(TariffDirectory, { products: store.products, model: ratesModel, setModel: setRatesModel, onChoose: (subject, model) => {
+          const product = store.products.find(p => p.subject === subject) || calc;
+          setCalc({ ...withTariff(product, { subject, model }), ...(model !== 'FBW' ? { logisticsSource: 'manual' } : {}) });
+          changeTab('calculator');
+        } }),
         h('div', { className: 'pw-panel pw-spp-tool' }, h('span', { className: 'pw-eyebrow' }, 'ПОЧЕМУ ЦЕНЫ ОТЛИЧАЮТСЯ'), h('h2', null, 'Как определить СПП'),
           h('p', null, 'WB задаёт свою скидку. Для оценки сравните вашу цену после всех скидок продавца с ценой покупателя в одном контексте.'),
           h('div', { className: 'pw-form-grid pw-form-grid-two' }, h(Field, { label: 'Цена продавца после скидок', value: observationSeller, onChange: value => { setObservationSeller(value); setContextConfirmed(false); }, suffix: '₽' }), h(Field, { label: 'Цена покупателя', value: observationBuyer, onChange: value => { setObservationBuyer(value); setContextConfirmed(false); }, suffix: '₽' })),
@@ -272,7 +265,7 @@ export function createPricesWorkspace(React) {
           button('Использовать оценку в калькуляторе', () => { setCalc(current => ({ ...current, spp: Math.round(observedDiscount * 100) / 100 })); changeTab('calculator'); }, 'pw-btn-primary', { disabled: observedDiscount == null || !contextConfirmed }),
           h('p', { className: 'pw-help' }, 'Если дополнительные скидки не исключены, это их общий эффект. Чистую СПП таким сравнением выделить нельзя. В отчёте поле «Платформенные скидки, %» также объединяет несколько скидок WB. ', sourceLink(SOURCES[5], 'Поля отчёта'))),
         h('div', { className: 'pw-panel pw-source-panel' }, h('div', { className: 'pw-panel-heading' }, h('div', null, h('h2', null, 'Что заложено в расчёт'), h('p', null, 'Официальные источники · проверка ' + CHECKED_ON))), h('div', { className: 'pw-source-grid' }, SOURCES.map(source => h('article', { key: source.url }, sourceLink(source), h('p', null, source.text)))),
-          h('details', { className: 'pw-method' }, h('summary', null, 'Формулы, допущения и границы расчёта'), h('p', null, 'Цена продавца = базовая цена × (1 − скидка продавца) × (1 − скидка Клуба). Цена покупателя = цена продавца × (1 − сценарий СПП). Прибыль = цена продавца × (1 − комиссия − опции − платёжные услуги − налог) − расходы на один выкуп.'), h('p', null, 'Цена для целевой маржи = расходы / (1 − процентные расходы − целевая маржа). Целевой порог — максимум этой цены и ручного минимума. Платформенная скидка не вычитается из прибыли повторно. Ставки, НДС, возвраты после выкупа и персональные условия нужно сверить с фактическими отчётами. Это план, а не расчёт бухгалтерской выплаты.'))));
+          h('details', { className: 'pw-method' }, h('summary', null, 'Формулы, допущения и границы расчёта'), h('p', null, 'Цена продавца = базовая цена × (1 − скидка продавца) × (1 − скидка Клуба). Цена покупателя = цена продавца × (1 − сценарий СПП). Прибыль = цена продавца − комиссия − опции − платёжные услуги − распределённые расходы − налог − НДС за вычетом входного. Каждое удержание использует свою выбранную базу.'), h('p', null, 'Для простой модели с единой базой цена для цели = расходы / (1 − процентные расходы − целевая маржа). При разных базах и НДС цель решается по полной функции прибыли с проверкой минимальной цены. Выкуп и возврат после покупки учитываются отдельно. Постоянный расход периода делится на число сохранённых продаж один раз. Это план; ручная сверка с отчётом доступна в калькуляторе.'))));
     }
 
     function history() {
@@ -287,21 +280,23 @@ export function createPricesWorkspace(React) {
 
     return h('div', { className: 'pw', ref: rootRef, 'data-screen-label': 'Цены' },
       h('header', { className: 'pw-command' }, h('div', { className: 'pw-command-icon', 'aria-hidden': true }, icon('price_change')), h('div', { className: 'pw-command-copy' }, h('div', { className: 'pw-eyebrow' }, 'ЦЕНА ПОД КОНТРОЛЕМ'), h('h1', null, 'Продавайте с нужной маржой'), h('p', null, 'Цена, скидки и расходы — в одном расчёте.')), button([icon('calculate'), 'Рассчитать цену'], () => changeTab('calculator'), 'pw-btn-mint')),
-      h('div', { className: 'pw-demo-note' }, badge('Демо', 'neutral'), h('span', null, 'Цены, комиссии и СПП — сценарные. Сохранения действуют в этом браузере; связи с WB нет.')),
+      h('div', { className: 'pw-demo-note' }, badge('Демо', 'neutral'), h('span', null, 'Демо-магазин · комиссии из снимка WB от 24.08.2026 или введены вручную. Цены и СПП — сценарий; сохранения в этом браузере.')),
       h('nav', { className: 'pw-tabs', 'aria-label': 'Разделы цены' }, [['manage', 'tune', 'Управление ценами'], ['calculator', 'calculate', 'Калькулятор'], ['tariffs', 'percent', 'Комиссии и СПП'], ['history', 'history', 'История']].map(([id, sym, label]) => button([icon(sym), label, id === 'history' && store.history.length > 0 ? h('span', { className: 'pw-tab-count', key: 'n' }, store.history.length) : null], () => changeTab(id), tab === id ? 'pw-tab-current' : '', { key: id, 'aria-current': tab === id ? 'page' : undefined }))),
       message && !preview && h('div', { className: 'pw-message', role: 'status' }, icon('info'), h('span', null, message), button(icon('close'), () => setMessage(''), 'pw-btn-icon', { 'aria-label': 'Скрыть сообщение' })),
       tab === 'manage' && h('div', { className: 'pw-kpis' }, [
         ['Всего товаров', store.products.length, 'В вашем демо-каталоге', 'inventory_2', 'all', ''],
         ['Ниже целевого порога', risky.length, 'Проверьте цену и расходы', 'shield', 'risk', 'amber'],
         ['Продаются в минус', losses.length, 'Расходы превышают цену', 'trending_down', 'loss', 'red'],
-        ['Средняя маржа по SKU', pct(metrics.reduce((sum, x) => sum + x.r.margin, 0) / metrics.length), 'После расходов на выкуп', 'monitoring', 'all', 'green'],
+        ['Средняя маржа по SKU', pct(metrics.reduce((sum, x) => sum + x.r.margin, 0) / metrics.length), 'После расходов и налогов', 'monitoring', 'all', 'green'],
       ].map(([label, value, hint, sym, next, tone]) => h('button', { key: label, className: 'pw-kpi ' + tone, onClick: () => setFilter(next), type: 'button' }, h('span', { className: 'pw-kpi-label' }, icon(sym), label), h('strong', null, value), h('small', null, hint)))),
       tab === 'manage' ? manage() : tab === 'calculator' ? calculator() : tab === 'tariffs' ? tariffs() : history(),
       editor && !preview && h(Dialog, { title: 'Изменить цену', subtitle: editor.name, onClose: () => setEditor(null) }, h('div', { className: 'pw-dialog-body' }, priceFields(editor, setEditor), calculate(editor).valid ? h(PriceFlow, { product: editor, result: calculate(editor) }) : h('p', { className: 'pw-warning-text', role: 'alert' }, calculate(editor).errors.join(' ')), ruleFields(editor, setEditor), button([icon('calculate'), 'Рассчитать все расходы'], () => startCalculator(editor), 'pw-btn-quiet')), h('footer', { className: 'pw-dialog-footer' }, button('Отмена', () => setEditor(null)), button('Проверить изменение', () => openPreview([{ id: editor.id, revision: editor.revision, patch: editor }], 'Изменение цены ' + editor.code), 'pw-btn-primary', { disabled: !calculate(editor).valid }))),
       bulkOpen && !preview && h(Dialog, { title: 'Массовое изменение цены', subtitle: 'Выбрано товаров: ' + selected.size, onClose: () => setBulkOpen(false) }, h('div', { className: 'pw-dialog-body' }, h(Field, { label: 'Изменение цены продавца', value: bulkPercent, onChange: setBulkPercent, min: -99.99, suffix: '%', hint: 'Например, 5 для повышения или −5 для снижения. Скидки сохранятся, базовая цена пересчитается.' })), h('footer', { className: 'pw-dialog-footer' }, button('Отмена', () => setBulkOpen(false)), button('Посмотреть результат', () => bulk('percent'), 'pw-btn-primary'))),
       preview && h(Dialog, { title: preview.rollbackId ? 'Проверка отката' : 'Проверьте изменение', subtitle: preview.title + ' · ' + preview.rows.length + ' товаров', onClose: () => { setPreview(null); setMessage(''); }, wide: true },
         h('div', { className: 'pw-dialog-body' }, h('div', { className: 'pw-info-note' }, icon('visibility'), h('p', null, 'Сохраним цены и параметры только в демо-магазине. Реальные цены Wildberries не изменятся.')),
-          h('div', { className: 'pw-preview-list' }, preview.rows.map(row => h('article', { key: row.id }, h(Product, { product: row.after }), h('div', { className: 'pw-preview-numbers' }, h('div', null, h('small', null, 'Цена продавца'), h('span', { className: 'pw-money' }, rub(row.oldResult.seller), icon('arrow_forward'), h('strong', null, rub(row.result.seller)))), h('div', null, h('small', null, 'Прибыль на выкуп'), h('strong', { className: row.result.profit < 0 ? 'pw-text-loss' : 'pw-text-green' }, rub(row.result.profit))), h('div', null, h('small', null, 'Маржа'), h('strong', null, pct(row.oldResult.margin) + ' → ' + pct(row.result.margin))), badge(statusText[row.result.status], row.result.status)), h('small', { className: 'pw-preview-meta' }, 'База ' + rub(row.after.base) + ' · скидка ' + pct(row.after.discount) + ' · клуб ' + pct(row.after.club) + ' · минимум автоакции ' + rub(row.after.floor) + ' · блокировка ' + (row.after.blockAuto ? 'включена' : 'выключена'))))),
+          h('div', { className: 'pw-preview-list' }, preview.rows.map(row => h('article', { key: row.id }, h(Product, { product: row.after }), h('div', { className: 'pw-preview-numbers' }, h('div', null, h('small', null, 'Цена продавца'), h('span', { className: 'pw-money' }, rub(row.oldResult.seller), icon('arrow_forward'), h('strong', null, rub(row.result.seller)))), h('div', null, h('small', null, 'Прибыль на сохранённую продажу'), h('strong', { className: row.result.profit < 0 ? 'pw-text-loss' : 'pw-text-green' }, rub(row.result.profit))), h('div', null, h('small', null, 'Маржа'), h('strong', null, pct(row.oldResult.margin) + ' → ' + pct(row.result.margin))), badge(statusText[row.result.status], row.result.status)), h('small', { className: 'pw-preview-meta' }, 'База ' + rub(row.after.base) + ' · скидка ' + pct(row.after.discount) + ' · клуб ' + pct(row.after.club) + ' · минимум автоакции ' + rub(row.after.floor) + ' · блокировка ' + (row.after.blockAuto ? 'включена' : 'выключена')),
+            h('small', { className: 'pw-preview-meta' }, row.after.model + ' · предмет: ' + (row.after.subject || 'не выбран') + ' · комиссия: ' + (row.after.commissionBasis === 'fixed' ? rub(row.after.commissionFixed) : pct(row.after.commission) + ' от ' + BASE_LABELS[row.after.commissionBasis].toLowerCase()) + ' · НДС внутри цены: ' + pct(row.after.vatRate)),
+            h('small', { className: 'pw-preview-meta' }, 'Упаковка: ' + UNIT_LABELS[row.after.packagingUnit].toLowerCase() + ' · выкуп: ' + pct(row.after.buyout) + ' · возвраты после покупки: ' + pct(row.after.returnRate) + ' · налог: ' + (row.after.taxProfile === 'manual' ? rub(row.after.taxFixed) + ' на продажу' : pct(row.after.tax) + ' · база ' + BASE_LABELS[row.after.taxBasis].toLowerCase()))))),
           preview.rows.some(row => row.result.status !== 'ok') && h('label', { className: 'pw-risk-confirm' }, h('input', { type: 'checkbox', checked: acknowledged, onChange: e => setAcknowledged(e.target.checked) }), h('span', null, 'В выборке есть цены ниже целевого порога или с убытком. Сохранить этот сценарий осознанно.')),
           message && h('p', { className: 'pw-warning-text', role: 'alert' }, message)),
         h('footer', { className: 'pw-dialog-footer' }, button('Назад', () => { setPreview(null); setMessage(''); }), button(preview.rollbackId ? 'Подтвердить откат в демо' : 'Сохранить в демо', confirm, 'pw-btn-primary', { disabled: preview.rows.some(row => row.result.status !== 'ok') && !acknowledged }))));

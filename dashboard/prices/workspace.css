@@ -103,6 +103,42 @@
 .pw-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 11px;align-items:start}
 .pw-form-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pw-field{display:flex;flex-direction:column;min-width:0;gap:6px}
+.pw-field>input{width:100%;min-width:0;min-height:38px;border:1px solid #dce5db;border-radius:8px;padding:9px;background:#fff;color:#25472f;font-size:11px}
+.pw-field>select{width:100%;min-width:0;min-height:38px}
+.pw-form-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pw-fee-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:11px;margin-top:14px;align-items:start}
+.pw-tariff-stamp{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:14px 0;padding:10px 11px;background:#f3f8f3;border:1px solid #e1eae0;border-radius:8px;font-size:10px;color:#69836e;line-height:1.6}
+.pw-tariff-stamp .pw-btn{min-height:25px;padding:3px 0;font-size:10px;white-space:normal;text-align:left}
+.pw-cohort-note{display:flex;align-items:flex-start;gap:9px;background:#eef5f0;border-radius:8px;padding:11px;margin-top:15px;color:#5e7b69;font-size:10px;line-height:1.7}
+.pw-cohort-note .pw-icon{margin-top:2px}
+.pw-form-panel>.pw-form-grid+.pw-form-grid{margin-top:15px}
+.pw-logistics-method>.pw-field,.pw-logistics-method>.pw-form-grid{margin-top:12px}
+.pw-vat-input{padding:14px 0 0}
+.pw-vat-input>.pw-field{margin-top:12px}
+.pw-fact-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-size:15px;font-weight:750;list-style:none}
+.pw-fact-panel>summary::after{content:'+';font:500 20px var(--pw-mono);color:#5e826b}
+.pw-fact-panel[open]>summary::after{content:'−'}
+.pw-fact-panel>summary>.pw-badge{margin-left:auto}
+.pw-fact-panel>.pw-form-grid{margin-top:14px}
+.pw-fact-panel>.pw-checkbox-label{margin:16px 0}
+.pw-fact-panel>.pw-btn{margin-top:12px}
+.pw-reconciliation{margin-top:16px;border-top:1px solid #e5ede6;padding-top:15px}
+.pw-fact-profit{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;background:#edf5ef;border-radius:9px;color:#486d55;font-size:10px}
+.pw-fact-profit strong{font:600 19px var(--pw-mono);color:#235c3a;white-space:nowrap}
+.pw-reconcile-table{min-width:510px;margin-top:12px;font-size:10px}
+.pw-reconcile-table td:first-child,.pw-reconcile-table th:first-child{width:auto;padding-left:8px;white-space:normal}
+.pw-reconcile-table td:nth-child(2),.pw-reconcile-table th:nth-child(2){text-align:right}
+.pw-reconcile-table td,.pw-reconcile-table th{padding:10px 8px}
+.pw-rate-table .pw-rate-selected{background:#eaf4ed;color:#1d6f43;font-weight:700}
+.pw-rate-directory>.pw-panel-heading>.pw-field{width:180px;flex-shrink:0}
+.pw-rate-directory .pw-rate-table{min-width:730px}
+.pw-rate-directory .pw-rate-table td:first-child,.pw-rate-directory .pw-rate-table th:first-child{width:auto;min-width:150px;padding:14px 17px}
+.pw-rate-directory .pw-rate-table td:nth-child(2),.pw-rate-directory .pw-rate-table th:nth-child(2){text-align:right}
+.pw-segment-vat{background:#ab8cbe}
+.pw-sensitivity>div .pw-volume{white-space:normal;font-family:'Onest',sans-serif;line-height:1.5;font-size:9px;margin-top:4px;color:#69816d}
+.pw-scenario-unavailable{padding:12px;font-size:10px;color:#a05b43;line-height:1.6}
+@media(max-width:1100px){.pw-form-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.pw-form-grid-three{grid-template-columns:1fr}.pw-fee-row{gap:10px}.pw-field>input{font-size:12px}.pw-fact-panel>summary{font-size:14px}.pw-rate-directory>.pw-panel-heading{align-items:flex-start;flex-wrap:wrap}.pw-rate-directory>.pw-panel-heading>.pw-field{width:100%}.pw-rate-directory .pw-rate-table td:nth-child(2),.pw-rate-directory .pw-rate-table th:nth-child(2){position:static;box-shadow:none}.pw-fact-profit{align-items:flex-start;flex-direction:column}}
 .pw-label{font-size:10px;line-height:1.4;color:#697e6f;font-weight:600;min-height:14px}
 .pw-input-wrap{display:flex;align-items:center;border:1px solid #dce5db;border-radius:8px;background:#fff;overflow:hidden;min-height:38px;min-width:0}
 .pw-input-wrap:focus-within{border-color:#458c5f;box-shadow:0 0 0 3px #1b8a5717}
