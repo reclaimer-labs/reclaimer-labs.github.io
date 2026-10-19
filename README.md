@@ -28,7 +28,16 @@ python -c "import http.server,mimetypes; mimetypes.add_type('application/javascr
 - [Устройство мока и перенос в реальный проект](dashboard/cards/README.md).
 - Модуль: `dashboard/cards/` — React-компонент, стили, демо-адаптер, контракт данных и браузерные проверки.
 
-## Публикация
+## Вкладка «Цены»
+
+Открыть напрямую: [dashboard/#prices](https://reclaimer-labs.github.io/dashboard/#prices).
+
+Управление ценами и массовые изменения, калькулятор маржи с расходами на невыкупы, справочник сценарных комиссий, оценка СПП, история и откат. Вкладка видна в основной и мобильной навигации. Сохранение работает в текущем браузере, без изменения реального кабинета WB.
+
+- [Исследование ценообразования, комиссий и СПП](dashboard/prices/research.md).
+- [Устройство модуля и проверки](dashboard/prices/README.md).
+
+## Публикация сайта
 
 GitHub Pages использует workflow [.github/workflows/pages.yml](.github/workflows/pages.yml): при push в main проверяется синтаксис JavaScript и публикуются статические HTML, JS и CSS без обработки Jekyll. В Settings → Pages источником должен быть GitHub Actions. Ручной повтор доступен через workflow_dispatch.
 
