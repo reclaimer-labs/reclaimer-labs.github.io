@@ -1,0 +1,488 @@
+{
+  "checked_on": "2026-10-19",
+  "timezone": "Europe/Moscow",
+  "scope": "11 public products or methodologies; 3 external calculators tested interactively; no authenticated competitor account or seller account.",
+  "source_policy": "Rules from WB/FNS, product behavior from first-party docs or public UI. Vendor descriptions are not independent verification of accuracy.",
+  "benchmark": {
+    "purpose": "Isolate incompatible price and percentage bases, not identify a universal correct tax result.",
+    "inputs": {
+      "seller_price_rub": 2000,
+      "purchase_cost_rub": 700,
+      "commission_percent": 25,
+      "payment_percent": 2,
+      "tax_scenario_percent": 6,
+      "buyout_percent": 100,
+      "club_percent": 0,
+      "wallet_percent": 0,
+      "logistics_rub": 0,
+      "storage_rub": 0,
+      "ads_rub": 0,
+      "other_rub": 0,
+      "VAT": false
+    },
+    "results": [
+      {
+        "source_id": "sellper",
+        "model": "FBO",
+        "spp_percent": 0,
+        "profit_rub": 640,
+        "commission_rub": 500,
+        "payment_rub": 40,
+        "tax_rub": 120
+      },
+      {
+        "source_id": "sellper",
+        "model": "FBO",
+        "spp_percent": 20,
+        "profit_rub": 664,
+        "commission_rub": 500,
+        "payment_rub": 40,
+        "tax_rub": 96
+      },
+      {
+        "source_id": "mp-unitka",
+        "spp_percent": 0,
+        "profit_rub": 640,
+        "commission_rub": 500,
+        "payment_rub": 40,
+        "tax_rub": 120,
+        "calculation_revenue_rub": 2000
+      },
+      {
+        "source_id": "mp-unitka",
+        "spp_percent": 20,
+        "profit_rub": 372,
+        "commission_rub": 400,
+        "payment_rub": 32,
+        "tax_rub": 96,
+        "calculation_revenue_rub": 1600
+      },
+      {
+        "source_id": "nedoplata",
+        "spp_separate_input": false,
+        "price_input_rub": 2000,
+        "profit_rub": 640,
+        "commission_rub": 500,
+        "payment_rub": 40,
+        "tax_rub": 120
+      },
+      {
+        "source_id": "marginpilot",
+        "code_revision": "a09867fff804f56fbb11ac84891cfff910b5f6f7",
+        "spp_percent": [
+          0,
+          20
+        ],
+        "profit_rub": [
+          640,
+          640
+        ],
+        "commission_rub": [
+          500,
+          500
+        ],
+        "payment_rub": [
+          40,
+          40
+        ],
+        "tax_rub": [
+          120,
+          120
+        ]
+      }
+    ],
+    "reproduce": [
+      "Open each public calculator URL from sources in a fresh browser.",
+      "Set the common inputs above; disable or zero other expenses, set buyout to 100%, warehouse coefficient to 0 for this isolated test.",
+      "For Sellper FBO set its tax selector to 6, then compare sppCard values 0 and 20.",
+      "For MP Unitka use usn6 with taxrate 6, then compare spp values 0 and 20.",
+      "Nedoplata has no separate SPP input; record only the common baseline at price 2000.",
+      "Record the expense breakdown as well as profit; interpret differences in bases before comparing totals."
+    ],
+    "limitation": "Zero logistics and common rates are artificial isolation conditions, not real WB tariffs. Tax treatment is not validated by agreement between calculators."
+  },
+  "commission_snapshot": {
+    "url": "https://static-basket-02.wbbasket.ru/vol20/education/instruction/Comission_RU.pdf",
+    "checkedOn": "2026-10-19",
+    "effectiveFromPrinted": "2026-08-24",
+    "lastModifiedHttp": "2026-08-27T09:52:20Z",
+    "sha256": "c40a51fde0dd91b226e6e7214279bd6eae9d7e8664f22712b0035967bc32f656",
+    "pages": 304,
+    "rows": [
+      {
+        "parent": "Аксессуары",
+        "subject": "Сумки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 41
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Брюки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 132
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Рубашки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 133
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Кардиганы",
+        "FBW": 41.5,
+        "FBS": 46.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 133
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Платья",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 133
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Водолазки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 133
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Свитшоты",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 133
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Костюмы",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Топы",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Юбки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Пиджаки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Плащи",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Джинсы",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      },
+      {
+        "parent": "Одежда",
+        "subject": "Футболки",
+        "FBW": 43.5,
+        "FBS": 48.0,
+        "DBS_DBW": 45.0,
+        "EDBS": 3.0,
+        "CC": 44.5,
+        "booking": 24.5,
+        "page": 134
+      }
+    ]
+  },
+  "own_examples": {
+    "price_cut": {
+      "before_price_rub": 2000,
+      "after_price_rub": 1800,
+      "percent_cost_share": 0.3,
+      "other_variable_cost_rub": 700,
+      "before_contribution_rub": 700,
+      "after_contribution_rub": 560,
+      "required_retained_purchase_growth": 0.25,
+      "assumption": "Same expense structure and constant costs per period."
+    },
+    "logistics": {
+      "forward_rub": 100,
+      "reverse_rub": 50,
+      "buyout_share": 0.5,
+      "expected_per_retained_purchase_rub": 250
+    },
+    "demo_dress_sensitivity": {
+      "code_revision": "a09867fff804f56fbb11ac84891cfff910b5f6f7",
+      "seller_price_rub": 2891,
+      "commission_percent": [
+        24.5,
+        43.5
+      ],
+      "profit_rub": [
+        510.23,
+        -39.06
+      ],
+      "target_price_rub": [
+        2747,
+        4282
+      ],
+      "interpretation": "Sensitivity of the existing simplified model, not a recommended retail price."
+    }
+  },
+  "sources": [
+    {
+      "id": "wb-profit",
+      "title": "WB: калькулятор прибыли",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/profit-calculator",
+      "access": "official_public_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-reward",
+      "title": "WB: коэффициент вознаграждения",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/wildberries-reward-ratio",
+      "access": "official_public_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-commission-pdf",
+      "title": "WB: таблица коэффициентов для РФ",
+      "url": "https://static-basket-02.wbbasket.ru/vol20/education/instruction/Comission_RU.pdf",
+      "access": "official_pdf_text_and_visual",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-spp",
+      "title": "WB: скидка WB",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/wb-discount",
+      "access": "official_public_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-report",
+      "title": "WB: детализация отчёта",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/how-to-read-fimancial-reports-detalization",
+      "access": "official_public_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-logistics",
+      "title": "WB: доставка",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/logistics-types-and-cost-calculation",
+      "access": "official_indexed_full_text",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-fixation",
+      "title": "WB: фиксация тарифов",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/fixation-of-tariffs",
+      "access": "official_indexed_full_text",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-payments",
+      "title": "WB: пункт 12.10 оферты РФ",
+      "url": "https://seller.wildberries.ru/instructions/en/ru/material/A-190",
+      "access": "official_indexed_full_text",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-auto",
+      "title": "WB: минимумы и автоакции",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/how-to-set-minimal-price-and-block-auto-promotions",
+      "access": "official_indexed_full_text",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-quarantine",
+      "title": "WB: карантин цен РФ",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/price-quarantine",
+      "access": "official_public_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "mpstats",
+      "title": "MPSTATS: юнит-калькулятор",
+      "url": "https://wiki.mpstats.io/Юнит-калькулятор",
+      "access": "vendor_docs_browser",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "marketguru",
+      "title": "MarketGuru: юнит-калькулятор",
+      "url": "https://marketguru.io/docs/unit-calculator-2",
+      "access": "vendor_docs",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "sellper",
+      "title": "Sellper: калькулятор WB",
+      "url": "https://sellper.ru/wbcalculator",
+      "access": "public_interactive_test_and_client_formula_inspection",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "nedoplata",
+      "title": "Недоплата: калькулятор WB",
+      "url": "https://nedoplata.com/kalkulyator-wb/",
+      "access": "public_interactive_test_and_client_formula_inspection",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "mp-unitka",
+      "title": "MP Unitka: калькулятор WB",
+      "url": "https://mp-unitka.ru/kalkulyator-wildberries",
+      "access": "public_interactive_test_and_client_formula_inspection",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "mayak",
+      "title": "Маяк: страница шаблона",
+      "url": "https://mayak.bz/unit_table",
+      "access": "vendor_landing_only_not_sheet_formulas",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "mp-manager",
+      "title": "MP Manager: репрайсер",
+      "url": "https://mpmgr.ru/features/auto-prices",
+      "access": "vendor_feature_description_not_account_test",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "moysklad",
+      "title": "МойСклад: методика и шаблон",
+      "url": "https://www.moysklad.ru/poleznoe/shablony/tablica-unit-ekonomika-dlya-marketpleysov-excel/",
+      "access": "vendor_methodology_browser_not_sheet_execution",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "planfact",
+      "title": "ПланФакт: юнит-экономика маркетплейсов",
+      "url": "https://planfact.io/blog/posts/yunit-ekonomika-dlya-marketplejsov-kak-schitat-pribyl-tovara",
+      "access": "vendor_methodology",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "fintablo",
+      "title": "Финтабло: юнит-экономика",
+      "url": "https://fintablo.ru/business/yunit-ekonomika",
+      "access": "vendor_methodology_2024_not_tariff_source",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "fns-income",
+      "title": "ФНС: УСН и маркетплейсы",
+      "url": "https://www.nalog.gov.ru/rn03/news/activities_fts/16317578/",
+      "access": "official_archived_explanation_2025_05_26",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "fns-vat",
+      "title": "ФНС: НДС при УСН",
+      "url": "https://www.nalog.gov.ru/rn77/taxation/taxes/nds_usn/",
+      "access": "official_2026_guidance",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "wb-index-access",
+      "title": "WB: индекс цен РФ",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/price-index",
+      "access": "public_page_explicitly_limits_article_to_sellers_not_full_method",
+      "checked_on": "2026-10-19"
+    },
+    {
+      "id": "tochka-pricing-advice",
+      "title": "Точка Банк: практические рекомендации по планированию комиссии",
+      "url": "https://tochka.com/knowledge/marketpleisy/komissii-wildberries-za-cto-platit-marketpleisu/",
+      "access": "first_party_advice_article_2026_10_02_not_tax_authority",
+      "checked_on": "2026-10-19"
+    }
+  ],
+  "access_limits": [
+    {
+      "name": "Get Magic",
+      "url": "https://get-magic.ru/tools/kalkulyator-unit-ekonomiki-wb",
+      "result": "Browser connection closed; excluded from numeric comparisons."
+    },
+    {
+      "name": "Moneyplace / SellerFox",
+      "result": "Usable first-party calculation methodologies not retrieved in this run; no feature or accuracy inference."
+    },
+    {
+      "name": "Mayak Google template",
+      "result": "Vendor page link observed; sheet formulas not read or executed."
+    }
+  ]
+}
